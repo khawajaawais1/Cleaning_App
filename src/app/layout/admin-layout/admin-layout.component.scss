@@ -1,0 +1,253 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #f4f6f4;
+}
+
+.admin-frame {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 256px 1fr;
+  position: relative;
+  background: #f3f5f3;
+}
+
+.screen-label {
+  position: fixed;
+  top: 26px;
+  left: 38px;
+  z-index: 5;
+  color: #a2aaa6;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.sidebar {
+  width: 256px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  background: #10384a;
+  color: #dbe6e4;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 18px 26px;
+}
+
+.brand-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #31576b;
+
+  span {
+    width: 15px;
+    height: 8px;
+    display: block;
+    border-radius: 8px 8px 8px 2px;
+    background: #f4faf7;
+    transform: rotate(-26deg);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      right: -2px;
+      top: -2px;
+      background: #f4faf7;
+    }
+  }
+}
+
+.brand-name {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.brand-subtitle {
+  color: #9fb1b7;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin-top: 3px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 8px;
+}
+
+.nav-item {
+  min-height: 32px;
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border-radius: 8px;
+  color: #eef5f3;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 600;
+
+  &:hover,
+  &.active {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+  }
+}
+
+.nav-icon {
+  width: 14px;
+  height: 14px;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+
+  &::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border: 1.7px solid currentColor;
+    border-radius: 2px;
+  }
+
+  &[data-icon='pin']::before {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    box-shadow: 0 6px 0 -3px currentColor;
+  }
+
+  &[data-icon='clock']::before {
+    border-radius: 50%;
+  }
+
+  &[data-icon='card']::before {
+    width: 11px;
+    height: 8px;
+    border-radius: 1px;
+  }
+
+  &[data-icon='calendar']::before {
+    width: 10px;
+    height: 9px;
+    border-radius: 1px;
+  }
+
+  &[data-icon='team']::before {
+    width: 11px;
+    height: 7px;
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    border-bottom: none;
+    box-shadow: 0 5px 0 -1px currentColor, -5px 0 0 -2px currentColor, 5px 0 0 -2px currentColor;
+  }
+}
+
+.nav-badge {
+  min-width: 14px;
+  height: 12px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #27b65f;
+  color: #ffffff;
+  font-size: 7px;
+  font-weight: 800;
+
+  &.orange {
+    background: #e89a27;
+  }
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  width: 100%;
+  min-height: 54px;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.footer-avatar {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #31576b;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.footer-name,
+.footer-email {
+  display: block;
+}
+
+.footer-name {
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.footer-email {
+  color: #9fb1b7;
+  font-size: 7px;
+  margin-top: 2px;
+}
+
+.workspace {
+  min-width: 0;
+  overflow-y: auto;
+}
+
+.content {
+  min-height: 100vh;
+  background: #f4f6f4;
+}
+
+@media (max-width: 900px) {
+  .admin-frame {
+    grid-template-columns: 1fr;
+  }
+
+  .screen-label,
+  .sidebar {
+    display: none;
+  }
+
+  .workspace {
+    padding: 0 12px 12px;
+  }
+
+  .content {
+    padding: 16px;
+    border-radius: 12px;
+  }
+}

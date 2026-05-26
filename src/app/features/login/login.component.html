@@ -1,0 +1,71 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="logo">H2C</div>
+      <h1 class="app-name">Happy2Clean</h1>
+      <p class="subtitle">Admin Portal</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
+      <!-- Error Message -->
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <!-- Email Input -->
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="form-control"
+          [class.error]="email?.touched && email?.invalid"
+          placeholder="admin@happy2clean.com"
+        />
+        <span *ngIf="email?.touched && email?.invalid" class="form-error">
+          Please enter a valid email address
+        </span>
+      </div>
+
+      <!-- Password Input -->
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <div class="password-wrapper">
+          <input
+            id="password"
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            class="form-control"
+            [class.error]="password?.touched && password?.invalid"
+            placeholder="Enter your password"
+          />
+          <button
+            type="button"
+            class="btn-toggle-password"
+            (click)="togglePasswordVisibility()"
+          >
+            {{ showPassword ? '👁' : '👁‍🗨' }}
+          </button>
+        </div>
+        <span *ngIf="password?.touched && password?.invalid" class="form-error">
+          Password must be at least 6 characters
+        </span>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="btn btn-signin"
+        [disabled]="form.invalid || loading"
+      >
+        <span *ngIf="!loading">Sign In</span>
+        <span *ngIf="loading" class="spinner"></span>
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p class="demo-credentials">Demo: admin&#64;happy2clean.com / password123</p>
+    </div>
+  </div>
+</div>
