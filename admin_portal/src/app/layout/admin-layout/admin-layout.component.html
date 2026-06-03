@@ -1,0 +1,37 @@
+<div class="admin-frame">
+  <div class="screen-label">ADMIN - SCREEN 1</div>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark"><span></span></div>
+      <div>
+        <div class="brand-name">Happy2Clean</div>
+        <div class="brand-subtitle">ADMIN PORTAL</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="Main navigation">
+      <a *ngFor="let item of navItems" [routerLink]="item.path" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon" [attr.data-icon]="item.icon"></span>
+        <span class="nav-label">{{ item.label }}</span>
+        <span *ngIf="item.badge > 0" class="nav-badge" [class.orange]="item.badgeTone === 'orange'">
+          {{ item.badge }}
+        </span>
+      </a>
+    </nav>
+
+    <button class="sidebar-footer" type="button" (click)="logout()">
+      <span class="footer-avatar">{{ getInitials() }}</span>
+      <span>
+        <span class="footer-name">Admin</span>
+        <span class="footer-email">admin&#64;cleanapp.com</span>
+      </span>
+    </button>
+  </aside>
+
+  <section class="workspace">
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </section>
+</div>

@@ -1,0 +1,123 @@
+<div class="worker-applications">
+  <div class="page-header">
+    <h2 class="page-title">Worker Applications</h2>
+    <p class="page-subtitle">Review and approve new worker registrations</p>
+  </div>
+
+  <!-- Status Tabs -->
+  <div class="status-tabs">
+    <button
+      *ngFor="let tab of statusTabs"
+      [class.active]="selectedStatus === tab.value"
+      (click)="onStatusChange(tab.value)"
+      class="tab-button"
+    >
+      {{ tab.label }}
+    </button>
+  </div>
+
+  <div *ngIf="error" class="alert alert-error">
+    {{ error }}
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    Loading workers...
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && workers.length === 0" class="empty-state">
+    <p>No workers found</p>
+  </div>
+
+  <!-- Workers Table -->
+  <div *ngIf="!loading && workers.length > 0" class="table-wrapper">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Worker</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Service Type</th>
+          <th>Applied Date</th>
+          <th>Rating</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let worker of workers">
+          <td>
+            <div class="worker-cell">
+              <div class="avatar">{{ getInitials(worker.firstName, worker.lastName) }}</div>
+              <div class="worker-info">
+                <p class="worker-name">{{ worker.firstName }} {{ worker.lastName }}</p>
+              </div>
+            </div>
+          </td>
+          <td>{{ worker.email }}</td>
+          <td>{{ worker.phone }}</td>
+          <td>{{ worker.serviceType }}</td>
+          <td>{{ worker.appliedDate | date: 'MMM d, yyyy' }}</td>
+          <td><span class="rating">⭐ {{ worker.rating }}</span></td>
+          <td>
+            <app-status-badge [status]="worker.status"></app-status-badge>
+          </td>
+          <td>
+            <div class="actions">
+              <button
+                *ngIf="worker.status === 'pending'"
+                (click)="onApprove(worker.id)"
+                class="btn-action btn-approve"
+                title="Approve"
+              >
+                ✓
+              </button>
+              <button
+                *ngIf="worker.status === 'pending'"
+                (click)="onReject(worker.id)"
+                class="btn-action btn-reject"
+                title="Reject"
+              >
+                ✕
+              </button>
+              <button
+                *ngIf="worker.status === 'active'"
+                (click)="onSuspend(worker.id)"
+                class="btn-action btn-suspend"
+                title="Suspend"
+              >
+                ⊘
+              </button>
+              <button
+                *ngIf="worker.status === 'rejected' || worker.status === 'suspended'"
+                (click)="onRestore(worker.id)"
+                class="btn-action btn-restore"
+                title="Restore"
+              >
+                ↺
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Rejection Dialog -->
+    <div *ngIf="rejectingId" class="dialog-overlay" (click)="cancelReject()">
+      <div class="dialog-content" (click)="$event.stopPropagation()">
+        <h3>Reject Application</h3>
+        <textarea
+          [(ngModel)]="rejectionReason"
+          placeholder="Please provide a reason for rejection..."
+          class="rejection-textarea"
+        ></textarea>
+        <div class="dialog-actions">
+          <button (click)="cancelReject()" class="btn btn-secondary">Cancel</button>
+          <button (click)="confirmReject(rejectingId)" class="btn btn-danger">Reject</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

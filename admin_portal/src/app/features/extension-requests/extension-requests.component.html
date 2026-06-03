@@ -1,0 +1,104 @@
+<div class="ext-page">
+
+  <!-- Header -->
+  <div class="page-hd">
+    <div>
+      <h1 class="page-title">Extension requests</h1>
+      <p class="page-sub">Workers requesting more time — action required</p>
+    </div>
+    <span class="pending-pill" *ngIf="pendingCount > 0">{{ pendingCount }} pending</span>
+  </div>
+
+  <!-- Loading -->
+  <div class="state-wrap" *ngIf="loading">
+    <div class="spinner"></div>
+    <span>Loading requests…</span>
+  </div>
+
+  <!-- Error -->
+  <div class="state-wrap err" *ngIf="error && !loading">
+    <span>{{ error }}</span>
+    <button class="btn-retry" (click)="loadRequests()">Retry</button>
+  </div>
+
+  <!-- Empty -->
+  <div class="empty-state" *ngIf="!loading && !error && requests.length === 0">
+    <div class="empty-icon">
+      <span class="ei-circle"></span>
+    </div>
+    <p class="empty-title">All clear</p>
+    <p class="empty-sub">No extension requests at the moment.</p>
+  </div>
+
+  <!-- Cards grid -->
+  <div class="cards-grid" *ngIf="!loading && requests.length > 0">
+    <div class="req-card" *ngFor="let r of requests" [class.card-resolved]="r.status !== 'pending'">
+
+      <!-- Card header -->
+      <div class="card-head">
+        <div class="head-left">
+          <div class="av av-{{ colorKey(r.worker.firstName, r.worker.lastName) }}">
+            {{ initials(r.worker.firstName, r.worker.lastName) }}
+          </div>
+          <div>
+            <div class="worker-title">{{ r.worker.firstName }} {{ r.worker.lastName[0] }}. &mdash; {{ r.jobType }}</div>
+            <div class="worker-meta">Booking #{{ r.bookingNumber }} &middot; {{ r.customer.firstName }} {{ r.customer.lastName }} &middot; {{ r.customer.address || r.jobType + ' location' }}</div>
+          </div>
+        </div>
+        <span class="status-badge" [ngClass]="'sb-' + r.status">{{ statusLabel(r.status) }}</span>
+      </div>
+
+      <!-- Metric row -->
+      <div class="metric-row">
+        <div class="metric">
+          <div class="metric-val metric-orange">+{{ r.requestedMinutes }} min</div>
+          <div class="metric-lbl">REQUESTING</div>
+        </div>
+        <div class="metric-sep"></div>
+        <div class="metric">
+          <div class="metric-val">{{ formatTime(r.originalEndTime) }}</div>
+          <div class="metric-lbl">ORIGINAL END</div>
+        </div>
+        <div class="metric-sep"></div>
+        <div class="metric">
+          <div class="metric-val">{{ formatTime(r.newEndTime) }}</div>
+          <div class="metric-lbl">NEW END TIME</div>
+        </div>
+      </div>
+
+      <!-- Reason -->
+      <div class="reason-block">
+        <div class="reason-label">WORKER'S REASON</div>
+        <p class="reason-text">"{{ r.reason }}"</p>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-block">
+        <span class="progress-label">Job progress &middot; {{ formatDuration(r.jobProgress.completedMinutes) }} of {{ formatDuration(r.jobProgress.totalMinutes) }}</span>
+        <div class="progress-track">
+          <div class="progress-fill" [style.width.%]="progressPct(r)"></div>
+        </div>
+      </div>
+
+      <!-- Notification -->
+      <p class="notify-line">
+        Customer <strong>{{ r.customer.firstName }} {{ r.customer.lastName }}</strong> will be notified immediately.
+      </p>
+
+      <!-- Actions (pending only) -->
+      <div class="actions" *ngIf="r.status === 'pending'">
+        <button class="act-btn act-ask" (click)="onAskWorker(r)" [disabled]="actioningId === r.id">Ask worker</button>
+        <button class="act-btn act-deny" (click)="onDeny(r)"     [disabled]="actioningId === r.id">Deny</button>
+        <button class="act-btn act-allow" (click)="onAllow(r)"   [disabled]="actioningId === r.id">Allow +{{ r.requestedMinutes }} min</button>
+      </div>
+
+      <!-- Resolved banner -->
+      <div class="resolved-banner" *ngIf="r.status !== 'pending'">
+        <span class="rb-icon">✓</span>
+        <span>{{ statusLabel(r.status) }}</span>
+        <span *ngIf="r.resolvedAt" class="rb-time">at {{ formatTime(r.resolvedAt) }}</span>
+      </div>
+    </div>
+  </div>
+
+</div>

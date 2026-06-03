@@ -1,0 +1,119 @@
+<div class="bookings-page">
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div>
+      <h1>Bookings</h1>
+      <p class="subtitle">{{ total }} total &middot; {{ bookings.length }} shown</p>
+    </div>
+    <div class="header-actions">
+      <!-- Status filter pills -->
+      <div class="filter-pills">
+        <button class="filter-pill" [class.active]="selectedStatus === ''"
+                (click)="onStatusChange('')">All</button>
+        <button class="filter-pill filter-pill--scheduled"
+                [class.active]="selectedStatus === 'scheduled'"
+                (click)="onStatusChange('scheduled')">Scheduled</button>
+        <button class="filter-pill filter-pill--inprogress"
+                [class.active]="selectedStatus === 'in_progress'"
+                (click)="onStatusChange('in_progress')">In Progress</button>
+        <button class="filter-pill filter-pill--completed"
+                [class.active]="selectedStatus === 'completed'"
+                (click)="onStatusChange('completed')">Completed</button>
+        <button class="filter-pill filter-pill--cancelled"
+                [class.active]="selectedStatus === 'cancelled'"
+                (click)="onStatusChange('cancelled')">Cancelled</button>
+      </div>
+
+      <!-- Search -->
+      <div class="search-wrap">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="8" stroke="#9aa49f" stroke-width="1.8"/>
+          <path d="M21 21l-4.35-4.35" stroke="#9aa49f" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <input type="text" [(ngModel)]="searchTerm" (keyup.enter)="onSearch()"
+               placeholder="Search booking, customer…" class="search-input"/>
+      </div>
+    </div>
+  </header>
+
+  <!-- Loading -->
+  <div class="state-row" *ngIf="loading">
+    <div class="spinner"></div>
+    <span>Loading bookings…</span>
+  </div>
+
+  <!-- Error -->
+  <div class="alert-error" *ngIf="error && !loading">{{ error }}</div>
+
+  <!-- Table -->
+  <div class="table-wrap" *ngIf="!loading">
+    <table class="bookings-table">
+      <thead>
+        <tr>
+          <th>BOOKING</th>
+          <th>CUSTOMER</th>
+          <th>WORKER</th>
+          <th>SERVICE</th>
+          <th>DATE &amp; TIME</th>
+          <th>PRICE</th>
+          <th>STATUS</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let b of bookings" [routerLink]="['/bookings', b.id]" class="clickable-row">
+          <td><span class="booking-ref">{{ b.bookingNumber }}</span></td>
+          <td>
+            <div class="customer-cell">
+              <div class="cust-av">{{ customerInitials(b) }}</div>
+              <div>
+                <strong>{{ b.customer?.firstName }} {{ b.customer?.lastName }}</strong>
+                <small>{{ b.customer?.email }}</small>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span *ngIf="b.worker" class="worker-name">
+              {{ b.worker.firstName }} {{ b.worker.lastName[0] }}.
+            </span>
+            <span *ngIf="!b.worker" class="unassigned">Unassigned</span>
+          </td>
+          <td><span class="svc-badge">{{ formatServiceType(b.serviceType) }}</span></td>
+          <td class="date-cell">{{ formatDateTime(b.startTime) }}</td>
+          <td><strong class="price">{{ formatCurrency(b.price) }}</strong></td>
+          <td>
+            <span class="status-chip" [ngClass]="'status-' + b.status">
+              {{ statusLabel(b.status) }}
+            </span>
+          </td>
+          <td class="actions-cell" (click)="$event.stopPropagation()">
+            <button class="btn-view" [routerLink]="['/bookings', b.id]">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+              View
+            </button>
+            <button class="btn-cancel-action"
+                    *ngIf="b.status !== 'cancelled' && b.status !== 'completed'"
+                    (click)="onCancel(b.id)">
+              Cancel
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="bookings.length === 0">
+          <td colspan="8" class="empty-row">No bookings found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="!loading && total > limit">
+    <button class="pg-btn" (click)="prevPage()" [disabled]="page === 1">← Previous</button>
+    <span class="pg-info">Page {{ page }} of {{ totalPages }}</span>
+    <button class="pg-btn" (click)="nextPage()" [disabled]="page * limit >= total">Next →</button>
+  </div>
+
+</div>

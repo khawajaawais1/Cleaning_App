@@ -1,0 +1,110 @@
+<div class="dash">
+
+  <!-- Header -->
+  <div class="dash-hd">
+    <div>
+      <h1 class="dash-title">Dashboard</h1>
+      <p class="dash-sub">{{ today }}</p>
+    </div>
+    <div class="live-pill">
+      <span class="live-dot"></span>
+      <span>Live</span>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="state-row" *ngIf="loading">
+    <div class="spinner"></div>
+    <span>Loading dashboard…</span>
+  </div>
+
+  <ng-container *ngIf="!loading">
+
+    <!-- Stat cards -->
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-icon si-green"><span class="si-bolt"></span></div>
+        <div class="stat-body">
+          <div class="stat-val">{{ stats?.activeJobs ?? 0 }}</div>
+          <div class="stat-lbl">Active jobs</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon si-teal"><span class="si-team"></span></div>
+        <div class="stat-body">
+          <div class="stat-val">{{ stats?.totalWorkers ?? 0 }}</div>
+          <div class="stat-lbl">Workers online</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon si-blue"><span class="si-cal"></span></div>
+        <div class="stat-body">
+          <div class="stat-val">{{ stats?.todaysBookings ?? 0 }}</div>
+          <div class="stat-lbl">Bookings today</div>
+        </div>
+      </div>
+      <div class="stat-card" [class.stat-alert]="(stats?.pendingApplications ?? 0) + (stats?.pendingExtensions ?? 0) > 0">
+        <div class="stat-icon si-amber"><span class="si-alert"></span></div>
+        <div class="stat-body">
+          <div class="stat-val">{{ (stats?.pendingApplications ?? 0) + (stats?.pendingExtensions ?? 0) }}</div>
+          <div class="stat-lbl">Pending review</div>
+          <div class="stat-meta" *ngIf="stats">{{ stats.pendingApplications }} apps · {{ stats.pendingExtensions }} extensions</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid grid -->
+    <div class="mid-grid">
+
+      <!-- Recent bookings -->
+      <div class="panel">
+        <div class="panel-hd">
+          <span class="panel-title">Recent bookings</span>
+          <a routerLink="/bookings" class="panel-link">View all →</a>
+        </div>
+        <div class="panel-empty" *ngIf="recentBookings.length === 0">
+          <p>No bookings yet.</p>
+          <p class="panel-empty-sub">Customer bookings will appear here once the customer portal is live.</p>
+        </div>
+        <div class="booking-list" *ngIf="recentBookings.length > 0">
+          <div class="booking-row" *ngFor="let b of recentBookings" [routerLink]="['/bookings', b.id]">
+            <div class="bk-av av-{{ colorKey(b.customer?.firstName ?? '', b.customer?.lastName ?? '') }}">
+              {{ getInitials(b.customer?.firstName ?? '?', b.customer?.lastName ?? '?') }}
+            </div>
+            <div class="bk-info">
+              <div class="bk-name">{{ b.customer?.firstName }} {{ b.customer?.lastName }}</div>
+              <div class="bk-meta">{{ b.serviceType }} · {{ formatDate(b.startTime) }}</div>
+            </div>
+            <span class="bk-badge tone-{{ statusTone(b.status) }}">{{ formatStatus(b.status) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pending extensions -->
+      <div class="panel">
+        <div class="panel-hd">
+          <span class="panel-title">Extension requests</span>
+          <a routerLink="/extension-requests" class="panel-link">View all →</a>
+        </div>
+        <div class="panel-empty" *ngIf="pendingExtensions.length === 0">
+          <p>No pending extensions.</p>
+          <p class="panel-empty-sub">Worker extension requests will appear here.</p>
+        </div>
+        <div class="ext-list" *ngIf="pendingExtensions.length > 0">
+          <div class="ext-row" *ngFor="let e of pendingExtensions">
+            <div class="ext-av av-{{ colorKey(e.worker.firstName, e.worker.lastName) }}">
+              {{ getInitials(e.worker.firstName, e.worker.lastName) }}
+            </div>
+            <div class="ext-info">
+              <div class="ext-name">{{ e.worker.firstName }} {{ e.worker.lastName[0] }}. — +{{ e.requestedMinutes }} min</div>
+              <div class="ext-reason">{{ e.reason.slice(0, 60) }}{{ e.reason.length > 60 ? '…' : '' }}</div>
+            </div>
+            <span class="ext-pill">Pending</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </ng-container>
+
+</div>

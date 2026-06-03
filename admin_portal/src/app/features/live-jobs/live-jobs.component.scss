@@ -1,0 +1,362 @@
+/* ─── Page shell ────────────────────────────────────────────────── */
+.live-board {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 28px 28px 0;
+  box-sizing: border-box;
+  gap: 18px;
+}
+
+/* ─── Header ────────────────────────────────────────────────────── */
+.board-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.board-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #10384a;
+  margin: 0 0 4px;
+}
+
+.board-sub {
+  font-size: 12px;
+  color: #7a9490;
+  margin: 0;
+}
+
+/* Live pill */
+.live-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid #e2ebe8;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #10384a;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: pulse-dot 1.6s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(0.85); }
+}
+
+.live-text { color: #22c55e; font-weight: 700; }
+.live-sep  { color: #c0d0cc; }
+.live-stat { color: #4a6b63; }
+
+/* ─── Main layout ───────────────────────────────────────────────── */
+.board-body {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 18px;
+  flex: 1;
+  min-height: 0;
+  padding-bottom: 28px;
+}
+
+/* ─── Map column ────────────────────────────────────────────────── */
+.map-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+
+.map-wrap {
+  flex: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #dce9e4;
+  min-height: 380px;
+  position: relative;
+
+  #live-map {
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+  }
+}
+
+/* Leaflet map filter — desaturate to match the soft Figma palette */
+:host ::ng-deep .leaflet-tile-pane {
+  filter: saturate(0.55) brightness(1.05);
+}
+
+/* Worker avatar pins */
+:host ::ng-deep .map-pin {
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s;
+  position: relative;
+
+  &:hover { transform: scale(1.1); }
+
+  &--active {
+    animation: pin-pulse 2s infinite;
+  }
+
+  span {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .map-pin-label {
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 10px;
+    font-weight: 600;
+    color: #10384a;
+    background: rgba(255,255,255,0.9);
+    border-radius: 4px;
+    padding: 1px 5px;
+    pointer-events: none;
+  }
+}
+
+@keyframes pin-pulse {
+  0%   { box-shadow: 0 0 0 0   rgba(34,197,94,.5), 0 4px 12px rgba(0,0,0,.22); }
+  70%  { box-shadow: 0 0 0 10px rgba(34,197,94,0),  0 4px 12px rgba(0,0,0,.22); }
+  100% { box-shadow: 0 0 0 0   rgba(34,197,94,0),  0 4px 12px rgba(0,0,0,.22); }
+}
+
+/* ─── Legend ────────────────────────────────────────────────────── */
+.map-legend {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: #fff;
+  border: 1px solid #e2ebe8;
+  border-radius: 10px;
+  padding: 10px 18px;
+  flex-shrink: 0;
+}
+
+.leg-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #4a6b63;
+}
+
+.leg-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  &.dot-green { background: #22c55e; }
+  &.dot-amber { background: #f59e0b; }
+  &.dot-grey  { background: #9ca3af; }
+  &.dot-light { background: #d1d5db; }
+}
+
+/* ─── Extension banner ──────────────────────────────────────────── */
+.ext-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: 1px solid #e2ebe8;
+  border-radius: 12px;
+  padding: 14px 18px;
+  flex-shrink: 0;
+}
+
+.ext-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ext-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.ext-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #10384a;
+}
+
+.ext-sub {
+  font-size: 11px;
+  color: #7a9490;
+  margin-top: 2px;
+}
+
+.ext-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ext-btn {
+  height: 34px;
+  padding: 0 22px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s;
+
+  &:hover { opacity: 0.85; }
+
+  &.ext-allow {
+    background: #10384a;
+    color: #fff;
+  }
+
+  &.ext-deny {
+    background: #fff;
+    color: #10384a;
+    border: 1.5px solid #d4e0dc;
+  }
+}
+
+/* ─── Jobs panel ────────────────────────────────────────────────── */
+.jobs-panel {
+  background: #fff;
+  border: 1px solid #e2ebe8;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid #f0f5f3;
+  flex-shrink: 0;
+}
+
+.panel-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #10384a;
+}
+
+.panel-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: #7a9490;
+}
+
+/* ─── Job list ──────────────────────────────────────────────────── */
+.job-list {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.job-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 20px;
+  border-bottom: 1px solid #f5f8f7;
+  transition: background 0.12s;
+
+  &:last-child { border-bottom: none; }
+  &:hover { background: #f8faf9; }
+}
+
+/* Worker avatars */
+.job-av {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+
+  &.av-mk { background: #4a6b5c; }
+  &.av-jr { background: #c9742b; }
+  &.av-pn { background: #3d6080; }
+  &.av-so { background: #5a7a4a; }
+  &.av-al { background: #7a7a7a; }
+  &.av-ev { background: #6b4a7a; }
+}
+
+.job-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.job-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #10384a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.job-meta {
+  font-size: 11px;
+  color: #7a9490;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Status badges */
+.job-badge {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+
+  &.badge-in_progress { background: #d1fae5; color: #065f46; }
+  &.badge-en_route    { background: #fef3c7; color: #92400e; }
+  &.badge-assigned    { background: #e5e7eb; color: #374151; }
+  &.badge-pending     { background: #f3f4f6; color: #6b7280; }
+  &.badge-complete    { background: #dbeafe; color: #1e40af; }
+}
+
+/* ─── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .board-body {
+    grid-template-columns: 1fr;
+  }
+
+  .map-col { min-height: 420px; }
+  .jobs-panel { max-height: 360px; }
+}

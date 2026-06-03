@@ -1,0 +1,260 @@
+<div class="detail-page" *ngIf="!loading && booking">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-left">
+      <button class="back-btn" (click)="goBack()">&#8592; Back</button>
+      <div class="header-titles">
+        <div class="header-row">
+          <h1 class="page-title">{{ booking.bookingNumber }}&nbsp;<span class="title-sep">&middot;</span>&nbsp;{{ booking.customer?.firstName }} {{ booking.customer?.lastName }}</h1>
+          <span class="status-pill" [ngClass]="'status-' + booking.status">{{ getStatusLabel(booking.status) }}</span>
+        </div>
+        <p class="header-sub">{{ booking.serviceType }}&ensp;&middot;&ensp;{{ formatDate(booking.startTime) }}&ensp;&middot;&ensp;{{ formatTime(booking.startTime) }}&ndash;{{ formatTime(booking.endTime) }}</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <!-- View in customer portal -->
+      <a class="hdr-btn hdr-btn--ghost" [href]="customerPortalUrl" target="_blank"
+         title="Open customer tracking view">
+        🔗 Customer view
+      </a>
+
+      <!-- Assign / Reassign worker -->
+      <button class="hdr-btn hdr-btn--ghost" (click)="openAssignModal()"
+        *ngIf="booking.status !== 'cancelled' && booking.status !== 'completed'">
+        {{ booking.worker ? 'Reassign worker' : 'Assign worker' }}
+      </button>
+
+      <!-- Worker left for job -->
+      <button class="hdr-btn hdr-btn--amber" (click)="markWorkerLeft()"
+        *ngIf="booking.status === 'scheduled' && booking.worker">
+        🚗 Worker left for job
+      </button>
+
+      <!-- Mark job complete -->
+      <button class="hdr-btn hdr-btn--green" (click)="markJobComplete()"
+        *ngIf="booking.status === 'in_progress'">
+        ✅ Mark job complete
+      </button>
+
+      <!-- Cancel -->
+      <button class="hdr-btn hdr-btn--danger" (click)="cancelBooking()"
+        *ngIf="booking.status !== 'cancelled' && booking.status !== 'completed'">
+        Cancel booking
+      </button>
+
+      <!-- Permanent delete (only after cancellation) -->
+      <button class="hdr-btn hdr-btn--delete" (click)="purgeBooking()"
+        *ngIf="booking.status === 'cancelled'">
+        🗑 Delete permanently
+      </button>
+    </div>
+  </div>
+
+  <!-- Body grid -->
+  <div class="detail-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="col-left">
+
+      <!-- Customer & Booking info -->
+      <div class="card">
+        <div class="card-head">
+          <div class="card-avatar av-sc">{{ getCustomerInitials() }}</div>
+          <div>
+            <div class="card-name">{{ booking.customer?.firstName }} {{ booking.customer?.lastName }}</div>
+            <div class="card-email">{{ booking.customer?.email }}</div>
+          </div>
+        </div>
+
+        <div class="card-divider"></div>
+
+        <div class="info-grid">
+          <div class="info-cell">
+            <span class="info-label">Service type</span>
+            <span class="info-value">{{ booking.serviceType }}</span>
+          </div>
+          <div class="info-cell">
+            <span class="info-label">Booking #</span>
+            <span class="info-value mono">{{ booking.bookingNumber }}</span>
+          </div>
+          <div class="info-cell">
+            <span class="info-label">Date</span>
+            <span class="info-value">{{ formatDate(booking.startTime) }}</span>
+          </div>
+          <div class="info-cell">
+            <span class="info-label">Time</span>
+            <span class="info-value">{{ formatTime(booking.startTime) }}&ndash;{{ formatTime(booking.endTime) }}</span>
+          </div>
+          <div class="info-cell">
+            <span class="info-label">Phone</span>
+            <span class="info-value">{{ booking.customer?.phone }}</span>
+          </div>
+          <div class="info-cell">
+            <span class="info-label">Duration</span>
+            <span class="info-value">{{ formatDuration(booking.duration) }}</span>
+          </div>
+          <div class="info-cell full">
+            <span class="info-label">Address</span>
+            <span class="info-value">{{ booking.address }}</span>
+          </div>
+        </div>
+
+        <div *ngIf="booking.notes" class="notes-box">
+          <span class="notes-label">Notes</span>
+          <p class="notes-text">{{ booking.notes }}</p>
+        </div>
+      </div>
+
+      <!-- Payment Summary -->
+      <div class="card">
+        <h3 class="card-title">Payment summary</h3>
+        <div class="pay-rows">
+          <div class="pay-row">
+            <span class="pay-label">{{ booking.serviceType }}</span>
+            <span class="pay-amount">&euro;{{ serviceCharge.toFixed(2) }}</span>
+          </div>
+          <div class="pay-row">
+            <span class="pay-label">Platform fee (5%)</span>
+            <span class="pay-amount">&euro;{{ platformFee.toFixed(2) }}</span>
+          </div>
+          <div class="pay-divider"></div>
+          <div class="pay-row pay-total">
+            <span class="pay-label">Total</span>
+            <span class="pay-amount">&euro;{{ booking.price.toFixed(2) }}</span>
+          </div>
+        </div>
+        <div class="pay-status">
+          <span class="pay-status-dot" [ngClass]="booking.status === 'completed' ? 'dot-green' : 'dot-amber'"></span>
+          <span class="pay-status-text">{{ booking.status === 'completed' ? 'Payment received' : 'Payment pending completion' }}</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-right">
+
+      <!-- Assigned Worker -->
+      <div class="card">
+        <h3 class="card-title">Assigned worker</h3>
+
+        <div *ngIf="booking.worker; else noWorker">
+          <div class="worker-profile">
+            <div class="worker-avatar-wrap">
+              <div class="worker-avatar av-mk">{{ getWorkerInitials() }}</div>
+              <span class="online-dot dot-online"></span>
+            </div>
+            <div class="worker-info">
+              <div class="worker-name">{{ booking.worker.firstName }} {{ booking.worker.lastName }}</div>
+              <div class="worker-rating">
+                <span class="star">&#9733;</span>
+                <span class="rating-val">{{ booking.worker.rating }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="worker-rows">
+            <div class="worker-row">
+              <span class="wrow-label">Est. finish</span>
+              <span class="wrow-value">{{ formatTime(booking.endTime) }}</span>
+            </div>
+            <div class="worker-row">
+              <span class="wrow-label">Status</span>
+              <span class="wrow-value">{{ getStatusLabel(booking.status) }}</span>
+            </div>
+          </div>
+
+          <button class="btn-reassign" (click)="openAssignModal()"
+            *ngIf="booking.status !== 'cancelled' && booking.status !== 'completed'">
+            Reassign worker
+          </button>
+        </div>
+
+        <ng-template #noWorker>
+          <div class="no-worker">
+            <div class="no-worker-icon"></div>
+            <p>No worker assigned yet</p>
+            <button class="hdr-btn hdr-btn--primary" (click)="openAssignModal()"
+              *ngIf="booking.status !== 'cancelled'">
+              Assign worker
+            </button>
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- Booking Timeline -->
+      <div class="card">
+        <h3 class="card-title">Booking timeline</h3>
+        <div class="timeline">
+          <div class="timeline-item"
+               *ngFor="let event of timeline; let last = last"
+               [class.tl-done]="event.done"
+               [class.tl-active]="event.active"
+               [class.tl-last]="last">
+            <div class="tl-dot-col">
+              <div class="tl-dot"></div>
+              <div class="tl-line" *ngIf="!last"></div>
+            </div>
+            <div class="tl-body">
+              <span class="tl-label">{{ event.label }}</span>
+              <span class="tl-time">{{ event.time }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Loading -->
+<div class="loading-state" *ngIf="loading">
+  <div class="spinner"></div>
+  Loading booking details...
+</div>
+
+<!-- Error -->
+<div class="error-state" *ngIf="error && !loading">
+  <p>{{ error }}</p>
+  <button class="hdr-btn hdr-btn--ghost" (click)="goBack()">&#8592; Back to bookings</button>
+</div>
+
+<!-- ═══ Assign Worker Modal ═══ -->
+<div class="modal-overlay" *ngIf="showAssignModal" (click)="closeAssignModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2 class="modal-title">{{ booking?.worker ? 'Reassign worker' : 'Assign worker' }}</h2>
+    <p class="modal-sub">Select an available worker for this booking.</p>
+
+    <div class="worker-list" *ngIf="workers.length > 0; else noWorkers">
+      <label class="worker-option"
+             *ngFor="let w of workers"
+             [class.selected]="selectedWorkerId === w.id.toString()">
+        <input type="radio" name="worker"
+               [value]="w.id.toString()"
+               [(ngModel)]="selectedWorkerId" />
+        <div class="wo-avatar">{{ w.firstName[0] }}{{ w.lastName[0] }}</div>
+        <div class="wo-info">
+          <span class="wo-name">{{ w.firstName }} {{ w.lastName }}</span>
+          <span class="wo-meta">&#9733; {{ w.rating }} &middot; {{ w.completedJobs }} jobs</span>
+        </div>
+        <span class="wo-check" *ngIf="selectedWorkerId === w.id.toString()">&#10003;</span>
+      </label>
+    </div>
+
+    <ng-template #noWorkers>
+      <p class="no-workers-msg">No active workers available.</p>
+    </ng-template>
+
+    <div class="modal-error" *ngIf="assignError">{{ assignError }}</div>
+
+    <div class="modal-actions">
+      <button class="hdr-btn hdr-btn--ghost" (click)="closeAssignModal()">Cancel</button>
+      <button class="hdr-btn hdr-btn--primary"
+              [disabled]="!selectedWorkerId || assigning"
+              (click)="confirmAssign()">
+        {{ assigning ? 'Assigning...' : 'Confirm assignment' }}
+      </button>
+    </div>
+  </div>
+</div>
