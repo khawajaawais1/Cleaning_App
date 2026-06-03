@@ -159,6 +159,25 @@
     border-bottom: none;
     box-shadow: 0 5px 0 -1px currentColor, -5px 0 0 -2px currentColor, 5px 0 0 -2px currentColor;
   }
+
+  &[data-icon='tag']::before {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    transform: rotate(45deg);
+    box-shadow: -3px -3px 0 -1px currentColor;
+  }
+
+  &[data-icon='settings']::before {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px currentColor;
+    background: transparent;
+    border: none;
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
 }
 
 .nav-badge {

@@ -1,0 +1,134 @@
+<div class="page-wrap">
+
+  <div class="page-header-row">
+    <div>
+      <h1 class="page-title-lg">Control Centre</h1>
+      <p class="page-subtitle">Platform-wide feature flags and operation mode</p>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="empty-block">
+    <span class="spinner"></span>
+  </div>
+
+  <ng-container *ngIf="!loading && settings">
+
+    <!-- ── Worker Portal master switch ── -->
+    <div class="module-card" [class.module-card--on]="workerPortalOn">
+
+      <div class="module-header">
+        <div class="module-icon" [class.module-icon--on]="workerPortalOn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="module-title-block">
+          <h2 class="module-title">Worker Portal</h2>
+          <p class="module-sub">
+            {{ workerPortalOn
+              ? 'Workers can log in, accept jobs and track their location in real-time.'
+              : 'Jobs are managed directly by admin. No worker self-service. No live location.' }}
+          </p>
+        </div>
+        <div class="module-toggle-area">
+          <span class="status-badge" [class.status-badge--on]="workerPortalOn">
+            {{ workerPortalOn ? 'LIVE' : 'OFF' }}
+          </span>
+          <button
+            class="toggle-pill"
+            [class.toggle-pill--on]="workerPortalOn"
+            [disabled]="toggling"
+            (click)="onToggle()"
+            [attr.aria-label]="workerPortalOn ? 'Disable worker portal' : 'Enable worker portal'">
+            <span class="toggle-knob" [class.toggle-knob--on]="workerPortalOn"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mode explanation rows -->
+      <div class="mode-grid">
+        <div class="mode-col" [class.mode-col--active]="!workerPortalOn">
+          <p class="mode-label">
+            <span class="mode-dot mode-dot--gray"></span>
+            Portal OFF — Direct mode
+          </p>
+          <ul class="mode-list">
+            <li>Customer books → Admin assigns worker</li>
+            <li>No worker login required</li>
+            <li>No live location tracking</li>
+            <li>Admin controls all job lifecycle</li>
+          </ul>
+        </div>
+        <div class="mode-col" [class.mode-col--active]="workerPortalOn">
+          <p class="mode-label">
+            <span class="mode-dot mode-dot--green"></span>
+            Portal ON — Full mode
+          </p>
+          <ul class="mode-list">
+            <li>Workers log in on their phone</li>
+            <li>Workers accept / manage jobs</li>
+            <li>Live GPS broadcast via Azure PubSub</li>
+            <li>Extension requests sent by worker</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Audit trail -->
+      <div class="audit-row">
+        <div class="audit-item">
+          <span class="audit-label">Last enabled</span>
+          <span class="audit-val">{{ formatDate(settings.workerPortalEnabledAt) }}</span>
+        </div>
+        <div class="audit-item">
+          <span class="audit-label">Last disabled</span>
+          <span class="audit-val">{{ formatDate(settings.workerPortalDisabledAt) }}</span>
+        </div>
+        <div class="audit-item" *ngIf="settings.workerPortalDisabledReason">
+          <span class="audit-label">Reason</span>
+          <span class="audit-val">{{ settings.workerPortalDisabledReason }}</span>
+        </div>
+        <div class="audit-item">
+          <span class="audit-label">Last changed</span>
+          <span class="audit-val">{{ formatDate(settings.updatedAt) }}</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── Disable reason modal ── -->
+    <div *ngIf="showReasonInput" class="modal-backdrop">
+      <div class="modal-box">
+        <h3 class="modal-title">Disable Worker Portal?</h3>
+        <p class="modal-sub">
+          Workers will no longer be able to log in. All job management will revert to admin control.
+          You can re-enable it at any time.
+        </p>
+        <label class="form-label" style="margin-top:16px;">Reason <span class="optional">(optional)</span></label>
+        <input
+          [(ngModel)]="disableReason"
+          type="text"
+          class="form-control"
+          placeholder="e.g. Maintenance, pilot phase complete…"
+        />
+        <div class="modal-actions">
+          <button class="btn btn-ghost" (click)="cancelDisable()">Cancel</button>
+          <button class="btn btn-danger" (click)="confirmDisable()" [disabled]="toggling">
+            <span *ngIf="toggling" class="spinner"></span>
+            <span *ngIf="!toggling">Yes, disable portal</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Future flags placeholder ── -->
+    <div class="coming-soon-card">
+      <p class="cs-title">More feature flags coming soon</p>
+      <p class="cs-sub">Customer portal toggle, maintenance mode, payment gateway switch and more.</p>
+    </div>
+
+  </ng-container>
+
+</div>

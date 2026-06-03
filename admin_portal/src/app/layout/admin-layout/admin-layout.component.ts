@@ -30,6 +30,8 @@ export class AdminLayoutComponent implements OnInit {
     { icon: 'card', label: 'Applications', path: '/worker-applications', badge: 3, badgeTone: 'green' },
     { icon: 'team', label: 'Workers', path: '/workers', badge: 0 },
     { icon: 'calendar', label: 'Bookings', path: '/bookings', badge: 2, badgeTone: 'orange' },
+    { icon: 'tag',      label: 'Pricing',         path: '/pricing',         badge: 0 },
+    { icon: 'settings', label: 'Control Centre', path: '/control-centre', badge: 0 },
   ];
 
   constructor(private authService: AuthService, private router: Router) {}

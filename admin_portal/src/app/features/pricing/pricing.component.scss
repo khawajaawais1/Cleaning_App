@@ -1,0 +1,277 @@
+/* ── Section card ── */
+.section-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 22px 24px;
+}
+
+.sc-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  gap: 12px;
+}
+
+.sc-title { font-size: 15px; font-weight: 700; color: var(--text-1); margin-bottom: 3px; }
+.sc-sub   { font-size: 12px; color: var(--text-3); }
+
+/* ── Platform fee ── */
+.fee-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg);
+  border-radius: var(--radius-lg);
+}
+
+.fee-amount { font-size: 20px; font-weight: 700; color: var(--text-1); }
+
+.fee-edit-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.fee-type-toggle {
+  display: flex;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 3px;
+  gap: 2px;
+}
+
+.type-btn {
+  height: 30px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: all .15s;
+
+  &.active { background: var(--surface); color: var(--text-1); box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+}
+
+.fee-amount-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0 10px;
+  height: 38px;
+
+  &:focus-within { border-color: var(--brand); }
+}
+
+.fee-prefix, .fee-suffix { font-size: 14px; font-weight: 600; color: var(--text-3); }
+
+.fee-input {
+  width: 80px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-1);
+  outline: none;
+  font-family: inherit;
+  padding: 0 4px;
+}
+
+/* ── Rates table ── */
+.rates-table { margin-top: 16px; }
+
+.rt-header {
+  display: grid;
+  grid-template-columns: 1fr 120px 110px 110px 80px;
+  gap: 12px;
+  padding: 6px 12px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border-bottom: 1px solid var(--border);
+}
+
+.rt-row {
+  display: grid;
+  grid-template-columns: 1fr 120px 110px 110px 80px;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 12px;
+  border-bottom: 1px solid #f5f8f7;
+  transition: background .1s;
+
+  &:last-child { border-bottom: none; }
+  &:hover { background: #f8faf9; }
+  &--inactive { opacity: .55; }
+}
+
+.rt-service {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.rt-icon    { font-size: 22px; flex-shrink: 0; line-height: 1.2; }
+.rt-label   { font-size: 14px; font-weight: 600; color: var(--text-1); margin-bottom: 2px; }
+.rt-tagline { font-size: 11px; color: var(--text-3); }
+.rt-rate    { font-size: 16px; font-weight: 700; color: var(--text-1); }
+.rt-per     { font-size: 11px; color: var(--text-3); font-weight: 400; }
+.rt-date    { font-size: 11px; color: var(--text-4); }
+
+.rt-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rt-status-label { font-size: 12px; color: var(--text-3); font-weight: 500; }
+
+.rt-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+/* ── Toggle ── */
+.toggle-wrap {
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--border-mid);
+  position: relative;
+  cursor: pointer;
+  transition: background .2s;
+
+  &.on { background: var(--accent); }
+}
+
+.toggle-knob {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  top: 3px;
+  left: 3px;
+  transition: left .2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,.2);
+
+  &--on { left: 19px; }
+}
+
+/* ── Icon buttons ── */
+.icon-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-3);
+  transition: all .15s;
+
+  &:hover { color: var(--brand); border-color: var(--brand-mid); background: var(--brand-light); }
+  &--danger:hover { color: var(--danger); border-color: var(--danger); background: var(--danger-bg); }
+}
+
+/* ── Inline edit row ── */
+.rt-edit-row {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  background: var(--brand-light);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  margin: 4px 0;
+}
+
+.edit-icon    { width: 56px !important; }
+.edit-label   { width: 160px !important; }
+.edit-tagline { flex: 1 !important; min-width: 200px; }
+
+.edit-rate-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0 8px;
+  height: 38px;
+
+  &:focus-within { border-color: var(--brand); }
+}
+
+.edit-prefix, .edit-suffix { font-size: 13px; color: var(--text-3); }
+.edit-rate { width: 60px; border: none; background: transparent; font-size: 14px; font-weight: 700; outline: none; font-family: inherit; color: var(--text-1); }
+
+.edit-actions { display: flex; gap: 6px; margin-left: auto; }
+
+/* ── Modals ── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 400;
+  padding: 20px;
+}
+
+.modal-box {
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 24px 64px rgba(0,0,0,.2);
+
+  &--wide { max-width: 560px; }
+}
+
+.modal-title { font-size: 17px; font-weight: 700; color: var(--text-1); margin-bottom: 8px; }
+.modal-sub   { font-size: 13px; color: var(--text-3); line-height: 1.55; }
+
+.modal-actions { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
+
+.alert-error-sm {
+  background: var(--danger-bg);
+  color: #991b1b;
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  font-size: 12px;
+  margin-bottom: 14px;
+}
+
+.add-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.hint {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-4);
+  margin-left: 6px;
+}
