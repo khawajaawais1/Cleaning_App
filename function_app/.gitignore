@@ -1,0 +1,15 @@
+# Build output
+bin/
+obj/
+
+# Local settings (contains secrets)
+local.settings.json
+
+# Logs
+*.log
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
