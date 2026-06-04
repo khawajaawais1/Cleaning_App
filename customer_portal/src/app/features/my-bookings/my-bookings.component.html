@@ -1,0 +1,113 @@
+<div class="bookings-wrap">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="page-header">
+      <div>
+        <h1>My bookings</h1>
+        <p>Welcome back, {{ firstName }} 👋</p>
+      </div>
+      <a routerLink="/book" class="btn btn-green">+ Book a clean</a>
+    </div>
+
+    <!-- Loading -->
+    <div class="state-row" *ngIf="loading">
+      <div class="spinner-dark"></div>
+      <span>Loading your bookings…</span>
+    </div>
+
+    <!-- Error -->
+    <div class="alert alert-error" *ngIf="error && !loading">{{ error }}</div>
+
+    <!-- Empty state -->
+    <div class="empty-state" *ngIf="!loading && !error && bookings.length === 0">
+      <div class="empty-icon">🏠</div>
+      <h2>No bookings yet</h2>
+      <p>Your first clean is just a few clicks away.</p>
+      <a routerLink="/book" class="btn btn-green btn-lg">Book your first clean</a>
+    </div>
+
+    <!-- Bookings list -->
+    <div class="bookings-list" *ngIf="!loading && bookings.length > 0">
+      <div class="booking-card card" *ngFor="let b of bookings">
+
+        <!-- Top row: icon / meta / badge+price -->
+        <div class="bc-top">
+          <div class="bc-service-icon">{{ serviceIcon(b.serviceType) }}</div>
+          <div class="bc-meta">
+            <div class="bc-number">{{ b.bookingNumber }}</div>
+            <h3>{{ serviceLabel(b.serviceType) }}</h3>
+            <div class="bc-detail">
+              <span>📅 {{ formatDate(b.scheduledAt) }}</span>
+              <span>⏰ {{ formatTime(b.scheduledAt) }}</span>
+              <span>⏱ {{ durationLabel(b.durationMinutes) }}</span>
+            </div>
+          </div>
+          <div class="bc-right">
+            <span class="badge" [ngClass]="statusTone(b.status)">{{ statusLabel(b.status) }}</span>
+            <div class="bc-price">€{{ b.price.toFixed(2) }}</div>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="bc-address">
+          <span>📍</span> {{ b.address }}
+        </div>
+
+        <!-- Assigned worker -->
+        <div class="bc-worker" *ngIf="b.worker">
+          <div class="worker-av">{{ workerInitials(b.worker.fullName) }}</div>
+          <div>
+            <div class="worker-name">{{ b.worker.fullName }}</div>
+            <div class="worker-rating" *ngIf="b.worker.rating">★ {{ b.worker.rating.toFixed(1) }}</div>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="bc-notes" *ngIf="b.notes">
+          <span>📝</span> {{ b.notes }}
+        </div>
+
+        <!-- Action buttons -->
+        <div class="bc-actions">
+
+          <!-- View details — always visible -->
+          <button class="bc-btn bc-btn--details" (click)="viewDetails(b)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 8v4M12 16v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            View details
+          </button>
+
+          <!-- Track booking (active) -->
+          <button class="bc-btn bc-btn--track"
+                  *ngIf="b.status === 'Scheduled' || b.status === 'InProgress'"
+                  (click)="trackBooking(b)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            Track status
+          </button>
+
+          <!-- Leave review (completed, not yet reviewed) -->
+          <button class="bc-btn bc-btn--review"
+                  *ngIf="b.status === 'Completed' && !b.customerRating"
+                  (click)="reviewBooking(b)">
+            ⭐ Leave a review
+          </button>
+
+          <!-- View receipt (completed + reviewed) -->
+          <button class="bc-btn bc-btn--receipt"
+                  *ngIf="b.status === 'Completed' && b.customerRating"
+                  (click)="reviewBooking(b)">
+            📄 View receipt
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

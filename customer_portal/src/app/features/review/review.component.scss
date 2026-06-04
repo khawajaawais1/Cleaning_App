@@ -1,0 +1,155 @@
+.review-main { padding: 32px 48px 48px; }
+
+.review-grid {
+  display: grid; grid-template-columns: 1.1fr 1fr;
+  gap: 36px; margin-top: 8px;
+}
+
+/* ── Worker mini card ─────────────────────────────────── */
+.worker-mini-card {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px; border: 1.5px solid #e5e7e4;
+  border-radius: 12px; margin-bottom: 20px;
+}
+.wmc-av {
+  width: 40px; height: 40px; border-radius: 50%; background: #25ae59;
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700;
+  flex-shrink: 0;
+}
+.worker-mini-card div {
+  display: flex; flex-direction: column; gap: 2px;
+  strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 600; color: #1a231e; }
+  span   { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; color: #738279; }
+}
+
+/* ── Section labels ───────────────────────────────────── */
+.review-section-label {
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: #738279;
+  margin-bottom: 10px; margin-top: 16px;
+}
+
+/* ── Stars ────────────────────────────────────────────── */
+.star-row { display: flex; gap: 6px; margin-bottom: 4px; }
+.star {
+  cursor: pointer; transition: transform .1s;
+  &:hover { transform: scale(1.15); }
+}
+
+/* ── Tag chips ────────────────────────────────────────── */
+.tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+.tag-chip {
+  padding: 7px 14px; border: 1.5px solid #e5e7e4; border-radius: 100px;
+  background: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px; color: #4a5550; cursor: pointer; transition: all .15s;
+  &:hover { border-color: #25ae59; }
+  &--on   { border-color: #25ae59; background: #edfbf2; color: #1a231e; font-weight: 600; }
+}
+
+/* ── Textarea ─────────────────────────────────────────── */
+.review-textarea {
+  width: 100%; padding: 13px 14px; border: 1.5px solid #e5e7e4; border-radius: 8px;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: #1a231e;
+  resize: vertical; outline: none; margin-bottom: 16px;
+  &::placeholder { color: #aab8b2; }
+  &:focus { border-color: #25ae59; box-shadow: 0 0 0 3px rgba(37,174,89,.1); }
+  &:disabled { background: #f5f6f4; }
+}
+
+/* ── All done card ────────────────────────────────────── */
+.all-done-card {
+  background: #1a231e; border-radius: 16px; padding: 24px;
+  text-align: center; margin-bottom: 16px;
+}
+.all-done-emoji { font-size: 36px; margin-bottom: 10px; }
+.all-done-title {
+  font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 400;
+  color: #fff; margin: 0 0 6px;
+}
+.all-done-sub {
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px;
+  color: rgba(255,255,255,.55); margin: 0 0 16px;
+}
+.all-done-btn {
+  display: inline-block; background: rgba(255,255,255,.12); color: #fff;
+  border-radius: 8px; padding: 11px 24px; text-decoration: none;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 600;
+  transition: background .15s;
+  &:hover { background: rgba(255,255,255,.2); }
+}
+
+/* ── Receipt card ─────────────────────────────────────── */
+.receipt-card {
+  border: 1.5px solid #e5e7e4; border-radius: 12px; padding: 18px; margin-bottom: 10px;
+}
+.receipt-header { margin-bottom: 10px; }
+.receipt-inv {
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: #738279;
+}
+.inv-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: #4a5550;
+  padding: 6px 0;
+}
+.inv-divider { height: 1px; background: #e5e7e4; margin: 8px 0; }
+.inv-total { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 400; }
+.inv-green { color: #25ae59; }
+
+/* ── Receipt actions ──────────────────────────────────── */
+.receipt-actions { display: flex; gap: 10px; margin-bottom: 16px; }
+.receipt-btn {
+  flex: 1; padding: 11px; border: 1.5px solid #e5e7e4; border-radius: 8px;
+  background: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px; font-weight: 600; color: #1a231e; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  transition: all .15s;
+  &:hover { border-color: #25ae59; color: #25ae59; }
+}
+
+/* ── Tip section ──────────────────────────────────────── */
+.tip-row { display: flex; gap: 8px; }
+.tip-btn {
+  flex: 1; padding: 10px 0; border: 1.5px solid #e5e7e4; border-radius: 8px;
+  background: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px; font-weight: 600; color: #4a5550; cursor: pointer;
+  transition: all .15s;
+  &:hover { border-color: #25ae59; }
+  &--on  { border-color: #25ae59; background: #edfbf2; color: #1a231e; }
+}
+.tip-custom { color: #738279; }
+
+/* ── Print receipt ────────────────────────────────────── */
+.print-only { display: none; }
+
+@media print {
+  .wizard-shell, .wiz-sidebar, .wiz-stepper, .review-grid > .review-left,
+  .receipt-actions, .tip-section, .all-done-card, .wm-back,
+  .wm-step-label, .wm-title, .wm-sub { display: none !important; }
+  .print-only {
+    display: block !important;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding: 40px; font-size: 14px; line-height: 2;
+    h2 { font-size: 22px; margin-bottom: 8px; }
+    hr { border: none; border-top: 1px solid #e5e7e4; margin: 12px 0; }
+  }
+}
+
+/* ── Loading ──────────────────────────────────────────── */
+.match-loading {
+  height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 16px;
+  font-family: 'Plus Jakarta Sans', sans-serif; color: #738279; font-size: 14px;
+}
+.match-spinner {
+  width: 36px; height: 36px; border: 3px solid #e5e7e4;
+  border-top-color: #25ae59; border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 760px) {
+  .review-grid { grid-template-columns: 1fr; }
+  .review-main { padding: 24px; }
+}

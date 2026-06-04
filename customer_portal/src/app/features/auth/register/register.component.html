@@ -1,0 +1,98 @@
+<div class="wizard-shell">
+
+  <!-- Sidebar -->
+  <aside class="wiz-sidebar">
+    <div class="wsb-logo">
+      <div class="wsb-logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 10.5L12 3L21 10.5V20C21 20.5523 20.5523 21 20 21H15.5V15.5H8.5V21H4C3.44772 21 3 20.5523 3 20V10.5Z" fill="white"/>
+        </svg>
+      </div>
+      <span class="wsb-logo-text">Happy2Clean</span>
+    </div>
+    <p class="wsb-eyebrow">YOUR HOME · IN GOOD HANDS</p>
+    <h2 class="wsb-headline">Booked in 3 minutes.<br><span class="wsb-green">Cleaned in three.</span></h2>
+    <p class="wsb-desc">Vetted cleaners, transparent pricing in euros, and live tracking from their door to yours. Pay only when the job is done.</p>
+    <div class="wsb-stats">
+      <div class="wstat"><strong>4.9</strong><small>AVG RATING</small></div>
+      <div class="wstat"><strong>2.3k</strong><small>CLEANS / WEEK</small></div>
+      <div class="wstat"><strong>€25</strong><small>FROM / HOUR</small></div>
+      <div class="wstat"><strong>100%</strong><small>RE-CLEAN GUARANTEE</small></div>
+    </div>
+    <div class="wsb-trust">
+      <div class="wsb-avatars">
+        <div class="wsb-av">MK</div>
+        <div class="wsb-av">JR</div>
+        <div class="wsb-av">PN</div>
+      </div>
+      <span class="wsb-trust-text">Trusted by 1,800+ Helsinki-area customers</span>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="wiz-main">
+    <a routerLink="/" class="wm-back">← Back to home</a>
+
+    <div class="wm-step-label">1 · SIGN UP</div>
+    <h1 class="wm-title">Welcome to Happy2Clean</h1>
+    <p class="wm-sub">Book a trusted cleaner in minutes.</p>
+
+    <div class="alert alert-error" *ngIf="error" style="margin-bottom:16px;max-width:600px">{{ error }}</div>
+
+    <form (ngSubmit)="submit()" #f="ngForm" class="wm-form">
+      <div class="form-group" style="margin:0">
+        <label class="form-label">FULL NAME</label>
+        <input class="form-control" type="text" [(ngModel)]="fullName" name="fullName" placeholder="Sarah Chen" required>
+      </div>
+      <div class="form-group" style="margin:0">
+        <label class="form-label">EMAIL ADDRESS</label>
+        <input class="form-control" type="email" [(ngModel)]="email" name="email" placeholder="you@example.com" required>
+      </div>
+      <div class="form-group" style="margin:0">
+        <label class="form-label">PASSWORD</label>
+        <input class="form-control" type="password" [(ngModel)]="password" name="password" placeholder="At least 6 characters" required>
+      </div>
+
+      <button type="submit" class="btn-wiz" [disabled]="loading">
+        <span class="spinner" *ngIf="loading"></span>
+        {{ loading ? 'Creating account…' : 'Create account' }}
+      </button>
+
+      <div class="wm-divider">or continue with</div>
+
+      <div class="wm-social">
+        <button type="button" class="btn-social">
+          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          Google
+        </button>
+        <button type="button" class="btn-social">
+          <svg width="15" height="18" viewBox="0 0 814 1000"><path fill="#1a231e" d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.5-150.3-96.6c-48.9-65.7-88.8-165.5-88.8-261.3 0-177 115.8-270.8 229.5-270.8 75.2 0 137.8 48.1 184.7 48.1 44.4 0 114.4-51.3 199.2-51.3zm-190.9-99.3c43.5-56.1 80.1-133.6 80.1-211.1 0-10.9-.6-21.8-2.6-30.6C602.5 20.7 523.6 63.8 474.4 122.5c-40.3 49.5-76.2 126.2-76.2 203.7 0 12.2 2.6 24.5 3.3 28.5 5.1.9 13.4 1.9 21.8 1.9 74.6 0 157.6-41.1 164.9-114.9z"/></svg>
+          Apple
+        </button>
+      </div>
+
+      <p class="wm-switch">Already have an account? <a routerLink="/login">Log in</a></p>
+      <a routerLink="/" class="wm-back-bottom">← Back to home</a>
+    </form>
+  </main>
+
+  <!-- Bottom step bar -->
+  <nav class="wiz-stepper">
+    <div class="wstep wstep--active">1 · Sign Up</div>
+    <div class="wstep-sep">›</div>
+    <div class="wstep">2 · Select Service</div>
+    <div class="wstep-sep">›</div>
+    <div class="wstep">3 · Address &amp; Schedule</div>
+    <div class="wstep-sep">›</div>
+    <div class="wstep">4 · Add-ons &amp; Price</div>
+    <div class="wstep-sep">›</div>
+    <div class="wstep">5 · Photos &amp; Notes</div>
+    <div class="wstep-sep">›</div>
+    <div class="wstep">6 · Confirm Booking</div>
+    <div class="wstep-sep">›</div>
+    <div class="wstep">7 · Matching</div>
+    <div class="wstep-sep">›</div>
+    <div class="wstep">8 · Live Tracking</div>
+  </nav>
+
+</div>

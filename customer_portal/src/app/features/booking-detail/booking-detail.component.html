@@ -1,0 +1,190 @@
+<div class="bd-wrap" *ngIf="!loading && booking">
+
+  <!-- Back -->
+  <a routerLink="/my-bookings" class="bd-back">← Back to my bookings</a>
+
+  <!-- Header -->
+  <div class="bd-header">
+    <div class="bd-header-left">
+      <div class="bd-ref">{{ booking.bookingNumber }}</div>
+      <h1 class="bd-title">{{ serviceLabel }}</h1>
+      <p class="bd-sub">{{ scheduledLabel }} · {{ durationLabel }}</p>
+    </div>
+    <span class="bd-status-pill bd-status-{{ booking.status.toLowerCase() }}">
+      {{ booking.status === 'InProgress' ? 'In Progress' : booking.status }}
+    </span>
+  </div>
+
+  <div class="bd-grid">
+
+    <!-- LEFT: Status + Info -->
+    <div class="bd-left">
+
+      <!-- Status timeline -->
+      <div class="bd-card">
+        <h3 class="bd-card-title">Booking status</h3>
+        <div class="bd-steps">
+          <div class="bd-step"
+               *ngFor="let s of statusSteps; let last = last"
+               [class.bd-step--done]="s.state === 'done'"
+               [class.bd-step--active]="s.state === 'active'"
+               [class.bd-step--pending]="s.state === 'pending'">
+            <div class="bd-step-line" *ngIf="!last"></div>
+            <div class="bd-step-icon">
+              <svg *ngIf="s.state === 'done'" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 6l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div *ngIf="s.state === 'active'" class="bd-pulse"></div>
+            </div>
+            <div class="bd-step-text">
+              <span class="bd-step-label">{{ s.label }}</span>
+              <span class="bd-step-desc">{{ s.desc }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Primary action button -->
+        <button class="btn-wiz bd-action-btn" *ngIf="showPrimary" (click)="primaryAction()">
+          {{ primaryLabel }}
+        </button>
+      </div>
+
+      <!-- Booking info -->
+      <div class="bd-card">
+        <h3 class="bd-card-title">Booking details</h3>
+        <div class="bd-info-grid">
+          <div class="bd-info-row">
+            <span class="bd-info-key">Service</span>
+            <span class="bd-info-val">{{ serviceLabel }}</span>
+          </div>
+          <div class="bd-info-row">
+            <span class="bd-info-key">Address</span>
+            <span class="bd-info-val">{{ booking.address }}</span>
+          </div>
+          <div class="bd-info-row">
+            <span class="bd-info-key">Date &amp; time</span>
+            <span class="bd-info-val">{{ scheduledLabel }}</span>
+          </div>
+          <div class="bd-info-row">
+            <span class="bd-info-key">Duration</span>
+            <span class="bd-info-val">{{ durationLabel }}</span>
+          </div>
+          <div class="bd-info-row" *ngIf="booking.notes">
+            <span class="bd-info-key">Notes</span>
+            <span class="bd-info-val">{{ booking.notes }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Worker + Payment -->
+    <div class="bd-right">
+
+      <!-- Worker card -->
+      <div class="bd-card">
+        <h3 class="bd-card-title">Assigned cleaner</h3>
+
+        <div class="bd-worker" *ngIf="booking.worker; else noWorker">
+          <div class="bd-worker-av">{{ workerInitials }}</div>
+          <div class="bd-worker-info">
+            <strong>{{ booking.worker.fullName }}</strong>
+            <span *ngIf="booking.worker.rating">⭐ {{ booking.worker.rating.toFixed(1) }} · {{ booking.worker.completedJobs ?? 0 }} jobs</span>
+            <span *ngIf="!booking.worker.rating">Rating not yet available</span>
+          </div>
+        </div>
+        <ng-template #noWorker>
+          <div class="bd-no-worker">
+            <div class="bd-no-worker-icon">👤</div>
+            <p>We're finding the best cleaner for you.</p>
+          </div>
+        </ng-template>
+      </div>
+
+      <!-- Payment summary -->
+      <div class="bd-card">
+        <h3 class="bd-card-title">Payment summary</h3>
+        <div class="bd-pay-rows">
+          <div class="bd-pay-row">
+            <span>{{ serviceLabel }}</span>
+            <span>€{{ (booking.price - 5).toFixed(2) }}</span>
+          </div>
+          <div class="bd-pay-row">
+            <span>Platform fee</span>
+            <span>€5.00</span>
+          </div>
+          <div class="bd-pay-divider"></div>
+          <div class="bd-pay-row bd-pay-total">
+            <strong>Total</strong>
+            <strong class="bd-pay-green">€{{ booking.price.toFixed(2) }}</strong>
+          </div>
+        </div>
+        <div class="bd-pay-status" [class.bd-pay-status--paid]="booking.paymentStatus === 'paid'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M2 10h20" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          {{ booking.paymentStatus === 'paid' ? 'Payment confirmed' : 'Payment on completion' }}
+        </div>
+      </div>
+
+      <!-- Review badge (if reviewed) -->
+      <div class="bd-review-badge" *ngIf="booking.customerRating">
+        <div class="bd-review-stars">
+          <span *ngFor="let s of [1,2,3,4,5]">{{ s <= booking.customerRating ? '★' : '☆' }}</span>
+        </div>
+        <p *ngIf="booking.customerReview">"{{ booking.customerReview }}"</p>
+      </div>
+
+      <!-- Report an issue -->
+      <div class="bd-issue-section" *ngIf="booking.status !== 'Cancelled'">
+
+        <!-- Issue sent confirmation -->
+        <div class="bd-issue-sent" *ngIf="issueSent">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" fill="#25ae59"/>
+            <path d="M8 12l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Issue reported — our team will be in touch within 24 hours.
+        </div>
+
+        <!-- Toggle button -->
+        <button class="bd-issue-btn" *ngIf="!showIssueForm && !issueSent"
+                (click)="showIssueForm = true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 8v5M12 16v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Report an issue
+        </button>
+
+        <!-- Issue form -->
+        <div class="bd-issue-form" *ngIf="showIssueForm">
+          <p class="bd-issue-label">Describe the issue</p>
+          <textarea class="bd-issue-textarea" [(ngModel)]="issueText" rows="4"
+                    placeholder="e.g. The cleaner didn't arrive, or missed certain areas…"></textarea>
+          <div class="bd-issue-actions">
+            <button class="bd-issue-cancel" (click)="showIssueForm = false; issueText = ''">Cancel</button>
+            <button class="bd-issue-submit" (click)="submitIssue()" [disabled]="!issueText.trim()">
+              Submit report
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Loading -->
+<div class="bd-loading" *ngIf="loading">
+  <div class="bd-spinner"></div>
+  <p>Loading booking details…</p>
+</div>
+
+<!-- Not found -->
+<div class="bd-loading" *ngIf="!loading && !booking">
+  <p>Booking not found.</p>
+  <a routerLink="/my-bookings" class="btn btn-green" style="margin-top:16px">Back to my bookings</a>
+</div>

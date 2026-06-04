@@ -1,0 +1,66 @@
+.sm-wrap {
+  padding: 36px 28px 28px;
+  text-align: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Animated icon */
+.sm-icon-ring {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: rgba(37,174,89,.12); margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: center;
+  animation: ring-pop .5s cubic-bezier(.34,1.56,.64,1) both;
+}
+.sm-icon-circle {
+  width: 60px; height: 60px; border-radius: 50%; background: #25ae59;
+  display: flex; align-items: center; justify-content: center;
+}
+.sm-check {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: draw-check .4s .3s ease forwards;
+}
+
+@keyframes ring-pop {
+  from { transform: scale(.4); opacity: 0; }
+  to   { transform: scale(1);  opacity: 1; }
+}
+@keyframes draw-check {
+  to { stroke-dashoffset: 0; }
+}
+
+.sm-title {
+  font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 400;
+  color: #1a231e; margin: 0 0 8px;
+}
+.sm-sub { font-size: 14px; color: #738279; margin: 0 0 24px; line-height: 1.6; }
+
+.sm-card {
+  background: #f5f6f4; border-radius: 14px; padding: 18px 20px;
+  text-align: left; margin-bottom: 16px;
+}
+.sm-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; font-size: 14px;
+}
+.sm-key { color: #738279; }
+.sm-val { color: #1a231e; font-weight: 600; }
+.sm-green { color: #25ae59; }
+.sm-divider { height: 1px; background: #e5e7e4; margin: 4px 0; }
+
+.sm-note { font-size: 12px; color: #aab8b2; margin-bottom: 20px; }
+
+.sm-btn {
+  width: 100%; padding: 15px; background: #25ae59; color: #fff; border: none;
+  border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 10px;
+  transition: background .15s;
+  &:hover { background: #1d8a47; }
+}
+.sm-btn-ghost {
+  width: 100%; padding: 13px; background: transparent; color: #738279;
+  border: 1.5px solid #e5e7e4; border-radius: 10px;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: all .15s;
+  &:hover { border-color: #738279; color: #1a231e; }
+}
