@@ -1,0 +1,128 @@
+<div class="page-wrap">
+
+  <!-- ── Greeting ── -->
+  <div class="greeting-row">
+    <div>
+      <p class="greet-text">{{ greeting }},</p>
+      <h1 class="greet-name">{{ profile?.firstName ?? 'Worker' }} 👋</h1>
+      <p class="greet-date">{{ todayDate }}</p>
+    </div>
+    <div class="status-toggle" [class.online]="profile?.isOnline">
+      <span class="status-dot"></span>
+      <span>{{ profile?.isOnline ? 'Online' : 'Offline' }}</span>
+    </div>
+  </div>
+
+  <!-- ── Earnings summary chips ── -->
+  <div *ngIf="summary" class="stats-row">
+    <div class="stat-chip">
+      <span class="stat-value">£{{ summary.totalThisWeek | number:'1.0-0' }}</span>
+      <span class="stat-label">This week</span>
+    </div>
+    <div class="stat-chip">
+      <span class="stat-value">{{ summary.jobsThisWeek }}</span>
+      <span class="stat-label">Jobs done</span>
+    </div>
+    <div class="stat-chip">
+      <span class="stat-value">{{ profile?.rating | number:'1.1-1' }}</span>
+      <span class="stat-label">Rating</span>
+    </div>
+  </div>
+
+  <!-- ── Active job banner ── -->
+  <div *ngIf="activeJob" class="active-job-banner" [routerLink]="'/jobs'">
+    <div class="active-pulse"></div>
+    <div class="active-info">
+      <p class="active-label">Active job</p>
+      <p class="active-title">{{ activeJob.serviceType }}</p>
+      <p class="active-sub">{{ activeJob.customer.name }} · {{ activeJob.location.address }}</p>
+    </div>
+    <div class="active-right">
+      <span class="pill pill-green">{{ getElapsedTime(activeJob.actualStart) }}</span>
+      <span class="active-arrow">›</span>
+    </div>
+  </div>
+
+  <!-- ── Job invites ── -->
+  <div *ngIf="invites.length > 0">
+    <p class="section-title">New job {{ invites.length > 1 ? 'invites' : 'invite' }} ({{ invites.length }})</p>
+
+    <div *ngFor="let invite of invites" class="invite-card">
+      <div class="invite-header">
+        <div class="invite-badge">NEW</div>
+        <span class="invite-dist">{{ invite.distanceKm }} km away</span>
+      </div>
+      <div class="invite-body">
+        <p class="invite-type">{{ invite.job.serviceType }}</p>
+        <p class="invite-addr">{{ invite.job.location.address }}, {{ invite.job.location.postcode }}</p>
+        <p class="invite-time">
+          {{ invite.job.scheduledDate | date:'EEE d MMM' }} · {{ invite.job.scheduledStart }} – {{ invite.job.scheduledEnd }}
+        </p>
+        <p class="invite-earn">Earnings: <strong>£{{ invite.job.earnings | number:'1.2-2' }}</strong></p>
+      </div>
+      <div class="invite-actions">
+        <button class="btn btn-ghost btn-sm" (click)="declineInvite(invite)">Decline</button>
+        <button class="btn btn-accent btn-sm" (click)="acceptInvite(invite)">Accept job</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Today's schedule ── -->
+  <div>
+    <div class="section-header-row">
+      <p class="section-title">Today's schedule</p>
+      <a routerLink="/schedule" class="see-all">See all</a>
+    </div>
+
+    <div *ngIf="loading" class="empty-block">
+      <span class="spinner"></span>
+    </div>
+
+    <div *ngIf="!loading && todayJobs.length === 0" class="empty-block">
+      <span class="empty-icon">📅</span>
+      <p class="empty-title">No jobs today</p>
+      <p class="empty-sub">Enjoy your day off!</p>
+    </div>
+
+    <div *ngFor="let job of todayJobs" class="job-card" [routerLink]="'/jobs'">
+      <div class="job-card__time">
+        <span class="time-start">{{ job.scheduledStart }}</span>
+        <span class="time-line"></span>
+        <span class="time-end">{{ job.scheduledEnd }}</span>
+      </div>
+      <div class="job-card__info">
+        <div class="job-top">
+          <span class="job-type">{{ job.serviceType }}</span>
+          <span class="pill" [ngClass]="getStatusClass(job.status)">{{ getStatusLabel(job.status) }}</span>
+        </div>
+        <p class="job-customer">{{ job.customer.name }}</p>
+        <p class="job-addr">{{ job.location.address }}, {{ job.location.postcode }}</p>
+        <p class="job-earn">£{{ job.earnings | number:'1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Quick links ── -->
+  <div>
+    <p class="section-title">Quick access</p>
+    <div class="quick-links">
+      <a routerLink="/schedule" class="quick-link">
+        <span class="ql-icon">📅</span>
+        <span>Schedule</span>
+      </a>
+      <a routerLink="/earnings" class="quick-link">
+        <span class="ql-icon">💷</span>
+        <span>Earnings</span>
+      </a>
+      <a routerLink="/documents" class="quick-link">
+        <span class="ql-icon">📄</span>
+        <span>Documents</span>
+      </a>
+      <a routerLink="/profile" class="quick-link">
+        <span class="ql-icon">👤</span>
+        <span>Profile</span>
+      </a>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,135 @@
+<div class="page-wrap">
+
+  <div class="page-header">
+    <h1 class="page-title">My Jobs</h1>
+    <p class="page-sub">Track and manage your cleaning jobs</p>
+  </div>
+
+  <!-- ── Tabs ── -->
+  <div class="tabs">
+    <button class="tab" [class.active]="activeTab === 'active'"    (click)="activeTab = 'active'">Active</button>
+    <button class="tab" [class.active]="activeTab === 'upcoming'"  (click)="activeTab = 'upcoming'">Upcoming</button>
+    <button class="tab" [class.active]="activeTab === 'completed'" (click)="activeTab = 'completed'">Completed</button>
+  </div>
+
+  <div *ngIf="loading" class="empty-block">
+    <span class="spinner"></span>
+  </div>
+
+  <div *ngIf="!loading && tabJobs.length === 0" class="empty-block">
+    <span class="empty-icon">🧹</span>
+    <p class="empty-title">No jobs here</p>
+    <p class="empty-sub">
+      {{ activeTab === 'active' ? 'No active jobs right now' : activeTab === 'upcoming' ? 'No upcoming jobs scheduled' : 'No completed jobs yet' }}
+    </p>
+  </div>
+
+  <!-- ── Job cards ── -->
+  <div *ngFor="let job of tabJobs" class="job-item" [class.in-progress]="job.status === 'in_progress'">
+
+    <!-- Header -->
+    <div class="ji-header">
+      <div>
+        <p class="ji-type">{{ job.serviceType }}</p>
+        <p class="ji-ref">{{ job.bookingRef }}</p>
+      </div>
+      <span class="pill" [ngClass]="getStatusClass(job.status)">{{ getStatusLabel(job.status) }}</span>
+    </div>
+
+    <!-- Customer + location -->
+    <div class="ji-info-row">
+      <div class="ji-avatar">{{ job.customer.initials }}</div>
+      <div>
+        <p class="ji-customer">{{ job.customer.name }}</p>
+        <p class="ji-addr">{{ job.location.address }}, {{ job.location.postcode }}</p>
+      </div>
+    </div>
+
+    <!-- Time -->
+    <div class="ji-time-row">
+      <span class="ji-date">{{ job.scheduledDate | date:'EEE d MMM' }}</span>
+      <span class="ji-dot">·</span>
+      <span class="ji-slot">{{ job.scheduledStart }} – {{ job.scheduledEnd }}</span>
+      <span *ngIf="job.status === 'in_progress'" class="ji-elapsed">{{ getElapsed(job) }}</span>
+    </div>
+
+    <!-- Notes -->
+    <p *ngIf="job.notes" class="ji-notes">"{{ job.notes }}"</p>
+
+    <!-- Earnings -->
+    <div class="ji-earn-row">
+      <span class="ji-earn-label">Earnings</span>
+      <span class="ji-earn">£{{ job.earnings | number:'1.2-2' }}</span>
+    </div>
+
+    <!-- Extension request result -->
+    <div *ngIf="job.status === 'extension_requested'" class="ji-extension-pending">
+      ⏳ Extension request sent to admin. Awaiting approval.
+    </div>
+
+    <!-- Actions -->
+    <div class="ji-actions" *ngIf="job.status !== 'completed' && job.status !== 'cancelled'">
+
+      <ng-container *ngIf="job.status === 'assigned'">
+        <button class="btn btn-ghost btn-sm" (click)="markEnRoute(job)">I'm on my way</button>
+      </ng-container>
+
+      <ng-container *ngIf="job.status === 'en_route'">
+        <button class="btn btn-accent btn-sm btn-block" (click)="startJob(job)">Start job</button>
+      </ng-container>
+
+      <ng-container *ngIf="job.status === 'in_progress'">
+        <button class="btn btn-ghost btn-sm" (click)="openExtension(job)">Request extension</button>
+        <button class="btn btn-primary btn-sm" (click)="completeJob(job)">Complete job</button>
+      </ng-container>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ── Extension modal ── -->
+<div *ngIf="extensionModalOpen" class="modal-overlay" (click)="closeExtension()">
+  <div class="modal-sheet" (click)="$event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <h3 class="modal-title">Request time extension</h3>
+    <p class="modal-sub">{{ extensionJob?.bookingRef }} · {{ extensionJob?.serviceType }}</p>
+
+    <form [formGroup]="extensionForm" (ngSubmit)="submitExtension()">
+
+      <div class="form-group">
+        <label class="form-label">Extra time needed</label>
+        <div class="minutes-picker">
+          <button type="button" class="min-btn" *ngFor="let opt of [15, 30, 45, 60]"
+            [class.active]="extensionForm.get('minutes')?.value === opt"
+            (click)="extensionForm.get('minutes')?.setValue(opt)">
+            +{{ opt }} min
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Reason</label>
+        <textarea
+          formControlName="reason"
+          class="form-control"
+          rows="3"
+          placeholder="e.g. Property is larger than listed, extra rooms to clean..."
+        ></textarea>
+        <span *ngIf="extensionForm.get('reason')?.invalid && extensionForm.get('reason')?.touched" class="field-error">
+          Please provide a reason (min 10 characters)
+        </span>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" (click)="closeExtension()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="extensionSubmitting">
+          <span *ngIf="extensionSubmitting" class="spinner"></span>
+          <span *ngIf="!extensionSubmitting">Send request</span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
