@@ -1,0 +1,75 @@
+<div class="page-wrap">
+
+  <div class="page-header">
+    <h1 class="page-title">Documents</h1>
+    <p class="page-sub">{{ verifiedCount }}/{{ requiredDocs.length }} documents verified</p>
+  </div>
+
+  <!-- ── Progress bar ── -->
+  <div class="progress-bar-wrap">
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="(verifiedCount / requiredDocs.length) * 100"></div>
+    </div>
+    <span class="progress-text">{{ verifiedCount }}/{{ requiredDocs.length }} verified</span>
+  </div>
+
+  <div *ngIf="loading" class="empty-block">
+    <span class="spinner"></span>
+  </div>
+
+  <!-- ── Hidden file input ── -->
+  <input #fileInput type="file" accept=".pdf,.jpg,.jpeg,.png" style="display:none" (change)="onFileSelected($event)" />
+
+  <!-- ── Document cards ── -->
+  <div *ngFor="let req of requiredDocs" class="doc-card">
+
+    <ng-container *ngIf="getDoc(req.type) as doc; else noDoc">
+      <div class="doc-top">
+        <div class="doc-icon" [ngClass]="'doc-icon--' + doc.status">
+          {{ doc.status === 'verified' ? '✓' : doc.status === 'rejected' ? '✕' : '…' }}
+        </div>
+        <div class="doc-meta">
+          <p class="doc-name">{{ req.label }}</p>
+          <p class="doc-file">{{ doc.fileName ?? 'Uploaded' }}</p>
+          <p *ngIf="doc.uploadedAt" class="doc-date">Uploaded {{ doc.uploadedAt | date:'d MMM yyyy' }}</p>
+          <p *ngIf="doc.expiresAt" class="doc-expiry">Expires {{ doc.expiresAt | date:'d MMM yyyy' }}</p>
+        </div>
+        <span class="pill" [ngClass]="getStatusClass(doc.status)">{{ getStatusLabel(doc.status) }}</span>
+      </div>
+
+      <div *ngIf="doc.rejectionReason" class="rejection-note">
+        {{ doc.rejectionReason }}
+      </div>
+
+      <div class="doc-actions">
+        <button class="btn btn-ghost btn-sm" (click)="triggerUpload(req.type)" [disabled]="uploading === req.type">
+          <span *ngIf="uploading === req.type" class="spinner"></span>
+          <span *ngIf="uploading !== req.type">{{ doc.status === 'rejected' ? 'Re-upload' : 'Replace' }}</span>
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-template #noDoc>
+      <div class="doc-top">
+        <div class="doc-icon doc-icon--empty">+</div>
+        <div class="doc-meta">
+          <p class="doc-name">{{ req.label }}</p>
+          <p class="doc-desc">{{ req.description }}</p>
+        </div>
+        <span class="pill pill-gray">Missing</span>
+      </div>
+      <button class="btn btn-accent btn-sm btn-block" style="margin-top:12px;"
+        (click)="triggerUpload(req.type)" [disabled]="uploading === req.type">
+        <span *ngIf="uploading === req.type" class="spinner"></span>
+        <span *ngIf="uploading !== req.type">Upload document</span>
+      </button>
+    </ng-template>
+
+  </div>
+
+  <!-- ── Info note ── -->
+  <div class="info-note">
+    All documents are reviewed within 1–2 business days. You need all required documents verified before you can accept jobs.
+  </div>
+
+</div>

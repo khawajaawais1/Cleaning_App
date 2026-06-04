@@ -1,0 +1,202 @@
+.page-header { margin-bottom: 16px; }
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+  margin-bottom: 16px;
+}
+
+.tab {
+  flex: 1;
+  height: 34px;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: all .15s;
+
+  &.active {
+    background: var(--brand);
+    color: #fff;
+  }
+
+  &:hover:not(.active) { color: var(--text-1); }
+}
+
+/* ── Job item ── */
+.job-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  margin-bottom: 12px;
+
+  &.in-progress {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent-light);
+  }
+}
+
+.ji-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.ji-type { font-size: 15px; font-weight: 700; color: var(--text-1); margin-bottom: 2px; }
+.ji-ref  { font-size: 11px; color: var(--text-4); font-weight: 500; }
+
+.ji-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ji-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ji-customer { font-size: 13px; font-weight: 600; color: var(--text-1); }
+.ji-addr     { font-size: 12px; color: var(--text-3); }
+
+.ji-time-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.ji-date   { font-size: 12px; font-weight: 600; color: var(--text-2); }
+.ji-dot    { color: var(--text-4); font-size: 14px; }
+.ji-slot   { font-size: 12px; color: var(--text-2); }
+.ji-elapsed { font-size: 12px; color: var(--accent); font-weight: 600; background: var(--accent-light); padding: 1px 8px; border-radius: 999px; }
+
+.ji-notes {
+  font-size: 12px;
+  color: var(--text-3);
+  font-style: italic;
+  margin-bottom: 8px;
+  padding: 8px 10px;
+  background: var(--bg);
+  border-radius: var(--radius);
+}
+
+.ji-earn-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  background: var(--brand-light);
+  border-radius: var(--radius);
+}
+
+.ji-earn-label { font-size: 12px; color: var(--text-2); }
+.ji-earn       { font-size: 16px; font-weight: 700; color: var(--brand); }
+
+.ji-extension-pending {
+  font-size: 12px;
+  color: #92400e;
+  background: var(--warning-bg);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  margin-bottom: 10px;
+}
+
+.ji-actions {
+  display: flex;
+  gap: 8px;
+
+  button { flex: 1; }
+}
+
+.field-error {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--danger);
+}
+
+/* ── Extension modal ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal-sheet {
+  background: var(--surface);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 16px 20px calc(24px + var(--safe-bottom));
+  width: 100%;
+  max-width: 480px;
+  max-height: 80dvh;
+  overflow-y: auto;
+}
+
+.modal-handle {
+  width: 36px;
+  height: 4px;
+  background: var(--border-mid);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+
+.modal-title { font-size: 17px; font-weight: 700; color: var(--text-1); margin-bottom: 4px; }
+.modal-sub   { font-size: 12px; color: var(--text-3); margin-bottom: 20px; }
+
+.minutes-picker {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.min-btn {
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all .15s;
+
+  &.active {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: #fff;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+
+  button { flex: 1; height: 44px; }
+}

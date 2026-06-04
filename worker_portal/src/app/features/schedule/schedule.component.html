@@ -1,0 +1,64 @@
+<div class="page-wrap">
+
+  <div class="page-header">
+    <h1 class="page-title">Schedule</h1>
+    <p class="page-sub">Your upcoming job calendar</p>
+  </div>
+
+  <!-- ── Horizontal date strip ── -->
+  <div class="date-strip-wrap">
+    <div class="date-strip">
+      <button
+        *ngFor="let day of calendarDays"
+        class="day-pill"
+        [class.selected]="day.isSelected"
+        [class.today]="day.isToday"
+        (click)="selectDay(day)">
+        <span class="day-label">{{ day.label }}</span>
+        <span *ngIf="day.hasJob" class="day-dot"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Loading ── -->
+  <div *ngIf="loading" class="empty-block">
+    <span class="spinner"></span>
+  </div>
+
+  <!-- ── No jobs on selected day ── -->
+  <div *ngIf="!loading && dayGroups.length === 0" class="empty-block">
+    <span class="empty-icon">📅</span>
+    <p class="empty-title">No jobs scheduled</p>
+    <p class="empty-sub">Nothing booked for this day</p>
+  </div>
+
+  <!-- ── Job list ── -->
+  <div *ngFor="let group of dayGroups">
+
+    <p class="day-heading">{{ group.label }}</p>
+
+    <div *ngFor="let job of group.jobs" class="schedule-card">
+      <div class="sc-time">
+        <span class="sc-start">{{ job.scheduledStart }}</span>
+        <div class="sc-line"></div>
+        <span class="sc-end">{{ job.scheduledEnd }}</span>
+        <span class="sc-dur">{{ job.durationMinutes / 60 | number:'1.0-1' }}h</span>
+      </div>
+
+      <div class="sc-body">
+        <div class="sc-top">
+          <span class="sc-type">{{ job.serviceType }}</span>
+          <span class="pill" [ngClass]="getStatusClass(job.status)">{{ getStatusLabel(job.status) }}</span>
+        </div>
+        <p class="sc-customer">{{ job.customer.name }}</p>
+        <p class="sc-addr">{{ job.location.address }}, {{ job.location.postcode }}</p>
+        <div class="sc-footer">
+          <span class="sc-ref">{{ job.bookingRef }}</span>
+          <span class="sc-earn">£{{ job.earnings | number:'1.2-2' }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

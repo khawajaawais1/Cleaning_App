@@ -1,0 +1,126 @@
+<div class="page-wrap">
+
+  <!-- ── Profile header ── -->
+  <div class="profile-header">
+    <div class="profile-avatar">{{ getInitials() }}</div>
+    <div class="profile-info">
+      <h1 class="profile-name">{{ profile?.firstName }} {{ profile?.lastName }}</h1>
+      <p class="profile-service">{{ profile?.serviceType }}</p>
+      <div class="profile-badges">
+        <span class="pill" [ngClass]="statusClass">{{ statusLabel }}</span>
+        <span *ngIf="profile?.isOnline" class="pill pill-green">Online</span>
+        <span *ngIf="!profile?.isOnline" class="pill pill-gray">Offline</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Stats ── -->
+  <div class="profile-stats">
+    <div class="ps-item">
+      <p class="ps-val">{{ profile?.rating | number:'1.1-1' }}</p>
+      <p class="ps-label">Rating</p>
+    </div>
+    <div class="ps-divider"></div>
+    <div class="ps-item">
+      <p class="ps-val">{{ profile?.completedJobs }}</p>
+      <p class="ps-label">Jobs done</p>
+    </div>
+    <div class="ps-divider"></div>
+    <div class="ps-item">
+      <p class="ps-val">{{ profile?.city }}</p>
+      <p class="ps-label">City</p>
+    </div>
+  </div>
+
+  <!-- ── Availability toggle ── -->
+  <div class="avail-row card">
+    <div>
+      <p class="avail-title">Available for jobs</p>
+      <p class="avail-sub">{{ profile?.isOnline ? 'You are visible to new job requests' : 'You are hidden from job requests' }}</p>
+    </div>
+    <div class="toggle-wrap"
+         [class.on]="profile?.isOnline"
+         [class.busy]="togglingOnline"
+         (click)="toggleOnline()">
+      <div class="toggle-knob" [class.toggle-knob--on]="profile?.isOnline"></div>
+    </div>
+  </div>
+
+  <!-- ── Edit / view form ── -->
+  <div class="card" style="margin-top: 12px;">
+    <div class="form-section-header">
+      <p class="section-title" style="margin-bottom:0">Personal details</p>
+      <button *ngIf="!editMode" class="btn btn-ghost btn-sm" (click)="editMode = true">Edit</button>
+      <button *ngIf="editMode"  class="btn btn-ghost btn-sm" (click)="editMode = false">Cancel</button>
+    </div>
+
+    <div *ngIf="!editMode" class="detail-list">
+      <div class="detail-row">
+        <span class="detail-label">Email</span>
+        <span class="detail-val">{{ profile?.email }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Phone</span>
+        <span class="detail-val">{{ profile?.phone }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">City</span>
+        <span class="detail-val">{{ profile?.city }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Service</span>
+        <span class="detail-val">{{ profile?.serviceType }}</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Member since</span>
+        <span class="detail-val">{{ profile?.joinedDate | date:'MMMM yyyy' }}</span>
+      </div>
+    </div>
+
+    <form *ngIf="editMode" [formGroup]="form" (ngSubmit)="saveProfile()" novalidate>
+      <div class="form-group">
+        <label class="form-label">Phone number</label>
+        <input formControlName="phone" type="tel" class="form-control" placeholder="+44 7700 000000" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">City</label>
+        <select formControlName="city" class="form-control">
+          <option value="">Select city</option>
+          <option *ngFor="let c of cities" [value]="c">{{ c }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service type</label>
+        <select formControlName="serviceType" class="form-control">
+          <option value="">Select service</option>
+          <option *ngFor="let s of serviceTypes" [value]="s">{{ s }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Bio (optional)</label>
+        <textarea formControlName="bio" class="form-control" rows="3" placeholder="Tell customers a bit about yourself..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="saving">
+        <span *ngIf="saving" class="spinner"></span>
+        <span *ngIf="!saving">Save changes</span>
+      </button>
+    </form>
+  </div>
+
+  <!-- ── Quick links ── -->
+  <div class="menu-list card" style="margin-top: 12px;">
+    <a routerLink="/documents" class="menu-item">
+      <span class="menu-icon">📄</span>
+      <span>My documents</span>
+      <span class="menu-arrow">›</span>
+    </a>
+    <div class="menu-item" (click)="logout()">
+      <span class="menu-icon">🚪</span>
+      <span>Sign out</span>
+      <span class="menu-arrow">›</span>
+    </div>
+  </div>
+
+  <p class="version-text">Happy2Clean Worker · v1.0.0</p>
+
+</div>

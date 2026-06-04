@@ -1,0 +1,11 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "ServiceBusConnectionString": "your-service-bus-connection-string",
+    "LocationQueueName": "worker-location-updates",
+    "WebPubSubConnectionString": "your-web-pubsub-connection-string",
+    "WebPubSubHubName": "jobtracking"
+  }
+}
