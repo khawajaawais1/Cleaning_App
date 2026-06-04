@@ -1,0 +1,166 @@
+<div class="wizard-shell" *ngIf="!loading">
+
+  <!-- Sidebar -->
+  <aside class="wiz-sidebar">
+    <div class="wsb-logo">
+      <div class="wsb-logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M3 10.5L12 3L21 10.5V20C21 20.5523 20.5523 21 20 21H15.5V15.5H8.5V21H4C3.44772 21 3 20.5523 3 20V10.5Z" fill="white"/>
+        </svg>
+      </div>
+      <span class="wsb-logo-text">Happy2Clean</span>
+    </div>
+    <p class="wsb-eyebrow">STEP 7 OF 8</p>
+    <h2 class="wsb-headline">
+      {{ workerAssigned ? 'Match' : 'Finding your' }}
+      <span class="wsb-green">{{ workerAssigned ? ' found!' : ' match.' }}</span>
+    </h2>
+    <p class="wsb-desc">
+      {{ workerAssigned
+          ? 'Your cleaner is confirmed and on the way soon. You\'ll get a notification when they depart.'
+          : 'Our system checks availability among verified cleaners near you. You\'ll be notified as soon as someone is confirmed.' }}
+    </p>
+    <div class="wsb-stats">
+      <div class="wstat"><strong>4.9</strong><small>AVG RATING</small></div>
+      <div class="wstat"><strong>2.3k</strong><small>CLEANS / WEEK</small></div>
+      <div class="wstat"><strong>€25</strong><small>FROM / HOUR</small></div>
+      <div class="wstat"><strong>100%</strong><small>RE-CLEAN GUARANTEE</small></div>
+    </div>
+    <div class="wsb-trust">
+      <div class="wsb-avatars">
+        <div class="wsb-av">MK</div>
+        <div class="wsb-av">JR</div>
+        <div class="wsb-av">PN</div>
+      </div>
+      <span class="wsb-trust-text">Trusted by 1,800+ Helsinki-area customers</span>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="wiz-main match-main">
+    <a routerLink="/" class="wm-back">← Back to home</a>
+
+    <div class="wm-step-label">7 · MATCHING</div>
+    <h1 class="wm-title">{{ workerAssigned ? 'Cleaner matched!' : 'Finding your cleaner…' }}</h1>
+    <p class="wm-sub">Matching you with the best available professional nearby.</p>
+
+    <div class="match-grid">
+
+      <!-- Left: Matching Status -->
+      <div class="match-left">
+        <p class="field-group-label">MATCHING STATUS</p>
+
+        <div class="match-steps">
+          <div class="match-step" *ngFor="let s of steps; let i = index"
+               [class.match-step--done]="s.status === 'done'"
+               [class.match-step--active]="s.status === 'active'"
+               [class.match-step--pending]="s.status === 'pending'">
+
+            <!-- Connector line -->
+            <div class="ms-line" *ngIf="i < steps.length - 1"></div>
+
+            <!-- Icon -->
+            <div class="ms-icon">
+              <ng-container *ngIf="s.status === 'done'">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 7l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </ng-container>
+              <ng-container *ngIf="s.status === 'active'">
+                <div class="ms-pulse"></div>
+              </ng-container>
+              <ng-container *ngIf="s.status === 'pending'">
+                <div class="ms-dot"></div>
+              </ng-container>
+            </div>
+
+            <!-- Text -->
+            <div class="ms-text">
+              <span class="ms-label">{{ s.label }}</span>
+              <span class="ms-sub">{{ s.sub }}</span>
+            </div>
+
+            <!-- Badge -->
+            <span class="ms-badge ms-badge--done"    *ngIf="s.status === 'done'">Done</span>
+            <span class="ms-badge ms-badge--active"  *ngIf="s.status === 'active'">Active</span>
+          </div>
+        </div>
+
+        <!-- Worker matched card -->
+        <div class="worker-matched-card" *ngIf="workerAssigned">
+          <div class="wmc-avatar">{{ booking.worker.initials ?? booking.worker.fullName[0] }}</div>
+          <div class="wmc-body">
+            <strong class="wmc-name">{{ booking.worker.fullName }} matched!</strong>
+            <span class="wmc-meta">
+              ⭐ {{ booking.worker.rating | number:'1.1-1' }} ·
+              {{ booking.worker.completedJobs }} jobs ·
+              {{ booking.worker.serviceType ?? booking.serviceType }} specialist
+            </span>
+          </div>
+          <a routerLink="/my-bookings" class="wmc-track-btn">View booking →</a>
+        </div>
+      </div>
+
+      <!-- Right: Booking summary + Nearby workers -->
+      <div class="match-right">
+
+        <!-- Your Booking -->
+        <p class="field-group-label">YOUR BOOKING</p>
+        <div class="booking-card">
+          <div class="bc-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z" fill="#738279"/></svg>
+            <span>{{ booking?.address }}</span>
+          </div>
+          <div class="bc-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#738279" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="#738279" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>{{ scheduledLabel }}</span>
+          </div>
+          <div class="bc-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#738279" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="#738279" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>~{{ (booking?.durationMinutes ?? 0) / 60 | number:'1.0-0' }} hours</span>
+          </div>
+          <div class="bc-row">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="#738279" stroke-width="1.5"/><path d="M2 10h20" stroke="#738279" stroke-width="1.5"/></svg>
+            <span>{{ nearbyWorkers[0]?.matched ? 'Visa ···· ' + (booking?.worker?.id ?? '----') : 'Pay on completion' }}</span>
+          </div>
+        </div>
+
+        <!-- Nearby Workers -->
+        <p class="field-group-label" style="margin-top:20px">NEARBY WORKERS</p>
+        <div class="nearby-list">
+          <div class="nearby-row"
+               *ngFor="let w of nearbyWorkers"
+               [class.nearby-row--matched]="w.matched">
+            <div class="nearby-av" [class.nearby-av--green]="w.matched">{{ w.initials }}</div>
+            <div class="nearby-info">
+              <strong>{{ w.fullName }}</strong>
+              <span>⭐ {{ w.rating }} · {{ w.distance }} · {{ w.availability }}</span>
+            </div>
+            <span class="nearby-badge" *ngIf="w.matched">Matched</span>
+            <span class="nearby-status" *ngIf="!w.matched">{{ w.availability }}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Stepper -->
+  <nav class="wiz-stepper">
+    <div class="wstep wstep--done">1 · Sign Up</div><div class="wstep-sep">›</div>
+    <div class="wstep wstep--done">2 · Select Service</div><div class="wstep-sep">›</div>
+    <div class="wstep wstep--done">3 · Address &amp; Schedule</div><div class="wstep-sep">›</div>
+    <div class="wstep wstep--done">4 · Add-ons &amp; Price</div><div class="wstep-sep">›</div>
+    <div class="wstep wstep--done">5 · Photos &amp; Notes</div><div class="wstep-sep">›</div>
+    <div class="wstep wstep--done">6 · Confirm Booking</div><div class="wstep-sep">›</div>
+    <div class="wstep wstep--active">7 · Matching</div><div class="wstep-sep">›</div>
+    <div class="wstep">8 · Live Tracking</div>
+  </nav>
+
+</div>
+
+<!-- Loading state -->
+<div class="match-loading" *ngIf="loading">
+  <div class="match-spinner"></div>
+  <p>Loading booking details…</p>
+</div>

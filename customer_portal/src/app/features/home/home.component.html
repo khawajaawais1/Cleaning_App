@@ -1,0 +1,195 @@
+<!-- ══════════════════════════════════════════════════ HERO ══ -->
+<section class="hero">
+  <div class="container hero-grid">
+
+    <!-- Left -->
+    <div class="hero-text">
+      <div class="eco-badge">🌿 Eco-friendly · Vetted cleaners · Helsinki-area</div>
+      <h1>Come home to a<br><span class="hero-green">cleaner that cares.</span></h1>
+      <p class="hero-body">
+        CleanApp pairs you with a background-checked, top-rated home cleaner in minutes.
+        Pick your service, choose a time that works for you, and watch them arrive on a live map —
+        all with transparent pricing in euros and no surprise fees.
+      </p>
+      <div class="hero-ctas">
+        <a routerLink="/book" class="btn btn-dark btn-lg">Get my first clean →</a>
+        <a href="#how-it-works" class="btn btn-ghost btn-lg">▶ How it works</a>
+      </div>
+      <div class="social-proof">
+        <div class="av-row">
+          <div class="av av-mk">MK</div>
+          <div class="av av-jr">JR</div>
+          <div class="av av-pn">PN</div>
+          <div class="av av-so">SO</div>
+          <div class="av av-al">AL</div>
+        </div>
+        <div class="rating-wrap">
+          <span class="stars">★★★★★</span>
+          <strong>4.9/5</strong>
+          <span class="rating-sub">from 1,800+ verified bookings</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right — hero image -->
+    <div class="hero-visual">
+      <div class="hero-img-wrap">
+        <!-- Floating card top -->
+        <div class="float-top">
+          <span class="float-label">TONIGHT</span>
+          <span class="float-price">€90 booked</span>
+          <span class="float-svc">· Deep Clean</span>
+        </div>
+        <!-- Hero image -->
+        <img src="assets/images/hero.png" alt="Professional cleaner at work" class="hero-photo" />
+        <!-- Floating card bottom -->
+        <div class="float-bottom">
+          <div class="float-av">MK</div>
+          <div class="float-info">
+            <strong>Maria K. is on the way</strong>
+            <span>Arrives ~8 min · Deep clean specialist</span>
+          </div>
+          <div class="live-badge"><span class="live-dot"></span>Live</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ TRUST BAR ══ -->
+<div class="trust-bar">
+  <div class="container trust-inner">
+    <div class="trust-item"><span>🛡️</span>ID-checked &amp; insured</div>
+    <div class="trust-item"><span>🌿</span>Eco-friendly products</div>
+    <div class="trust-item"><span>⏰</span>On time, every time</div>
+    <div class="trust-item"><span>🔄</span>Free re-clean if not happy</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ HOW IT WORKS ══ -->
+<section id="how-it-works" class="how-section">
+  <div class="container">
+    <div class="section-label">HOW IT WORKS</div>
+    <h2 class="section-title">Booked in 3 minutes.<br><span class="accent">Cleaned in three hours.</span></h2>
+    <div class="steps-grid">
+      <div class="step-card" *ngFor="let s of steps">
+        <div class="step-card-head">
+          <span class="step-num-label">STEP {{ s.num }}</span>
+          <span class="step-icon">{{ s.icon }}</span>
+        </div>
+        <h3>{{ s.title }}</h3>
+        <p>{{ s.desc }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ SERVICES ══ -->
+<section id="services" class="services-section">
+  <div class="container">
+    <div class="services-head">
+      <div>
+        <div class="section-label">SERVICES</div>
+        <h2 class="section-title" style="margin-bottom:0">One app, every kind of clean.</h2>
+      </div>
+      <a routerLink="/book" class="see-all-link">See all add-ons →</a>
+    </div>
+    <div class="services-grid">
+      <div class="service-card card" *ngFor="let s of services">
+        <div class="svc-photo-wrap">
+          <div class="svc-icon-large">{{ s.icon }}</div>
+        </div>
+        <div class="svc-body">
+          <h3>{{ s.label }}</h3>
+          <p>{{ s.tagline }}</p>
+          <div class="svc-footer">
+            <div class="svc-price">€{{ s.ratePerHour }}<span>/h</span><small>from</small></div>
+            <a routerLink="/book" class="book-link">Book →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════ WHY US ══ -->
+<section class="why-section">
+  <div class="container why-grid">
+    <div class="why-left">
+      <div class="section-label">WHY Happy2Clean</div>
+      <h2 class="section-title">Not just a clean.<br><span class="accent">A standard.</span></h2>
+      <p class="why-body">Most cleaning apps are middlemen. We're a tight network of vetted cleaners who actually care about doing it right — and we back every booking with a re-clean guarantee.</p>
+    </div>
+    <div class="why-right">
+      <div class="features-grid">
+        <div class="feature-card card" *ngFor="let f of features">
+          <div class="feat-icon">{{ f.icon }}</div>
+          <h4>{{ f.title }}</h4>
+          <p>{{ f.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ TESTIMONIALS ══ -->
+<section class="reviews-section">
+  <div class="container">
+    <div class="reviews-grid">
+      <div class="review-card card" *ngFor="let t of testimonials">
+        <div class="stars">{{ '★'.repeat(t.stars) }}</div>
+        <p class="review-text">{{ t.text }}</p>
+        <div class="reviewer">
+          <strong>{{ t.name }}</strong>
+          <span>{{ t.meta }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ PRICING ══ -->
+<section id="pricing" class="pricing-section">
+  <div class="container pricing-grid">
+    <div class="pricing-left">
+      <div class="section-label" style="color:rgba(255,255,255,.55)">SIMPLE PRICING</div>
+      <h2 class="pricing-title">From <span class="price-accent">€25/hour.</span><br>Pay only when the job is done.</h2>
+      <p class="pricing-body">No subscriptions, no commitments. Add €5 platform fee, choose your add-ons, see your total upfront. Card only charged on completion.</p>
+      <div class="pricing-ctas">
+        <a routerLink="/book" class="btn btn-green">Book my first clean →</a>
+        <a routerLink="/login" class="btn btn-outline-light">I have an account</a>
+      </div>
+    </div>
+    <div class="pricing-right">
+      <div class="price-grid">
+        <div class="price-box"><span class="pb-label">STANDARD</span><span class="pb-price">€25<sub>/h</sub></span></div>
+        <div class="price-box price-box--highlight"><span class="pb-label">DEEP</span><span class="pb-price">€35<sub>/h</sub></span></div>
+        <div class="price-box"><span class="pb-label">OFFICE</span><span class="pb-price">€30<sub>/h</sub></span></div>
+        <div class="price-box"><span class="pb-label">MOVE-OUT</span><span class="pb-price">€30<sub>/h</sub></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ FAQ ══ -->
+<section id="faq" class="faq-section">
+  <div class="container faq-grid">
+    <div class="faq-left">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Quick answers.</h2>
+      <p class="faq-sub">Still have a question? Our team replies in under 5 minutes during the day.</p>
+      <!-- <a href="mailto:hello@cleanapp.com" class="faq-email">✉ hello@cleanapp.com</a> -->
+    </div>
+    <div class="faq-right">
+      <div class="faq-list">
+        <div class="faq-item" *ngFor="let f of faqs; let i = index" [class.open]="openFaq === i">
+          <button class="faq-q" (click)="toggle(i)">
+            {{ f.q }}
+            <span class="faq-toggle">{{ openFaq === i ? '−' : '+' }}</span>
+          </button>
+          <div class="faq-a" *ngIf="openFaq === i">{{ f.a }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,129 @@
+.pm-wrap {
+  padding: 28px 28px 24px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Header */
+.pm-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 20px;
+}
+.pm-title {
+  font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 400;
+  color: #1a231e; margin: 0 0 4px;
+}
+.pm-sub { font-size: 13px; color: #738279; margin: 0; }
+.pm-close {
+  width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #e5e7e4;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
+  &:hover { background: #f5f6f4; }
+}
+
+.pm-error {
+  background: #fee2e2; color: #991b1b; border: 1px solid #fecaca;
+  border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 16px;
+}
+
+/* Saved card */
+.saved-card {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px; border: 1.5px solid #e5e7e4; border-radius: 12px;
+  cursor: pointer; transition: all .15s; margin-bottom: 8px;
+  &:hover { border-color: #738279; }
+  &--active { border-color: #25ae59; background: #edfbf2; }
+}
+.visa-chip { display: flex; align-items: center; gap: 6px; }
+.visa-text { font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 700; color: #738279; }
+.saved-card-info {
+  flex: 1; display: flex; flex-direction: column; gap: 2px;
+  strong { font-size: 14px; color: #1a231e; font-weight: 600; }
+  span { font-size: 12px; color: #738279; }
+}
+
+/* Divider */
+.pm-divider {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 12px; color: #aab8b2; margin: 12px 0;
+  &::before, &::after { content: ''; flex: 1; height: 1px; background: #e5e7e4; }
+}
+
+.pm-alt-btn {
+  width: 100%; padding: 11px; border: 1.5px dashed #e5e7e4;
+  border-radius: 10px; background: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px; font-weight: 600; color: #738279; cursor: pointer;
+  margin-bottom: 16px; transition: all .15s;
+  &:hover { border-color: #25ae59; color: #25ae59; }
+}
+
+/* Card visual preview */
+.card-preview {
+  background: linear-gradient(135deg, #1a231e 0%, #2d4a3e 60%, #1a3530 100%);
+  border-radius: 14px; padding: 20px; color: #fff; margin-bottom: 18px;
+  position: relative; overflow: hidden;
+  &::after {
+    content: ''; position: absolute; right: -20px; bottom: -20px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: rgba(255,255,255,.05);
+  }
+}
+.card-preview-dots { margin-bottom: 16px; }
+.card-preview-number {
+  font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 400;
+  letter-spacing: 3px; margin-bottom: 20px; color: rgba(255,255,255,.9);
+}
+.card-preview-footer {
+  display: flex; align-items: flex-end; gap: 24px;
+}
+.card-preview-label {
+  font-size: 8px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 3px;
+}
+.card-preview-value {
+  font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 400;
+  color: #fff; text-transform: uppercase; letter-spacing: 1px;
+}
+.card-preview-brand {
+  margin-left: auto; font-family: 'Outfit', sans-serif;
+  font-size: 18px; font-weight: 400; color: rgba(255,255,255,.9);
+  letter-spacing: 1px;
+}
+
+/* Card input fields */
+.card-field-group {
+  display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px;
+}
+.card-field-label {
+  font-size: 13px; font-weight: 600; color: #1a231e;
+}
+.card-field-input {
+  padding: 13px 14px; border: 1.5px solid #e5e7e4; border-radius: 8px;
+  background: #fff; transition: border-color .15s;
+  &:focus-within { border-color: #25ae59; box-shadow: 0 0 0 3px rgba(37,174,89,.1); }
+}
+.card-text-input {
+  padding: 13px 14px; border: 1.5px solid #e5e7e4; border-radius: 8px;
+  background: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px; color: #1a231e; outline: none; width: 100%;
+  &::placeholder { color: #aab8b2; }
+  &:focus { border-color: #25ae59; box-shadow: 0 0 0 3px rgba(37,174,89,.1); }
+}
+.card-field-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.card-security-note {
+  display: flex; align-items: flex-start; gap: 6px;
+  font-size: 12px; color: #738279; margin-bottom: 16px; line-height: 1.5;
+  svg { flex-shrink: 0; margin-top: 1px; }
+}
+
+/* Pay button */
+.pm-pay-btn {
+  width: 100%; padding: 16px; background: #25ae59; color: #fff; border: none;
+  border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: background .15s; margin-top: 4px;
+  &:hover { background: #1d8a47; }
+  &:disabled { opacity: .55; cursor: not-allowed; }
+}

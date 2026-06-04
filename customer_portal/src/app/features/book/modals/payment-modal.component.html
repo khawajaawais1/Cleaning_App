@@ -1,0 +1,102 @@
+<div class="pm-wrap">
+
+  <!-- Header -->
+  <div class="pm-header">
+    <div>
+      <h4 class="pm-title">Payment details</h4>
+      <p class="pm-sub">Confirm your card to secure the booking.</p>
+    </div>
+    <button class="pm-close" (click)="modal?.dismiss()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M12 4L4 12M4 4l8 8" stroke="#738279" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Error -->
+  <div class="pm-error" *ngIf="error">{{ error }}</div>
+
+  <!-- Saved card row (default) -->
+  <div class="saved-card" [class.saved-card--active]="!useNewCard" (click)="useNewCard = false">
+    <div class="visa-chip">
+      <svg width="28" height="20" viewBox="0 0 28 20" fill="none">
+        <rect width="28" height="20" rx="3" fill="#F5A623"/>
+        <rect x="2" y="6" width="8" height="8" rx="1" fill="#D4881E"/>
+      </svg>
+      <span class="visa-text">VISA</span>
+    </div>
+    <div class="saved-card-info">
+      <strong>•••• •••• •••• 4291</strong>
+      <span>Visa · Expires 08 / 27</span>
+    </div>
+    <div class="saved-card-check" *ngIf="!useNewCard">
+      <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#25ae59"/><path d="M6 10l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="pm-divider">or use a different card</div>
+
+  <!-- New card section -->
+  <ng-container *ngIf="!useNewCard">
+    <button class="pm-alt-btn" (click)="onNewCardToggle()">+ Enter new card</button>
+  </ng-container>
+
+  <ng-container *ngIf="useNewCard">
+    <!-- Visual card preview -->
+    <div class="card-preview">
+      <div class="card-preview-dots">
+        <svg width="40" height="28" viewBox="0 0 40 28" fill="none">
+          <rect width="40" height="28" rx="4" fill="#F5A623"/>
+          <rect x="3" y="8" width="12" height="10" rx="1.5" fill="#D4881E"/>
+        </svg>
+      </div>
+      <div class="card-preview-number">{{ cardDisplay }}</div>
+      <div class="card-preview-footer">
+        <div>
+          <div class="card-preview-label">CARD HOLDER</div>
+          <div class="card-preview-value">{{ cardholderName || 'YOUR NAME' }}</div>
+        </div>
+        <div>
+          <div class="card-preview-label">EXPIRES</div>
+          <div class="card-preview-value">{{ cardExpiry }}</div>
+        </div>
+        <div class="card-preview-brand">VISA</div>
+      </div>
+    </div>
+
+    <!-- Stripe card fields -->
+    <div class="card-field-group">
+      <label class="card-field-label">Card Number</label>
+      <div class="card-field-input" id="card-number-el"></div>
+    </div>
+    <div class="card-field-group">
+      <label class="card-field-label">Cardholder Name</label>
+      <input class="card-text-input" type="text" [(ngModel)]="cardholderName" placeholder="Sarah Mitchell">
+    </div>
+    <div class="card-field-row">
+      <div class="card-field-group">
+        <label class="card-field-label">Expiry Date</label>
+        <div class="card-field-input" id="card-expiry-el"></div>
+      </div>
+      <div class="card-field-group">
+        <label class="card-field-label">CVV</label>
+        <div class="card-field-input" id="card-cvc-el"></div>
+      </div>
+    </div>
+    <p class="card-security-note">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L2 3v3.5c0 2.8 2 5.1 4.5 5.5C9 11.6 11 9.3 11 6.5V3L6.5 1z" stroke="#738279" stroke-width="1.2" stroke-linejoin="round"/></svg>
+      Your card details are encrypted and secure. We never store your CVV.
+    </p>
+  </ng-container>
+
+  <!-- Pay button -->
+  <button class="pm-pay-btn" (click)="pay()" [disabled]="processing">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <rect x="2" y="5" width="20" height="14" rx="2" stroke="white" stroke-width="1.8"/>
+      <path d="M2 10h20" stroke="white" stroke-width="1.8"/>
+    </svg>
+    <span>{{ processing ? 'Processing…' : (useNewCard ? 'Save & Pay €' + amount : 'Pay €' + amount + ' · Confirm Booking') }}</span>
+  </button>
+
+</div>

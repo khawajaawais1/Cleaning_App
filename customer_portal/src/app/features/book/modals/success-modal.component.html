@@ -1,0 +1,42 @@
+<div class="sm-wrap">
+
+  <!-- Animated check icon -->
+  <div class="sm-icon-ring">
+    <div class="sm-icon-circle">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <path class="sm-check" d="M10 18l6 6 10-10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <h3 class="sm-title">Booking confirmed!</h3>
+  <p class="sm-sub">Your cleaner has been booked and will arrive at the scheduled time.</p>
+
+  <!-- Booking details pill -->
+  <div class="sm-card">
+    <div class="sm-row">
+      <span class="sm-key">Booking ref</span>
+      <strong class="sm-val">{{ bookingNumber }}</strong>
+    </div>
+    <div class="sm-divider"></div>
+    <div class="sm-row">
+      <span class="sm-key">Service</span>
+      <strong class="sm-val">{{ serviceName }}</strong>
+    </div>
+    <div class="sm-row">
+      <span class="sm-key">Date</span>
+      <strong class="sm-val">{{ scheduledDate }}</strong>
+    </div>
+    <div class="sm-divider"></div>
+    <div class="sm-row">
+      <span class="sm-key">Amount paid</span>
+      <strong class="sm-val sm-green">€{{ amount.toFixed(2) }}</strong>
+    </div>
+  </div>
+
+  <p class="sm-note">A confirmation has been sent to your email.</p>
+
+  <button class="sm-btn" (click)="close()">View my bookings</button>
+  <button class="sm-btn-ghost" (click)="modal.dismiss()">Back to home</button>
+
+</div>
