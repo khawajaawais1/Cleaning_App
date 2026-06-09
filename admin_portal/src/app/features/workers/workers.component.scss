@@ -1,6 +1,6 @@
 // ── Host & page shell ───────────────────────────────────────────────────
 :host { display: block; }
-.workers-page { padding: 28px 32px; }
+.workers-page { padding: 28px 32px; color: var(--text-1); background: var(--frame-bg); }
 
 // ── Page header ─────────────────────────────────────────────────────────
 .page-header {
@@ -12,16 +12,13 @@
 
   h1 {
     margin: 0;
-    font-size: 28px;
-    font-weight: 600;
-    color: #131f1c;
     letter-spacing: -0.02em;
   }
 
   .subtitle {
     margin: 4px 0 0;
     font-size: 12px;
-    color: #9aa49f;
+    color: var(--text-3);
     font-weight: 500;
   }
 }
@@ -186,7 +183,7 @@
 .actions-cell {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
   white-space: nowrap;
 }
 
@@ -195,13 +192,13 @@
   align-items: center;
   gap: 5px;
   font-size: 12px;
-  font-weight: 600;
-  color: #131f1c;
+  font-weight: 500;
   background: none;
   border: none;
   cursor: pointer;
+  color: #336aff;
   padding: 0;
-  &:hover { color: #27b65f; }
+  &:hover { color: #1f43a7; }
 }
 
 .btn-delete {
@@ -221,7 +218,10 @@
 .empty-state {
   padding: 40px;
   text-align: center;
-  color: #9aa49f;
+  color: var(--text-3) !important;
+  font-weight: 500;
+  flex: 1;
+  height: 20vh;
   font-size: 14px;
 }
 

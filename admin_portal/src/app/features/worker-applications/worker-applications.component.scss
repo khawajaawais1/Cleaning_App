@@ -1,5 +1,5 @@
 :host { display: block; }
-.apps-page { padding: 28px 32px; }
+.apps-page { padding: 28px 32px; color: var(--text-1); background: var(--frame-bg)}
 
 // ── Page header ──────────────────────────────────────────────────────────
 .page-header {
@@ -11,16 +11,13 @@
 
   h1 {
     margin: 0;
-    font-size: 28px;
-    font-weight: 600;
-    color: #131f1c;
     letter-spacing: -0.02em;
   }
 
   .subtitle {
     margin: 4px 0 0;
     font-size: 12px;
-    color: #9aa49f;
+    color: var(--text-3);
     font-weight: 500;
   }
 }
@@ -44,7 +41,6 @@
     border-radius: 8px;
     background: #ffffff;
     font-size: 13px;
-    color: #131f1c;
     font-family: inherit;
     outline: none;
 

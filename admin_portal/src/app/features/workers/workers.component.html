@@ -3,13 +3,26 @@
   <header class="page-header">
     <div>
       <h1>Workers</h1>
-      <p class="subtitle">{{ workers.length }} total &middot; {{ totalOnline }} online</p>
+      <p class="subtitle">
+        {{ workers.length }} total &middot; {{ totalOnline }} online
+      </p>
     </div>
     <div class="header-actions">
       <div class="search-wrap">
-        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none">
-          <circle cx="11" cy="11" r="8" stroke="#9aa49f" stroke-width="1.8"/>
-          <path d="M21 21l-4.35-4.35" stroke="#9aa49f" stroke-width="1.8" stroke-linecap="round"/>
+        <svg
+          class="search-icon"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <circle cx="11" cy="11" r="8" stroke="#9aa49f" stroke-width="1.8" />
+          <path
+            d="M21 21l-4.35-4.35"
+            stroke="#9aa49f"
+            stroke-width="1.8"
+            stroke-linecap="round"
+          />
         </svg>
         <input
           type="text"
@@ -40,44 +53,83 @@
       <tbody>
         <tr *ngFor="let w of filteredWorkers">
           <td class="worker-cell">
-            <span class="avatar" [ngClass]="getColorClass(w.initials || getInitials(w.firstName + ' ' + w.lastName))">
-              {{ w.initials || getInitials(w.firstName + ' ' + w.lastName) }}
+            <span
+              class="avatar"
+              [ngClass]="
+                getColorClass(
+                  w.initials || getInitials(w.firstName + ' ' + w.lastName)
+                )
+              "
+            >
+              {{ w.initials || getInitials(w.firstName + " " + w.lastName) }}
             </span>
             <div>
               <strong>{{ w.firstName }} {{ w.lastName }}</strong>
               <small>{{ w.email }}</small>
             </div>
           </td>
-          <td><span class="svc-badge">{{ w.serviceType }}</span></td>
+          <td>
+            <span class="svc-badge">{{ w.serviceType }}</span>
+          </td>
           <td>{{ w.city }}</td>
           <td class="rating-cell">&#9733; {{ w.rating }}</td>
           <td>{{ w.completedJobs }}</td>
           <td>
-            <span class="status-chip" [ngClass]="w.isOnline ? 'online' : 'offline'">
-              {{ w.isOnline ? 'Online' : 'Offline' }}
+            <span
+              class="status-chip"
+              [ngClass]="w.isOnline ? 'online' : 'offline'"
+            >
+              {{ w.isOnline ? "Online" : "Offline" }}
             </span>
           </td>
           <td class="actions-cell">
             <button class="btn-edit" (click)="openDrawer(w)">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                color="#336aff"
+              >
+                <path
+                  d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
               Edit
             </button>
             <button class="btn-delete" (click)="deleteWorker(w.id)">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
-                <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path
+                  d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
               Delete
             </button>
           </td>
         </tr>
+        <tr *ngIf="filteredWorkers.length === 0">
+          <td colspan="7" class="empty-state">No workers found</td>
+        </tr>
       </tbody>
     </table>
-    <div *ngIf="filteredWorkers.length === 0" class="empty-state">
+    <!-- 
+    <div *ngIf="filteredWorkers.length !== 0" class="empty-state">
       No workers found
-    </div>
+    </div> -->
   </div>
 
   <!-- Slide-in Drawer Overlay -->
@@ -87,35 +139,62 @@
   <aside class="drawer" [class.open]="drawerOpen">
     <div class="drawer-inner">
       <div class="drawer-header">
-        <span class="drawer-label">{{ editingWorker ? 'EDIT WORKER' : 'NEW WORKER' }}</span>
-        <h2 class="drawer-title">{{ editingWorker ? 'Edit worker' : 'Add a cleaner' }}</h2>
+        <span class="drawer-label">{{
+          editingWorker ? "EDIT WORKER" : "NEW WORKER"
+        }}</span>
+        <h2 class="drawer-title">
+          {{ editingWorker ? "Edit worker" : "Add a cleaner" }}
+        </h2>
       </div>
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="drawer-form">
-
         <!-- Full Name -->
         <div class="form-group">
           <label>FULL NAME</label>
-          <input type="text" formControlName="fullName" placeholder="Elena Virtanen" />
+          <input
+            type="text"
+            formControlName="fullName"
+            placeholder="Elena Virtanen"
+          />
         </div>
 
         <!-- Email -->
         <div class="form-group">
-          <label>EMAIL <span class="hint">Worker logs in with this email</span></label>
-          <input type="email" formControlName="email" placeholder="elena@cleanapp.com" />
+          <label
+            >EMAIL
+            <span class="hint">Worker logs in with this email</span></label
+          >
+          <input
+            type="email"
+            formControlName="email"
+            placeholder="elena@cleanapp.com"
+          />
         </div>
 
         <!-- Password (only on create) -->
         <div class="form-group" *ngIf="!editingWorker">
-          <label>PASSWORD <span class="hint">Default: worker123 (leave blank to use default)</span></label>
-          <input type="text" formControlName="password" placeholder="worker123" />
+          <label
+            >PASSWORD
+            <span class="hint"
+              >Default: worker123 (leave blank to use default)</span
+            ></label
+          >
+          <input
+            type="text"
+            formControlName="password"
+            placeholder="worker123"
+          />
         </div>
 
         <!-- Phone + City -->
         <div class="form-row">
           <div class="form-group">
             <label>PHONE</label>
-            <input type="text" formControlName="phone" placeholder="+358 40 555 0001" />
+            <input
+              type="text"
+              formControlName="phone"
+              placeholder="+358 40 555 0001"
+            />
           </div>
           <div class="form-group">
             <label>CITY</label>
@@ -126,18 +205,34 @@
         <!-- Speciality -->
         <div class="form-group">
           <label>SPECIALITY</label>
-          <input type="text" formControlName="serviceType" placeholder="Deep clean" />
+          <input
+            type="text"
+            formControlName="serviceType"
+            placeholder="Deep clean"
+          />
         </div>
 
         <!-- Rating + Jobs Completed -->
         <div class="form-row">
           <div class="form-group">
             <label>RATING <span class="hint">0&#8211;5</span></label>
-            <input type="number" formControlName="rating" min="0" max="5" step="0.1" placeholder="5.00" />
+            <input
+              type="number"
+              formControlName="rating"
+              min="0"
+              max="5"
+              step="0.1"
+              placeholder="5.00"
+            />
           </div>
           <div class="form-group">
             <label>JOBS COMPLETED</label>
-            <input type="number" formControlName="completedJobs" min="0" placeholder="0" />
+            <input
+              type="number"
+              formControlName="completedJobs"
+              min="0"
+              placeholder="0"
+            />
           </div>
         </div>
 
@@ -158,12 +253,19 @@
 
         <!-- Actions -->
         <div class="drawer-actions">
-          <button type="button" class="btn-cancel" (click)="closeDrawer()">Cancel</button>
+          <button type="button" class="btn-cancel" (click)="closeDrawer()">
+            Cancel
+          </button>
           <button type="submit" class="btn-submit" [disabled]="submitting">
-            {{ submitting ? 'Saving...' : (editingWorker ? '&#10003; Save changes' : '&#10003; Add worker') }}
+            {{
+              submitting
+                ? "Saving..."
+                : editingWorker
+                  ? "&#10003; Save changes"
+                  : "&#10003; Add worker"
+            }}
           </button>
         </div>
-
       </form>
     </div>
   </aside>
