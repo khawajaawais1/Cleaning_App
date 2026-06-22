@@ -3,8 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { ServiceOption, SERVICE_OPTIONS } from '../models/booking.model';
+import { environment } from '../../../environments/environment';
 
-const API_BASE = 'http://localhost:5000/api';
+/* const API_BASE = 'http://localhost:5000/api'; */
+const API_BASE = environment.apiUrl;
+
 
 export interface PlatformFee {
   fee: number;
@@ -37,6 +40,7 @@ export class PricingService {
           .map((r: any) => ({
             type:        r.serviceType,
             label:       r.label,
+            image:       r.image,
             tagline:     r.tagline,
             icon:        r.icon,
             ratePerHour: r.ratePerHour,

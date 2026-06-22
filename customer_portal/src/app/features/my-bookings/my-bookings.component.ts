@@ -57,10 +57,10 @@ export class MyBookingsComponent implements OnInit {
   // ── Formatters ────────────────────────────────────────────
   serviceIcon(s: string): string {
     const m: Record<string, string> = {
-      DeepClean: '✨', MoveInOut: '📦', OfficeClean: '🏢',
-      PostConstruction: '🏗️', StandardClean: '🧹',
+      DeepClean: 'deep-clean.svg', MoveInOut: 'move-out-clean.svg', OfficeClean: 'office-clean.svg',
+      PostConstruction: 'construction.svg', StandardClean: 'standard-clean.svg',
     };
-    return m[s] ?? '🧹';
+    return m[s] ?? 'standard-clean.svg';
   }
 
   serviceLabel(s: string): string {

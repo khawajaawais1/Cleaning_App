@@ -5,7 +5,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
 
-const WIZARD_ROUTES = ['/login', '/register', '/book'];
+const WIZARD_ROUTES = ['/login', '/register', '/book', '/matching', '/review', '/completion'];
 
 @Component({
   selector: 'app-root',

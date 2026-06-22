@@ -41,14 +41,15 @@ export interface CreateBookingDto {
 export interface ServiceOption {
   type: string;
   label: string;
+  image: string;
   tagline: string;
   icon: string;
   ratePerHour: number;
 }
 
 export const SERVICE_OPTIONS: ServiceOption[] = [
-  { type: 'StandardClean', label: 'Standard clean',  tagline: 'Regular tidy — surfaces, floors, bathrooms',        icon: '🧹', ratePerHour: 25 },
-  { type: 'DeepClean',     label: 'Deep clean',      tagline: 'Top to bottom — inside appliances, every corner',   icon: '✨', ratePerHour: 35 },
-  { type: 'OfficeClean',   label: 'Office clean',    tagline: 'Commercial spaces and shared areas',                 icon: '🏢', ratePerHour: 30 },
-  { type: 'MoveInOut',     label: 'Move-out clean',  tagline: 'End of tenancy — deposit-back standard',            icon: '📦', ratePerHour: 30 },
+  { type: 'StandardClean', label: 'Standard clean',  tagline: 'Regular tidy — surfaces, floors, bathrooms',        icon: 'service-1.svg', ratePerHour: 25, image: 'clean-1.png' },
+  { type: 'DeepClean',     label: 'Deep clean',      tagline: 'Top to bottom — inside appliances, every corner',   icon: 'service-2.svg', ratePerHour: 35, image: 'clean-2.png' },
+  { type: 'OfficeClean',   label: 'Office clean',    tagline: 'Commercial spaces and shared areas',                 icon: 'service-3.svg', ratePerHour: 30, image: 'clean-3.png' },
+  { type: 'MoveInOut',     label: 'Move-out clean',  tagline: 'End of tenancy — deposit-back standard',            icon: 'service-4.svg', ratePerHour: 30, image: 'clean-4.png' },
 ];

@@ -1,6 +1,6 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
@@ -13,6 +13,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class NavbarComponent {
   scrolled = false;
   menuOpen = false;
+  private router = inject(Router);
 
   constructor(public auth: AuthService) {}
 
@@ -23,7 +24,7 @@ export class NavbarComponent {
   @HostListener('window:scroll')
   onScroll() { this.scrolled = window.scrollY > 20; }
 
-  logout() { this.auth.logout(); }
+  logout() { this.auth.logout(); this.router.navigate(['/'])}
   toggleMenu() { this.menuOpen = !this.menuOpen; }
   closeMenu() { this.menuOpen = false; }
 }

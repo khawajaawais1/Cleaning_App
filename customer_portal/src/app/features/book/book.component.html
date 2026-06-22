@@ -1,366 +1,607 @@
 <!-- Main wizard -->
 <div class="wizard-shell">
-
   <!-- Sidebar -->
   <aside class="wiz-sidebar">
     <div class="wsb-logo">
       <div class="wsb-logo-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 10.5L12 3L21 10.5V20C21 20.5523 20.5523 21 20 21H15.5V15.5H8.5V21H4C3.44772 21 3 20.5523 3 20V10.5Z" fill="white"/>
-        </svg>
+        <img src="assets/svg/Overlay.svg" alt="Overlay.svg" />
       </div>
       <span class="wsb-logo-text">Happy2Clean</span>
     </div>
     <p class="wsb-eyebrow">{{ sideCtx[step]?.eyebrow }}</p>
-    <h2 class="wsb-headline">{{ sideCtx[step]?.line1 }}<span class="wsb-green">{{ sideCtx[step]?.accent }}</span></h2>
+    <h2 class="wsb-headline">
+      {{ sideCtx[step]?.line1
+      }}<span class="wsb-green">{{ sideCtx[step]?.accent }}</span>
+    </h2>
     <p class="wsb-desc">{{ sideCtx[step]?.desc }}</p>
     <div class="wsb-stats">
       <div class="wstat"><strong>4.9</strong><small>AVG RATING</small></div>
       <div class="wstat"><strong>2.3k</strong><small>CLEANS / WEEK</small></div>
       <div class="wstat"><strong>€25</strong><small>FROM / HOUR</small></div>
-      <div class="wstat"><strong>100%</strong><small>RE-CLEAN GUARANTEE</small></div>
+      <div class="wstat">
+        <strong>100%</strong><small>RE-CLEAN GUARANTEE</small>
+      </div>
     </div>
     <div class="wsb-trust">
       <div class="wsb-avatars">
-        <div class="wsb-av">MK</div><div class="wsb-av">JR</div><div class="wsb-av">PN</div>
+        <div class="wsb-av">MK</div>
+        <div class="wsb-av">JR</div>
+        <div class="wsb-av">PN</div>
       </div>
-      <span class="wsb-trust-text">Trusted by 1,800+ Helsinki-area customers</span>
+      <span class="wsb-trust-text"
+        >Trusted by 1,800+ Helsinki-area customers</span
+      >
     </div>
   </aside>
 
   <!-- Main panel -->
-  <main class="wiz-main">
-    <a routerLink="/" class="wm-back">← Back to home</a>
-
-    <div class="alert alert-error" *ngIf="error" style="margin-bottom:20px;max-width:760px">{{ error }}</div>
-
-    <!-- ══ STEP 1: Select Service ══ -->
-    <ng-container *ngIf="step === 1">
-      <div class="wm-step-label">2 · SELECT SERVICE</div>
-      <h1 class="wm-title">What kind of clean?</h1>
-      <p class="wm-sub">Choose the service that fits your home.</p>
-
-      <div class="svc-list">
-        <div class="svc-row"
-             *ngFor="let s of services"
-             [class.svc-row--selected]="selectedService?.type === s.type"
-             (click)="selectedService = s">
-          <div class="svc-row-icon">{{ s.icon }}</div>
-          <div class="svc-row-body">
-            <span class="svc-row-name">{{ s.label }}</span>
-            <span class="svc-row-desc">{{ s.tagline }}</span>
-          </div>
-          <span class="svc-row-price">€{{ s.ratePerHour }}/h</span>
-          <div class="svc-row-check" *ngIf="selectedService?.type === s.type">✓</div>
-        </div>
+  <div class="right-side">
+    <a routerLink="/" class="wm-back"
+      ><span class="material-symbols-outlined"> arrow_back </span> Back to
+      home</a
+    >
+    <main class="wiz-main">
+      <div
+        class="alert alert-error"
+        *ngIf="error"
+        style="margin-bottom: 20px; max-width: 760px"
+      >
+        {{ error }}
       </div>
 
-      <button class="btn-wiz step-cta" (click)="nextStep()" [disabled]="!selectedService">Continue</button>
-    </ng-container>
+      <!-- ══ STEP 1: Select Service ══ -->
+      <ng-container *ngIf="step === 1">
+        <div class="wm-step-label">2 · SELECT SERVICE</div>
+        <h1 class="wm-title">What kind of clean?</h1>
+        <p class="wm-sub">Choose the service that fits your home.</p>
 
-    <!-- ══ STEP 2: Address & Schedule ══ -->
-    <ng-container *ngIf="step === 2">
-      <div class="wm-step-label">3 · ADDRESS &amp; SCHEDULE</div>
-      <h1 class="wm-title">Where &amp; when?</h1>
-      <p class="wm-sub">Enter your address and pick a time.</p>
-
-      <div class="addr-sched-grid">
-
-        <!-- Left: Address + Hours + Time -->
-        <div class="addr-col">
-          <div class="addr-section">
-            <p class="field-group-label">YOUR ADDRESS</p>
-            <div class="form-group" style="margin:0 0 12px">
-              <label class="form-label">Street Address</label>
-              <input class="form-control" type="text" [(ngModel)]="street" placeholder="42 Birchwood Avenue">
+        <div class="svc-list">
+          <div
+            class="svc-row"
+            *ngFor="let s of services"
+            [class.svc-row--selected]="selectedService?.type === s.type"
+            (click)="selectedService = s"
+          >
+            <div class="svc-row-icon">
+              <img [src]="'assets/svg/' + s.icon" [alt]="s.icon" />
             </div>
-            <div class="form-group" style="margin:0 0 12px">
-              <label class="form-label">Apartment / Notes</label>
-              <input class="form-control" type="text" [(ngModel)]="apt" placeholder="Floor 3, door code 1234">
+
+            <div class="svc-row-body">
+              <span class="svc-row-name">{{ s.label }}</span>
+              <span class="svc-row-desc">{{ s.tagline }}</span>
             </div>
-            <div class="form-row-2">
-              <div class="form-group" style="margin:0">
-                <label class="form-label">City</label>
-                <input class="form-control" type="text" [(ngModel)]="city" placeholder="Helsinki">
+            <span class="svc-row-price">€{{ s.ratePerHour }}/h</span>
+            <!--  <div class="svc-row-check" *ngIf="selectedService?.type === s.type">
+              ✓
+            </div> -->
+          </div>
+        </div>
+
+        <button
+          class="btn-wiz"
+          (click)="nextStep()"
+          [disabled]="!selectedService"
+        >
+          Continue
+        </button>
+      </ng-container>
+
+      <!-- ══ STEP 2: Address & Schedule ══ -->
+      <ng-container *ngIf="step === 2">
+        <div class="wm-step-label">3 · ADDRESS &amp; SCHEDULE</div>
+        <h1 class="wm-title">Where &amp; when?</h1>
+        <p class="wm-sub">Enter your address and pick a time.</p>
+
+        <div class="addr-sched-grid">
+          <!-- Left: Address + Hours + Time -->
+          <div class="addr-col">
+            <div class="addr-section">
+              <p class="field-group-label">YOUR ADDRESS</p>
+              <div class="form-group" style="margin: 0 0 12px">
+                <label class="form-label">Street Address</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  [(ngModel)]="street"
+                  placeholder="42 Birchwood Avenue"
+                />
               </div>
-              <div class="form-group" style="margin:0">
-                <label class="form-label">Postcode</label>
-                <input class="form-control" type="text" [(ngModel)]="postcode" placeholder="00100">
+              <div class="form-group" style="margin: 0 0 12px">
+                <label class="form-label">Apartment / Notes</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  [(ngModel)]="apt"
+                  placeholder="Floor 3, door code 1234"
+                />
+              </div>
+              <div class="form-row-2">
+                <div class="form-group" style="margin: 0">
+                  <label class="form-label">City</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [(ngModel)]="city"
+                    placeholder="Helsinki"
+                  />
+                </div>
+                <div class="form-group" style="margin: 0">
+                  <label class="form-label">Postcode</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [(ngModel)]="postcode"
+                    placeholder="00100"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Hours selector -->
+            <div class="hours-section">
+              <p class="field-group-label">NUMBER OF HOURS</p>
+              <div class="hours-grid">
+                <button
+                  *ngFor="let h of hoursOptions"
+                  type="button"
+                  class="hour-btn"
+                  [class.hour-btn--selected]="selectedHours === h"
+                  (click)="selectedHours = h"
+                >
+                  <span class="hour-badge" *ngIf="h === 3">Popular</span>
+                  <span class="hour-num">{{ h }}</span>
+                  <span class="hour-label">{{
+                    h === 1 ? "HOUR" : "HOURS"
+                  }}</span>
+                  <span class="hour-price"
+                    >€{{ (selectedService?.ratePerHour || 25) * h }}</span
+                  >
+                </button>
+              </div>
+            </div>
+
+            <div class="time-section">
+              <p class="field-group-label">PICK A TIME</p>
+              <div class="time-grid">
+                <button
+                  *ngFor="let t of timeSlots"
+                  type="button"
+                  class="time-pill"
+                  [class.time-pill--active]="selectedTime === t"
+                  (click)="selectedTime = t"
+                >
+                  {{ t }}
+                </button>
               </div>
             </div>
           </div>
 
-          <!-- Hours selector -->
-          <div class="hours-section">
-            <p class="field-group-label">NUMBER OF HOURS</p>
-            <div class="hours-grid">
-              <button *ngFor="let h of hoursOptions" type="button"
-                      class="hour-btn"
-                      [class.hour-btn--selected]="selectedHours === h"
-                      (click)="selectedHours = h">
-                <span class="hour-badge" *ngIf="h === 3">Popular</span>
-                <span class="hour-num">{{ h }}</span>
-                <span class="hour-label">{{ h === 1 ? 'HOUR' : 'HOURS' }}</span>
-                <span class="hour-price">€{{ (selectedService?.ratePerHour || 25) * h }}</span>
+          <!-- Right: Calendar + Summary + Total + Continue -->
+          <div class="cal-col">
+            <p class="field-group-label">PICK A DATE</p>
+            <div class="cal-card">
+              <div class="cal-header">
+                <button class="cal-nav" (click)="prevMonth()">&#8249;</button>
+                <span class="cal-month">{{ calMonthLabel }}</span>
+                <button class="cal-nav" (click)="nextMonth()">&#8250;</button>
+              </div>
+              <div class="cal-grid">
+                <div class="cal-dh" *ngFor="let h of calHeaders">{{ h }}</div>
+                <div
+                  class="cal-day"
+                  *ngFor="let c of calDays"
+                  [class.cal-day--empty]="!c.day"
+                  [class.cal-day--past]="c.isPast"
+                  [class.cal-day--today]="c.isToday"
+                  [class.cal-day--sel]="!!c.day && c.day === selectedDay"
+                  (click)="selectDay(c)"
+                >
+                  {{ c.day || "" }}
+                </div>
+              </div>
+            </div>
+            <!-- Booking summary banner -->
+            <div class="booking-summary" *ngIf="selectedDay && selectedTime">
+              <span class="booking-summary-left">
+                <svg width="25" height="25" viewBox="0 0 14 14" fill="none">
+                  <path
+                    d="M4 7l2 2 4-4"
+                    stroke="#25ae59"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                Selected: {{ selectedDateLabel }} · {{ selectedTime }}
+              </span>
+              <span class="booking-summary-right"
+                >{{ selectedHours }} hrs · €{{
+                  (selectedService?.ratePerHour || 25) * selectedHours
+                }}</span
+              >
+            </div>
+
+            <!-- Estimated total card -->
+            <div class="est-total-card" *ngIf="selectedDay && selectedTime">
+              <div class="est-total-icon">$</div>
+              <div class="est-total-body">
+                <span class="est-total-label">ESTIMATED TOTAL</span>
+                <span class="est-total-amount"
+                  >€{{
+                    (
+                      (selectedService?.ratePerHour || 25) * selectedHours
+                    ).toFixed(2)
+                  }}</span
+                >
+                <span class="est-total-sub"
+                  >€{{ selectedService?.ratePerHour || 25 }}/hr ×
+                  {{ selectedHours }}
+                  {{ selectedHours === 1 ? "hour" : "hours" }}</span
+                >
+              </div>
+              <span class="est-total-badge">✓ Fixed Price</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-nav" style="margin-top: 8px">
+          <button class="btn-outline-nav" (click)="prevStep()">
+            <span class="material-symbols-outlined"> arrow_back </span>
+          </button>
+          <button
+            class="step-cta"
+            (click)="nextStep()"
+            style="margin-top: 14px"
+          >
+            Continue
+          </button>
+        </div>
+      </ng-container>
+
+      <!-- ══ STEP 3: Add-ons & Price ══ -->
+      <ng-container *ngIf="step === 3">
+        <div class="wm-step-label">4 · ADD-ONS &amp; PRICE</div>
+        <h1 class="wm-title">Add extras</h1>
+        <p class="wm-sub">Customise your clean with optional add-ons.</p>
+
+        <div class="addons-grid">
+          <!-- Toggle list -->
+          <div class="addon-list">
+            <div
+              class="addon-row"
+              *ngFor="let a of addOns"
+              [class.addon-row--active]="a.enabled"
+              (click)="a.enabled = !a.enabled"
+            >
+              <!-- <button class="toggle-btn" [class.toggle-btn--on]="a.enabled">
+                <span class="toggle-thumb"></span>
+              </button> -->
+              <div class="addon-img">
+                <img [src]="'assets/svg/' + a.icon" [alt]="a.icon" />
+              </div>
+              <div class="addon-info">
+                <span class="addon-name">{{ a.label }}</span>
+                <span class="addon-desc">{{ a.desc }}</span>
+              </div>
+              <span class="addon-price">+€{{ a.price }}</span>
+            </div>
+          </div>
+
+          <!-- Price estimate -->
+          <div class="price-section">
+            <div class="price-card">
+              <p class="price-card-label">PRICE ESTIMATE</p>
+              <div class="price-rows">
+                <div class="price-row">
+                  <span
+                    >{{ selectedService?.label }} ({{ durationHours }}h)</span
+                  >
+                  <span>€{{ basePrice }}</span>
+                </div>
+                <div
+                  class="price-row"
+                  *ngFor="let a of addOns"
+                  [style.display]="a.enabled ? 'flex' : 'none'"
+                >
+                  <span>{{ a.label }}</span>
+                  <span>€{{ a.price }}</span>
+                </div>
+                <div class="price-row">
+                  <span>Platform fee</span>
+                  <span>€{{ platformFee }}</span>
+                </div>
+                <div class="price-divider"></div>
+                <div class="price-row price-total">
+                  <strong>Estimated total</strong>
+                  <strong>€{{ total }}</strong>
+                </div>
+              </div>
+            </div>
+            <div class="price-note">
+              💡 Final amount depends on actual time. You only pay after
+              confirming the job is done.
+            </div>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-outline-nav" (click)="prevStep()">
+            <span class="material-symbols-outlined"> arrow_back </span>
+          </button>
+          <button class="step-cta" (click)="nextStep()">Continue</button>
+        </div>
+      </ng-container>
+
+      <!-- ══ STEP 4: Notes & Photos ══ -->
+      <ng-container *ngIf="step === 4">
+        <div class="wm-step-label">5 · PHOTOS &amp; NOTES</div>
+        <h1 class="wm-title">Notes &amp; photos</h1>
+        <p class="wm-sub">Help your cleaner prepare for the best result.</p>
+
+        <div class="notes-grid">
+          <!-- Left: notes + tags -->
+          <div class="notes-col">
+            <div class="form-group" style="margin: 0 0 20px">
+              <label class="form-label">SPECIAL INSTRUCTIONS</label>
+              <textarea
+                class="form-control"
+                [(ngModel)]="notes"
+                rows="5"
+                placeholder="Eco-friendly products please. Dog inside — friendly. Focus on kitchen and bathrooms."
+              ></textarea>
+            </div>
+            <p class="form-label" style="margin-bottom: 10px">QUICK TAGS</p>
+            <div class="tags-wrap">
+              <button
+                *ngFor="let t of quickTags"
+                type="button"
+                class="tag-pill"
+                [class.tag-pill--on]="t.active"
+                (click)="t.active = !t.active"
+              >
+                <span class="material-symbols-outlined"> {{ t.icon }} </span>
+                {{ t.label }}
               </button>
             </div>
           </div>
 
-          <div class="time-section">
-            <p class="field-group-label">PICK A TIME</p>
-            <div class="time-grid">
-              <button *ngFor="let t of timeSlots" type="button"
-                      class="time-pill" [class.time-pill--active]="selectedTime === t"
-                      (click)="selectedTime = t">{{ t }}</button>
+          <!-- Right: photo upload -->
+          <div class="photos-col">
+            <label class="form-label">UPLOAD PHOTOS (OPTIONAL)</label>
+            <!-- <div class="photos-grid">
+               <div
+                class="photo-slot photo-slot--filled" *ngIf="photoCount !== 0"
+              >
+                <span style="font-size: 24px">🖼️</span>
+                <img
+                  *ngIf="imagePreview"
+                  [src]="imagePreview"
+                  alt="Selected image"
+                  style="max-width: 300px;"
+                />
+              </div> -->
+            <div class="photos-grid">
+              <div
+                class="image-wrapper"
+                *ngFor="let img of images; let i = index"
+              >
+                <button class="delete-btn" (click)="removeImage(i)">✕</button>
+                <img [src]="img.url" alt="Selected image" />
+              </div>
+              <label class="photo-slot photo-slot--add" *ngIf="photoCount < 8">
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  style="display: none"
+                  (change)="onFilesSelected($event)"
+                />
+                <span class="material-symbols-outlined"> add </span>
+              </label>
             </div>
+
+            <!-- </div> -->
+            <p class="photo-note">
+              <span class="material-symbols-outlined"> attach_file </span>
+              {{
+                photoCount > 0 ? photoCount + " photos uploaded" : "0 photos"
+              }}
+              · Max 8 · JPG or PNG
+            </p>
           </div>
         </div>
 
-        <!-- Right: Calendar + Summary + Total + Continue -->
-        <div class="cal-col">
-          <p class="field-group-label">PICK A DATE</p>
-          <div class="cal-card">
-            <div class="cal-header">
-              <button class="cal-nav" (click)="prevMonth()">&#8249;</button>
-              <span class="cal-month">{{ calMonthLabel }}</span>
-              <button class="cal-nav" (click)="nextMonth()">&#8250;</button>
+        <div class="step-nav">
+          <button class="btn-outline-nav" (click)="prevStep()">
+            <span class="material-symbols-outlined"> arrow_back </span>
+          </button>
+          <button class="step-cta" (click)="nextStep()">Continue</button>
+        </div>
+      </ng-container>
+
+      <!-- ══ STEP 5: Confirm ══ -->
+      <ng-container *ngIf="step === 5">
+        <div class="wm-step-label">6 · CONFIRM BOOKING</div>
+        <h1 class="wm-title">Confirm your booking</h1>
+        <p class="wm-sub">Review everything before we find your cleaner.</p>
+
+        <div
+          class="alert alert-error"
+          *ngIf="error"
+          style="margin-bottom: 16px; max-width: 900px"
+        >
+          {{ error }}
+        </div>
+
+        <div class="confirm-grid">
+          <!-- Left: Booking Summary -->
+          <div class="confirm-summary">
+            <p class="field-group-label">BOOKING SUMMARY</p>
+
+            <div class="sum-row">
+              <span class="sum-key">Service</span
+              ><strong>{{ selectedService?.label }}</strong>
             </div>
-            <div class="cal-grid">
-              <div class="cal-dh" *ngFor="let h of calHeaders">{{ h }}</div>
-              <div class="cal-day"
-                   *ngFor="let c of calDays"
-                   [class.cal-day--empty]="!c.day"
-                   [class.cal-day--past]="c.isPast"
-                   [class.cal-day--today]="c.isToday"
-                   [class.cal-day--sel]="!!c.day && c.day === selectedDay"
-                   (click)="selectDay(c)">
-                {{ c.day || '' }}
+            <div class="sum-row">
+              <span class="sum-key">Address</span
+              ><strong
+                >{{ street }}{{ apt ? ", " + apt : "" }}, {{ city }}</strong
+              >
+            </div>
+            <div class="sum-row">
+              <span class="sum-key">Date &amp; time</span
+              ><strong>{{ selectedDateLabel }} · {{ selectedTime }}</strong>
+            </div>
+            <div class="sum-row">
+              <span class="sum-key">Duration</span
+              ><strong>~{{ durationHours }} hours</strong>
+            </div>
+            <div class="sum-row" *ngIf="activeAddOnLabels.length">
+              <span class="sum-key">Add-ons</span
+              ><strong>{{ activeAddOnLabels }}</strong>
+            </div>
+            <div class="sum-row" *ngIf="combinedNotes.length">
+              <span class="sum-key">Notes</span
+              ><strong>{{ combinedNotes }}</strong>
+            </div>
+
+            <div class="confirm-actions">
+              <button class="confirm-edit-btn" (click)="prevStep()">
+                Edit booking
+              </button>
+              <button
+                class="confirm-book-btn"
+                (click)="openPaymentModal()"
+                [disabled]="loading || !auth.isLoggedIn"
+              >
+                <span class="spinner" *ngIf="loading"></span>
+                {{ loading ? "Processing…" : "Confirm booking" }}
+              </button>
+            </div>
+            <p class="confirm-policy" *ngIf="auth.isLoggedIn">
+              By confirming you agree to our
+              <a href="#" style="color: #25ae59; text-decoration: underline"
+                >cancellation policy</a
+              >
+            </p>
+            <p class="confirm-login-note" *ngIf="!auth.isLoggedIn">
+              You need to
+              <a routerLink="/login" [queryParams]="{ returnUrl: '/book' }"
+                >log in</a
+              >
+              to confirm your booking.
+            </p>
+          </div>
+
+          <!-- Right: Price Breakdown (no fake card) -->
+          <div class="confirm-side">
+            <!-- No payment method saved notice -->
+            <p class="field-group-label">PAYMENT</p>
+            <div class="no-card-notice">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <rect
+                  x="2"
+                  y="5"
+                  width="20"
+                  height="14"
+                  rx="2"
+                  stroke="#738279"
+                  stroke-width="1.5"
+                />
+                <path d="M2 10h20" stroke="#738279" stroke-width="1.5" />
+              </svg>
+              <span>You'll enter your card details when confirming.</span>
+            </div>
+
+            <div class="price-breakdown">
+              <p class="field-group-label" style="margin-bottom: 12px">
+                PRICE BREAKDOWN
+              </p>
+              <div class="price-row">
+                <span>{{ selectedService?.label }} ({{ durationHours }}h)</span>
+                <span>€{{ basePrice }}</span>
+              </div>
+              <div class="price-row" *ngIf="addOnTotal > 0">
+                <span>Add-ons</span><span>€{{ addOnTotal }}</span>
+              </div>
+              <div class="price-row">
+                <span>Platform fee</span><span>€{{ platformFee }}</span>
+              </div>
+              <div class="price-divider"></div>
+              <div class="price-row price-total">
+                <strong>Total</strong>
+                <strong class="price-total-green">€{{ total }}</strong>
               </div>
             </div>
           </div>
-
-          <!-- Booking summary banner -->
-          <div class="booking-summary" *ngIf="selectedDay && selectedTime">
-            <span class="booking-summary-left">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#25ae59"/><path d="M4 7l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Selected: {{ selectedDateLabel }} · {{ selectedTime }}
-            </span>
-            <span class="booking-summary-right">{{ selectedHours }} hrs · €{{ (selectedService?.ratePerHour || 25) * selectedHours }}</span>
-          </div>
-
-          <!-- Estimated total card -->
-          <div class="est-total-card" *ngIf="selectedDay && selectedTime">
-            <div class="est-total-icon">$</div>
-            <div class="est-total-body">
-              <span class="est-total-label">ESTIMATED TOTAL</span>
-              <span class="est-total-amount">€{{ ((selectedService?.ratePerHour || 25) * selectedHours).toFixed(2) }}</span>
-              <span class="est-total-sub">€{{ selectedService?.ratePerHour || 25 }}/hr × {{ selectedHours }} hours</span>
-            </div>
-            <span class="est-total-badge">✓ Fixed Price</span>
-          </div>
-
-          <button class="btn-wiz cal-continue" (click)="nextStep()" style="margin-top:14px">Continue ›</button>
-        </div>
-      </div>
-
-      <div class="step-nav" style="margin-top:8px">
-        <button class="btn-outline-nav" (click)="prevStep()">← Back</button>
-      </div>
-    </ng-container>
-
-    <!-- ══ STEP 3: Add-ons & Price ══ -->
-    <ng-container *ngIf="step === 3">
-      <div class="wm-step-label">4 · ADD-ONS &amp; PRICE</div>
-      <h1 class="wm-title">Add extras</h1>
-      <p class="wm-sub">Customise your clean with optional add-ons.</p>
-
-      <div class="addons-grid">
-        <!-- Toggle list -->
-        <div class="addon-list">
-          <div class="addon-row" *ngFor="let a of addOns">
-            <button class="toggle-btn" [class.toggle-btn--on]="a.enabled" (click)="a.enabled = !a.enabled">
-              <span class="toggle-thumb"></span>
-            </button>
-            <div class="addon-info">
-              <span class="addon-name">{{ a.label }}</span>
-              <span class="addon-desc">{{ a.desc }}</span>
-            </div>
-            <span class="addon-price">+€{{ a.price }}</span>
-          </div>
         </div>
 
-        <!-- Price estimate -->
-        <div class="price-card">
-          <p class="price-card-label">PRICE ESTIMATE</p>
-          <div class="price-rows">
-            <div class="price-row">
-              <span>{{ selectedService?.label }} ({{ durationHours }}h)</span>
-              <span>€{{ basePrice }}</span>
-            </div>
-            <div class="price-row" *ngFor="let a of addOns" [style.display]="a.enabled ? 'flex' : 'none'">
-              <span>{{ a.label }}</span>
-              <span>€{{ a.price }}</span>
-            </div>
-            <div class="price-row">
-              <span>Platform fee</span>
-              <span>€{{ platformFee }}</span>
-            </div>
-            <div class="price-divider"></div>
-            <div class="price-row price-total">
-              <strong>Estimated total</strong>
-              <strong>€{{ total }}</strong>
-            </div>
-          </div>
-          <p class="price-note">✓ Final amount depends on actual time. You only pay after confirming the job is done.</p>
+        <div class="step-nav" style="margin-top: 8px">
+          <button class="btn-outline-nav" (click)="prevStep()">
+            <span class="material-symbols-outlined"> arrow_back </span>
+          </button>
+          <button
+            class="confirm-book-btn"
+            (click)="openPaymentModal()"
+            [disabled]="loading || !auth.isLoggedIn"
+          >
+            <span class="spinner" *ngIf="loading"></span>
+            {{ loading ? "Processing…" : "Confirm booking" }}
+          </button>
         </div>
+      </ng-container>
+    </main>
+
+    <!-- Bottom step bar -->
+    <nav class="wiz-stepper">
+      <div class="wstep" [class.wstep--done]="step > 0">1 · Sign Up</div>
+      <div class="wstep-sep">›</div>
+      <div
+        class="wstep"
+        [class.wstep--active]="step === 1"
+        [class.wstep--done]="step > 1"
+      >
+        2 · Select Service
       </div>
-
-      <div class="step-nav">
-        <button class="btn-outline-nav" (click)="prevStep()">← Back</button>
-        <button class="btn-wiz step-cta" (click)="nextStep()">Continue</button>
+      <div class="wstep-sep">›</div>
+      <div
+        class="wstep"
+        [class.wstep--active]="step === 2"
+        [class.wstep--done]="step > 2"
+      >
+        3 · Address &amp; Schedule
       </div>
-    </ng-container>
-
-    <!-- ══ STEP 4: Notes & Photos ══ -->
-    <ng-container *ngIf="step === 4">
-      <div class="wm-step-label">5 · PHOTOS &amp; NOTES</div>
-      <h1 class="wm-title">Notes &amp; photos</h1>
-      <p class="wm-sub">Help your cleaner prepare for the best result.</p>
-
-      <div class="notes-grid">
-        <!-- Left: notes + tags -->
-        <div class="notes-col">
-          <div class="form-group" style="margin:0 0 20px">
-            <label class="form-label">SPECIAL INSTRUCTIONS</label>
-            <textarea class="form-control" [(ngModel)]="notes" rows="5"
-              placeholder="Eco-friendly products please. Dog inside — friendly. Focus on kitchen and bathrooms."></textarea>
-          </div>
-          <p class="form-label" style="margin-bottom:10px">QUICK TAGS</p>
-          <div class="tags-wrap">
-            <button *ngFor="let t of quickTags" type="button"
-                    class="tag-pill" [class.tag-pill--on]="t.active"
-                    (click)="t.active = !t.active">{{ t.label }}</button>
-          </div>
-        </div>
-
-        <!-- Right: photo upload -->
-        <div class="photos-col">
-          <label class="form-label">UPLOAD PHOTOS (OPTIONAL)</label>
-          <div class="photos-grid">
-            <div class="photo-slot photo-slot--filled" *ngFor="let i of [0,1]">
-              <span style="font-size:24px">🖼️</span>
-            </div>
-            <label class="photo-slot photo-slot--add">
-              <input type="file" accept="image/*" multiple style="display:none"
-                     (change)="photoCount = photoCount + 1">
-              <span style="font-size:22px;color:#9ca3af">+</span>
-            </label>
-          </div>
-          <p class="photo-note">📎 {{ photoCount > 0 ? photoCount + ' photos uploaded' : '0 photos' }} · Max 8 · JPG or PNG</p>
-        </div>
+      <div class="wstep-sep">›</div>
+      <div
+        class="wstep"
+        [class.wstep--active]="step === 3"
+        [class.wstep--done]="step > 3"
+      >
+        4 · Add-ons &amp; Price
       </div>
-
-      <div class="step-nav">
-        <button class="btn-outline-nav" (click)="prevStep()">← Back</button>
-        <button class="btn-wiz step-cta" (click)="nextStep()">Continue</button>
+      <div class="wstep-sep">›</div>
+      <div
+        class="wstep"
+        [class.wstep--active]="step === 4"
+        [class.wstep--done]="step > 4"
+      >
+        5 · Photos &amp; Notes
       </div>
-    </ng-container>
-
-    <!-- ══ STEP 5: Confirm ══ -->
-    <ng-container *ngIf="step === 5">
-      <div class="wm-step-label">6 · CONFIRM BOOKING</div>
-      <h1 class="wm-title">Confirm your booking</h1>
-      <p class="wm-sub">Review everything before we find your cleaner.</p>
-
-      <div class="alert alert-error" *ngIf="error" style="margin-bottom:16px;max-width:900px">{{ error }}</div>
-
-      <div class="confirm-grid">
-
-        <!-- Left: Booking Summary -->
-        <div class="confirm-summary">
-          <p class="field-group-label">BOOKING SUMMARY</p>
-
-          <div class="sum-row"><span class="sum-key">Service</span><strong>{{ selectedService?.label }}</strong></div>
-          <div class="sum-row"><span class="sum-key">Address</span><strong>{{ street }}{{ apt ? ', ' + apt : '' }}, {{ city }}</strong></div>
-          <div class="sum-row"><span class="sum-key">Date &amp; time</span><strong>{{ selectedDateLabel }} · {{ selectedTime }}</strong></div>
-          <div class="sum-row"><span class="sum-key">Duration</span><strong>~{{ durationHours }} hours</strong></div>
-          <div class="sum-row" *ngIf="activeAddOnLabels.length">
-            <span class="sum-key">Add-ons</span><strong>{{ activeAddOnLabels }}</strong>
-          </div>
-          <div class="sum-row" *ngIf="combinedNotes.length">
-            <span class="sum-key">Notes</span><strong>{{ combinedNotes }}</strong>
-          </div>
-
-          <div class="confirm-actions">
-            <button class="confirm-edit-btn" (click)="prevStep()">Edit booking</button>
-            <button class="confirm-book-btn" (click)="openPaymentModal()" [disabled]="loading || !auth.isLoggedIn">
-              <span class="spinner" *ngIf="loading"></span>
-              {{ loading ? 'Processing…' : 'Confirm booking' }}
-            </button>
-          </div>
-          <p class="confirm-policy" *ngIf="auth.isLoggedIn">
-            By confirming you agree to our <a href="#" style="color:#25ae59;text-decoration:underline">cancellation policy</a>
-          </p>
-          <p class="confirm-login-note" *ngIf="!auth.isLoggedIn">
-            You need to <a routerLink="/login" [queryParams]="{returnUrl:'/book'}">log in</a> to confirm your booking.
-          </p>
-        </div>
-
-        <!-- Right: Price Breakdown (no fake card) -->
-        <div class="confirm-side">
-          <!-- No payment method saved notice -->
-          <div class="no-card-notice">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <rect x="2" y="5" width="20" height="14" rx="2" stroke="#738279" stroke-width="1.5"/>
-              <path d="M2 10h20" stroke="#738279" stroke-width="1.5"/>
-            </svg>
-            <span>You'll enter your card details when confirming.</span>
-          </div>
-
-          <div class="price-breakdown">
-            <p class="field-group-label" style="margin-bottom:12px">PRICE BREAKDOWN</p>
-            <div class="price-row">
-              <span>{{ selectedService?.label }} ({{ durationHours }}h)</span>
-              <span>€{{ basePrice }}</span>
-            </div>
-            <div class="price-row" *ngIf="addOnTotal > 0">
-              <span>Add-ons</span><span>€{{ addOnTotal }}</span>
-            </div>
-            <div class="price-row">
-              <span>Platform fee</span><span>€{{ platformFee }}</span>
-            </div>
-            <div class="price-divider"></div>
-            <div class="price-row price-total">
-              <strong>Total</strong>
-              <strong class="price-total-green">€{{ total }}</strong>
-            </div>
-          </div>
-        </div>
+      <div class="wstep-sep">›</div>
+      <div class="wstep" [class.wstep--active]="step === 5">
+        6 · Confirm Booking
       </div>
-
-      <div class="step-nav" style="margin-top:8px">
-        <button class="btn-outline-nav" (click)="prevStep()">← Back</button>
-      </div>
-    </ng-container>
-  </main>
-
-  <!-- Bottom step bar -->
-  <nav class="wiz-stepper">
-    <div class="wstep" [class.wstep--done]="step > 0">1 · Sign Up</div><div class="wstep-sep">›</div>
-    <div class="wstep" [class.wstep--active]="step===1" [class.wstep--done]="step>1">2 · Select Service</div><div class="wstep-sep">›</div>
-    <div class="wstep" [class.wstep--active]="step===2" [class.wstep--done]="step>2">3 · Address &amp; Schedule</div><div class="wstep-sep">›</div>
-    <div class="wstep" [class.wstep--active]="step===3" [class.wstep--done]="step>3">4 · Add-ons &amp; Price</div><div class="wstep-sep">›</div>
-    <div class="wstep" [class.wstep--active]="step===4" [class.wstep--done]="step>4">5 · Photos &amp; Notes</div><div class="wstep-sep">›</div>
-    <div class="wstep" [class.wstep--active]="step===5">6 · Confirm Booking</div><div class="wstep-sep">›</div>
-    <div class="wstep">7 · Matching</div><div class="wstep-sep">›</div>
-    <div class="wstep">8 · Live Tracking</div>
-  </nav>
+      <div class="wstep-sep">›</div>
+      <div class="wstep">7 · Matching</div>
+      <div class="wstep-sep">›</div>
+      <div class="wstep">8 · Live Tracking</div>
+    </nav>
+  </div>
 </div>
 
 <!-- ══ PAYMENT MODAL (ng-template) ══════════════════════════ -->
 <ng-template #paymentTpl let-modal>
   <div class="pm-wrap">
-
     <div class="pm-header">
       <div>
         <h4 class="pm-title">Payment details</h4>
@@ -368,7 +609,12 @@
       </div>
       <button class="pm-close" (click)="modal.dismiss()" aria-label="Close">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <path d="M1 1l12 12M13 1L1 13" stroke="#738279" stroke-width="1.8" stroke-linecap="round"/>
+          <path
+            d="M1 1l12 12M13 1L1 13"
+            stroke="#738279"
+            stroke-width="1.8"
+            stroke-linecap="round"
+          />
         </svg>
       </button>
     </div>
@@ -377,68 +623,118 @@
 
     <!-- ── STATE A: Saved card exists → confirm & pay ── -->
     <ng-container *ngIf="savedCard?.hasCard">
-
       <div class="pm-saved-card">
         <div class="pm-saved-card-left">
           <div class="pm-chip">
             <svg width="32" height="22" viewBox="0 0 32 22" fill="none">
-              <rect width="32" height="22" rx="3" fill="#F5A623"/>
-              <rect x="3" y="7" width="9" height="8" rx="1.5" fill="#D4881E"/>
+              <rect width="32" height="22" rx="3" fill="#F5A623" />
+              <rect x="3" y="7" width="9" height="8" rx="1.5" fill="#D4881E" />
             </svg>
             <span class="pm-chip-label">{{ cardBrandUpper }}</span>
           </div>
           <div class="pm-saved-card-info">
             <strong>•••• •••• •••• {{ savedCard?.last4 }}</strong>
-            <span>Expires {{ savedCard?.expMonth }}/{{ savedCard?.expYear }}</span>
+            <span
+              >Expires {{ savedCard?.expMonth }}/{{ savedCard?.expYear }}</span
+            >
           </div>
         </div>
         <div class="pm-saved-card-check">
-          <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#25ae59"/><path d="M6 10l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20">
+            <circle cx="10" cy="10" r="10" fill="#25ae59" />
+            <path
+              d="M6 10l3 3 5-5"
+              stroke="#fff"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
         </div>
       </div>
 
       <div class="pm-price-summary">
-        <div class="pm-price-row"><span>{{ selectedService?.label }} ({{ durationHours }}h)</span><span>€{{ basePrice }}</span></div>
-        <div class="pm-price-row" *ngIf="addOnTotal > 0"><span>Add-ons</span><span>€{{ addOnTotal }}</span></div>
-        <div class="pm-price-row"><span>Platform fee</span><span>€{{ platformFee }}</span></div>
+        <div class="pm-price-row">
+          <span>{{ selectedService?.label }} ({{ durationHours }}h)</span
+          ><span>€{{ basePrice }}</span>
+        </div>
+        <div class="pm-price-row" *ngIf="addOnTotal > 0">
+          <span>Add-ons</span><span>€{{ addOnTotal }}</span>
+        </div>
+        <div class="pm-price-row">
+          <span>Platform fee</span><span>€{{ platformFee }}</span>
+        </div>
         <div class="pm-price-divider"></div>
-        <div class="pm-price-row pm-price-total"><strong>Total</strong><strong>€{{ total }}</strong></div>
+        <div class="pm-price-row pm-price-total">
+          <strong>Total</strong><strong>€{{ total }}</strong>
+        </div>
       </div>
 
       <p class="card-security-note">
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-          <path d="M6.5 1L2 3v3.5c0 2.8 2 5.1 4.5 5.5C9 11.6 11 9.3 11 6.5V3L6.5 1z" stroke="#738279" stroke-width="1.2" stroke-linejoin="round"/>
+          <path
+            d="M6.5 1L2 3v3.5c0 2.8 2 5.1 4.5 5.5C9 11.6 11 9.3 11 6.5V3L6.5 1z"
+            stroke="#738279"
+            stroke-width="1.2"
+            stroke-linejoin="round"
+          />
         </svg>
-        Payment secured by Stripe. Your card details are never stored on our servers.
+        Payment secured by Stripe. Your card details are never stored on our
+        servers.
       </p>
 
-      <button class="pm-pay-btn" (click)="payWithSavedCard(modal)" [disabled]="payProcessing">
+      <button
+        class="pm-pay-btn"
+        (click)="payWithSavedCard(modal)"
+        [disabled]="payProcessing"
+      >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="5" width="20" height="14" rx="2" stroke="white" stroke-width="1.8"/>
-          <path d="M2 10h20" stroke="white" stroke-width="1.8"/>
+          <rect
+            x="2"
+            y="5"
+            width="20"
+            height="14"
+            rx="2"
+            stroke="white"
+            stroke-width="1.8"
+          />
+          <path d="M2 10h20" stroke="white" stroke-width="1.8" />
         </svg>
-        {{ payProcessing ? 'Processing…' : 'Pay €' + total + ' · Confirm Booking' }}
+        {{
+          payProcessing ? "Processing…" : "Pay €" + total + " · Confirm Booking"
+        }}
       </button>
 
       <div class="pm-divider">or</div>
-      <button class="pm-use-new-btn" (click)="savedCard = { hasCard: false }; openPaymentModal()">Use a different card</button>
-
+      <button
+        class="pm-use-new-btn"
+        (click)="savedCard = { hasCard: false }; openPaymentModal()"
+      >
+        Use a different card
+      </button>
     </ng-container>
 
     <!-- ── STATE B: No saved card → enter new card ── -->
     <ng-container *ngIf="!savedCard?.hasCard">
-
       <!-- Visual card preview -->
       <div class="card-preview">
-        <svg width="38" height="28" viewBox="0 0 38 28" fill="none" style="margin-bottom:14px">
-          <rect width="38" height="28" rx="4" fill="#F5A623"/>
-          <rect x="3" y="8" width="12" height="10" rx="2" fill="#D4881E"/>
+        <svg
+          width="38"
+          height="28"
+          viewBox="0 0 38 28"
+          fill="none"
+          style="margin-bottom: 14px"
+        >
+          <rect width="38" height="28" rx="4" fill="#F5A623" />
+          <rect x="3" y="8" width="12" height="10" rx="2" fill="#D4881E" />
         </svg>
         <div class="card-preview-number">{{ cardNumDisplay }}</div>
         <div class="card-preview-footer">
           <div>
             <div class="card-preview-label">CARD HOLDER</div>
-            <div class="card-preview-value">{{ cardholderName || 'YOUR NAME' }}</div>
+            <div class="card-preview-value">
+              {{ cardholderName || "YOUR NAME" }}
+            </div>
           </div>
           <div>
             <div class="card-preview-label">EXPIRES</div>
@@ -454,7 +750,12 @@
       </div>
       <div class="card-field-group">
         <label class="card-field-label">Cardholder Name</label>
-        <input class="card-text-input" type="text" [(ngModel)]="cardholderName" placeholder="Sarah Mitchell">
+        <input
+          class="card-text-input"
+          type="text"
+          [(ngModel)]="cardholderName"
+          placeholder="Sarah Mitchell"
+        />
       </div>
       <div class="card-field-row">
         <div class="card-field-group">
@@ -469,28 +770,42 @@
 
       <p class="card-security-note">
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-          <path d="M6.5 1L2 3v3.5c0 2.8 2 5.1 4.5 5.5C9 11.6 11 9.3 11 6.5V3L6.5 1z" stroke="#738279" stroke-width="1.2" stroke-linejoin="round"/>
+          <path
+            d="M6.5 1L2 3v3.5c0 2.8 2 5.1 4.5 5.5C9 11.6 11 9.3 11 6.5V3L6.5 1z"
+            stroke="#738279"
+            stroke-width="1.2"
+            stroke-linejoin="round"
+          />
         </svg>
         Your card details are encrypted and secure. We never store your CVV.
       </p>
 
-      <button class="pm-pay-btn" (click)="saveAndPay(modal)" [disabled]="payProcessing">
+      <button
+        class="pm-pay-btn"
+        (click)="saveAndPay(modal)"
+        [disabled]="payProcessing"
+      >
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="5" width="20" height="14" rx="2" stroke="white" stroke-width="1.8"/>
-          <path d="M2 10h20" stroke="white" stroke-width="1.8"/>
+          <rect
+            x="2"
+            y="5"
+            width="20"
+            height="14"
+            rx="2"
+            stroke="white"
+            stroke-width="1.8"
+          />
+          <path d="M2 10h20" stroke="white" stroke-width="1.8" />
         </svg>
-        {{ payProcessing ? 'Processing…' : 'Save & Pay €' + total }}
+        {{ payProcessing ? "Processing…" : "Save & Pay €" + total }}
       </button>
-
     </ng-container>
-
   </div>
 </ng-template>
 
 <!-- ══ BOOKING CONFIRMATION MODAL ═══════════════════════════ -->
 <ng-template #confirmTpl let-modal>
   <div class="conf-wrap">
-
     <!-- Celebration emoji banner -->
     <div class="conf-celebration">🎉</div>
 
@@ -498,16 +813,22 @@
     <div class="conf-icon-ring">
       <div class="conf-icon-circle">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path class="conf-check-path" d="M8 16l5 5 11-11"
-                stroke="white" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round"/>
+          <path
+            class="conf-check-path"
+            d="M8 16l5 5 11-11"
+            stroke="white"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </div>
     </div>
 
     <h3 class="conf-title">You're all booked! 🏠</h3>
     <p class="conf-sub">
-      Payment of <strong class="conf-green">€{{ total.toFixed(2) }}</strong> confirmed.
+      Payment of
+      <strong class="conf-green">€{{ total.toFixed(2) }}</strong> confirmed.
       Your cleaner is being matched now.
     </p>
 
@@ -539,19 +860,26 @@
     <!-- CTAs -->
     <button class="conf-btn-primary" (click)="modal.close('track')">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5"/>
-        <path d="M12 6v6l4 2" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5" />
+        <path
+          d="M12 6v6l4 2"
+          stroke="white"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
       </svg>
       Track matching status
     </button>
-    <button class="conf-btn-ghost" (click)="modal.close('bookings')">View my bookings</button>
+    <button class="conf-btn-ghost" (click)="modal.close('bookings')">
+      View my bookings
+    </button>
 
     <!-- Report issue link -->
     <div class="conf-issue-row">
       <span>Something wrong?</span>
-      <button class="conf-issue-link" (click)="modal.close('issue')">Report an issue</button>
+      <button class="conf-issue-link" (click)="modal.close('issue')">
+        Report an issue
+      </button>
     </div>
-
   </div>
 </ng-template>
-

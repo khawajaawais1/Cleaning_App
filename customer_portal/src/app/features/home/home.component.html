@@ -1,19 +1,41 @@
 <!-- ══════════════════════════════════════════════════ HERO ══ -->
 <section class="hero">
   <div class="container hero-grid">
-
     <!-- Left -->
     <div class="hero-text">
-      <div class="eco-badge">🌿 Eco-friendly · Vetted cleaners · Helsinki-area</div>
-      <h1>Come home to a<br><span class="hero-green">cleaner that cares.</span></h1>
+      <div class="eco-badge">
+        <svg
+          width="16"
+          height="15"
+          viewBox="0 0 16 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.0664 0.355469C15.5859 1.53125 15.8867 2.95312 15.8867 4.32031C15.8867 9.02344 12.8516 12.8789 8.55859 13.1797C6.34375 13.4258 4.67578 12.2773 3.77344 11.0742C2.37891 12.25 1.85938 13.4531 1.80469 13.5625C1.61328 14 1.12109 14.2188 0.65625 14.0273C0.21875 13.8359 0 13.3438 0.191406 12.8789C0.847656 11.3203 3.74609 7.08203 10.6367 7.08203C10.8555 7.08203 11.0742 6.89062 11.0742 6.64453C11.0742 6.42578 10.8555 6.20703 10.6367 6.20703C7.05469 6.20703 4.53906 7.27344 2.78906 8.53125C2.76172 8.33984 2.76172 8.14844 2.76172 7.95703C2.76172 5.05859 5.11328 2.70703 8.01172 2.70703H10.1992C11.9219 2.70703 13.4258 1.80469 14.2734 0.328125C14.4648 0 14.9023 0.0273438 15.0664 0.355469Z"
+            fill="#47B436"
+          />
+        </svg>
+        Eco-friendly · Vetted cleaners · Helsinki-area
+      </div>
+      <h1>
+        Come home to a<br /><span class="hero-green">cleaner that cares.</span>
+      </h1>
       <p class="hero-body">
-        CleanApp pairs you with a background-checked, top-rated home cleaner in minutes.
-        Pick your service, choose a time that works for you, and watch them arrive on a live map —
-        all with transparent pricing in euros and no surprise fees.
+        CleanApp pairs you with a background-checked, top-rated home cleaner in
+        minutes. Pick your service, choose a time that works for you, and watch
+        them arrive on a live map — all with transparent pricing in euros and no
+        surprise fees.
       </p>
       <div class="hero-ctas">
-        <a routerLink="/book" class="btn btn-dark btn-lg">Get my first clean →</a>
-        <a href="#how-it-works" class="btn btn-ghost btn-lg">▶ How it works</a>
+        <a routerLink="/book" class="hero-ctas-link"
+          >Get my first clean
+          <span class="material-symbols-outlined"> arrow_forward </span></a
+        >
+        <a href="#how-it-works" class="hero-ctas-link-ghost"
+          ><span class="material-symbols-outlined"> play_arrow </span> How it
+          works</a
+        >
       </div>
       <div class="social-proof">
         <div class="av-row">
@@ -24,8 +46,10 @@
           <div class="av av-al">AL</div>
         </div>
         <div class="rating-wrap">
-          <span class="stars">★★★★★</span>
-          <strong>4.9/5</strong>
+          <div>
+            <span class="stars">★★★★★</span>
+            <strong>4.9/5</strong>
+          </div>
           <span class="rating-sub">from 1,800+ verified bookings</span>
         </div>
       </div>
@@ -38,10 +62,17 @@
         <div class="float-top">
           <span class="float-label">TONIGHT</span>
           <span class="float-price">€90 booked</span>
-          <span class="float-svc">· Deep Clean</span>
+          <span class="float-svc">3h · Deep Clean</span>
         </div>
         <!-- Hero image -->
-        <img src="assets/images/hero.png" alt="Professional cleaner at work" class="hero-photo" />
+        <div class="hero-img-div">
+          <img
+            src="assets/images/hero.png"
+            alt="Professional cleaner at work"
+            class="hero-photo"
+          />
+        </div>
+
         <!-- Floating card bottom -->
         <div class="float-bottom">
           <div class="float-av">MK</div>
@@ -59,10 +90,30 @@
 <!-- ══════════════════════════════════════════════ TRUST BAR ══ -->
 <div class="trust-bar">
   <div class="container trust-inner">
-    <div class="trust-item"><span>🛡️</span>ID-checked &amp; insured</div>
-    <div class="trust-item"><span>🌿</span>Eco-friendly products</div>
-    <div class="trust-item"><span>⏰</span>On time, every time</div>
-    <div class="trust-item"><span>🔄</span>Free re-clean if not happy</div>
+    <div class="trust-item">
+      <span>
+        <img src="assets/svg/id-check.svg" alt="id-check.svg" />
+      </span>
+      ID-checked &amp; insured
+    </div>
+    <div class="trust-item">
+      <span>
+        <img src="assets/svg/eco-friendly.svg" alt="eco-friendly" />
+      </span>
+      Eco-friendly products
+    </div>
+    <div class="trust-item">
+      <span>
+        <img src="assets/svg/on-time.svg" alt="on-time.svg" />
+      </span>
+      On time, every time
+    </div>
+    <div class="trust-item">
+      <span>
+        <img src="assets/svg/free-re-clean.svg" alt="free-re-clen.svg" />
+      </span>
+      Free re-clean if not happy
+    </div>
   </div>
 </div>
 
@@ -70,12 +121,17 @@
 <section id="how-it-works" class="how-section">
   <div class="container">
     <div class="section-label">HOW IT WORKS</div>
-    <h2 class="section-title">Booked in 3 minutes.<br><span class="accent">Cleaned in three hours.</span></h2>
+    <h2 class="section-title">
+      Booked in 3 minutes.<br />Cleaned in
+      <span class="accent">three hours.</span>
+    </h2>
     <div class="steps-grid">
       <div class="step-card" *ngFor="let s of steps">
         <div class="step-card-head">
           <span class="step-num-label">STEP {{ s.num }}</span>
-          <span class="step-icon">{{ s.icon }}</span>
+          <span class="step-icon-span"
+            ><img class="step-icon" [src]="'assets/svg/' + s.icon"
+          /></span>
         </div>
         <h3>{{ s.title }}</h3>
         <p>{{ s.desc }}</p>
@@ -90,21 +146,40 @@
     <div class="services-head">
       <div>
         <div class="section-label">SERVICES</div>
-        <h2 class="section-title" style="margin-bottom:0">One app, every kind of clean.</h2>
+        <h2 class="section-title" style="margin-bottom: 0">
+          One app, every kind of clean.
+        </h2>
       </div>
-      <a routerLink="/book" class="see-all-link">See all add-ons →</a>
+      <a routerLink="/book" class="see-all-link"
+        >See all add-ons
+        <span class="material-symbols-outlined"> arrow_forward </span></a
+      >
     </div>
     <div class="services-grid">
       <div class="service-card card" *ngFor="let s of services">
         <div class="svc-photo-wrap">
-          <div class="svc-icon-large">{{ s.icon }}</div>
+          <div class="svc-icon-badge">
+            <img [src]="'assets/svg/' + s.icon" [alt]="s.icon" />
+          </div>
+          <img
+            class="svc-photo"
+            [src]="'assets/images/' + s.image"
+            [alt]="s.image"
+          />
         </div>
         <div class="svc-body">
-          <h3>{{ s.label }}</h3>
-          <p>{{ s.tagline }}</p>
+          <div class="svc-top">
+            <h3>{{ s.label }}</h3>
+            <p>{{ s.tagline }}</p>
+          </div>
           <div class="svc-footer">
-            <div class="svc-price">€{{ s.ratePerHour }}<span>/h</span><small>from</small></div>
-            <a routerLink="/book" class="book-link">Book →</a>
+            <div class="svc-price">
+              €{{ s.ratePerHour }}<span>/h</span><small>from</small>
+            </div>
+            <a routerLink="/book" class="book-link"
+              >Book
+              <span class="material-symbols-outlined"> arrow_forward </span></a
+            >
           </div>
         </div>
       </div>
@@ -117,13 +192,21 @@
   <div class="container why-grid">
     <div class="why-left">
       <div class="section-label">WHY Happy2Clean</div>
-      <h2 class="section-title">Not just a clean.<br><span class="accent">A standard.</span></h2>
-      <p class="why-body">Most cleaning apps are middlemen. We're a tight network of vetted cleaners who actually care about doing it right — and we back every booking with a re-clean guarantee.</p>
+      <h2 class="section-title">
+        Not just a clean.<br /><span class="accent">A standard.</span>
+      </h2>
+      <p class="why-body">
+        Most cleaning apps are middlemen. We're a tight network of vetted
+        cleaners who actually care about doing it right — and we back every
+        booking with a re-clean guarantee.
+      </p>
     </div>
     <div class="why-right">
       <div class="features-grid">
         <div class="feature-card card" *ngFor="let f of features">
-          <div class="feat-icon">{{ f.icon }}</div>
+          <div class="feat-icon">
+            <img [src]="'assets/svg/' + f.icon" [alt]="f.icon" />
+          </div>
           <h4>{{ f.title }}</h4>
           <p>{{ f.desc }}</p>
         </div>
@@ -135,10 +218,15 @@
 <!-- ═══════════════════════════════════════ TESTIMONIALS ══ -->
 <section class="reviews-section">
   <div class="container">
+    <div class="section-label">reviews</div>
+    <h2 class="section-title">
+      Customers don't just <span class="accent">stay.</span><br />They rave.
+    </h2>
     <div class="reviews-grid">
       <div class="review-card card" *ngFor="let t of testimonials">
-        <div class="stars">{{ '★'.repeat(t.stars) }}</div>
+        <div class="stars">{{ "★".repeat(t.stars) }}</div>
         <p class="review-text">{{ t.text }}</p>
+        <div class="divider"></div>
         <div class="reviewer">
           <strong>{{ t.name }}</strong>
           <span>{{ t.meta }}</span>
@@ -152,20 +240,57 @@
 <section id="pricing" class="pricing-section">
   <div class="container pricing-grid">
     <div class="pricing-left">
-      <div class="section-label" style="color:rgba(255,255,255,.55)">SIMPLE PRICING</div>
-      <h2 class="pricing-title">From <span class="price-accent">€25/hour.</span><br>Pay only when the job is done.</h2>
-      <p class="pricing-body">No subscriptions, no commitments. Add €5 platform fee, choose your add-ons, see your total upfront. Card only charged on completion.</p>
+      <div class="section-label" style="color: rgba(255, 255, 255, 0.55)">
+        SIMPLE PRICING
+      </div>
+      <h2 class="pricing-title">
+        From <span class="price-accent">€25/hour.</span><br />Pay only when the
+        job is done.
+      </h2>
+      <p class="pricing-body">
+        No subscriptions, no commitments. Add €5 platform fee, choose your
+        add-ons, see your total upfront. Card only charged on completion.
+      </p>
       <div class="pricing-ctas">
-        <a routerLink="/book" class="btn btn-green">Book my first clean →</a>
-        <a routerLink="/login" class="btn btn-outline-light">I have an account</a>
+        <a routerLink="/book" class="btn btn-green"
+          >Book my first clean
+          <span class="material-symbols-outlined"> arrow_forward </span></a
+        >
+        <a routerLink="/login" class="btn btn-outline-light"
+          >I have an account</a
+        >
       </div>
     </div>
     <div class="pricing-right">
       <div class="price-grid">
-        <div class="price-box"><span class="pb-label">STANDARD</span><span class="pb-price">€25<sub>/h</sub></span></div>
-        <div class="price-box price-box--highlight"><span class="pb-label">DEEP</span><span class="pb-price">€35<sub>/h</sub></span></div>
-        <div class="price-box"><span class="pb-label">OFFICE</span><span class="pb-price">€30<sub>/h</sub></span></div>
-        <div class="price-box"><span class="pb-label">MOVE-OUT</span><span class="pb-price">€30<sub>/h</sub></span></div>
+        <div class="price-box">
+          <span class="pb-label">STANDARD</span
+          ><span class="pb-price"
+            >€25
+            <p>/h</p></span
+          >
+        </div>
+        <div class="price-box price-box--highlight">
+          <span class="pb-label">DEEP</span
+          ><span class="pb-price"
+            >€35
+            <p>/h</p></span
+          >
+        </div>
+        <div class="price-box">
+          <span class="pb-label">OFFICE</span
+          ><span class="pb-price"
+            >€30
+            <p>/h</p></span
+          >
+        </div>
+        <div class="price-box">
+          <span class="pb-label">MOVE-OUT</span
+          ><span class="pb-price"
+            >€30
+            <p>/h</p></span
+          >
+        </div>
       </div>
     </div>
   </div>
@@ -177,15 +302,24 @@
     <div class="faq-left">
       <div class="section-label">FAQ</div>
       <h2 class="section-title">Quick answers.</h2>
-      <p class="faq-sub">Still have a question? Our team replies in under 5 minutes during the day.</p>
-      <!-- <a href="mailto:hello@cleanapp.com" class="faq-email">✉ hello@cleanapp.com</a> -->
+      <p class="faq-sub">
+        Still have a question? Our team replies in under 5 minutes during the
+        day.
+      </p>
+      <a href="mailto:hello@cleanapp.com" class="faq-email">
+        <img src="assets/svg/mail.svg" alt="mail.svg" /> hello&#64;cleanapp.com
+      </a>
     </div>
     <div class="faq-right">
       <div class="faq-list">
-        <div class="faq-item" *ngFor="let f of faqs; let i = index" [class.open]="openFaq === i">
+        <div
+          class="faq-item"
+          *ngFor="let f of faqs; let i = index"
+          [class.open]="openFaq === i"
+        >
           <button class="faq-q" (click)="toggle(i)">
             {{ f.q }}
-            <span class="faq-toggle">{{ openFaq === i ? '−' : '+' }}</span>
+            <span class="faq-toggle">{{ openFaq === i ? "−" : "+" }}</span>
           </button>
           <div class="faq-a" *ngIf="openFaq === i">{{ f.a }}</div>
         </div>
