@@ -413,6 +413,12 @@
     grid-template-columns: 1fr;
   }
   .ext-page {
-    padding: 16px;
+    padding: 0;
+  }
+  .metric-val {
+    font-size: 17px;
+  }
+  .metric-lbl {
+    font-size: 8px;
   }
 }

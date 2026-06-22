@@ -1,6 +1,12 @@
 // ── Host & page shell ───────────────────────────────────────────────────
-:host { display: block; }
-.workers-page { padding: 28px 32px; color: var(--text-1); background: var(--frame-bg); }
+:host {
+  display: block;
+}
+.workers-page {
+  padding: 28px 32px;
+  color: var(--text-1);
+  background: var(--frame-bg);
+}
 
 // ── Page header ─────────────────────────────────────────────────────────
 .page-header {
@@ -27,6 +33,10 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  button {
+    border-radius: 999px;
+    background: #47b436;
+  }
 }
 
 .search-wrap {
@@ -51,8 +61,12 @@
     color: #131f1c;
     outline: none;
 
-    &::placeholder { color: #b0b8b4; }
-    &:focus { border-color: #27b65f; }
+    &::placeholder {
+      color: #b0b8b4;
+    }
+    &:focus {
+      border-color: #27b65f;
+    }
   }
 }
 
@@ -68,7 +82,9 @@
   cursor: pointer;
   white-space: nowrap;
 
-  &:hover { background: #22a054; }
+  &:hover {
+    background: #22a054;
+  }
 }
 
 // ── Table ────────────────────────────────────────────────────────────────
@@ -84,7 +100,9 @@
   width: 100%;
   border-collapse: collapse;
 
-  thead tr { border-bottom: 1px solid #f0f3f1; }
+  thead tr {
+    border-bottom: 1px solid #f0f3f1;
+  }
 
   th {
     padding: 12px 16px;
@@ -103,8 +121,12 @@
     border-bottom: 1px solid #f5f7f5;
   }
 
-  tbody tr:last-child td { border-bottom: none; }
-  tbody tr:hover td { background: #fafbfa; }
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+  tbody tr:hover td {
+    background: #fafbfa;
+  }
 }
 
 // ── Worker cell ──────────────────────────────────────────────────────────
@@ -141,13 +163,27 @@
   color: #fff;
   flex-shrink: 0;
 
-  &.av-mk      { background: #27b65f; }
-  &.av-jr      { background: #3b9acf; }
-  &.av-pn      { background: #9b5de5; }
-  &.av-so      { background: #e28a3c; }
-  &.av-al      { background: #e25c7e; }
-  &.av-ev      { background: #06b6d4; }
-  &.av-default { background: #64748b; }
+  &.av-mk {
+    background: #27b65f;
+  }
+  &.av-jr {
+    background: #3b9acf;
+  }
+  &.av-pn {
+    background: #9b5de5;
+  }
+  &.av-so {
+    background: #e28a3c;
+  }
+  &.av-al {
+    background: #e25c7e;
+  }
+  &.av-ev {
+    background: #06b6d4;
+  }
+  &.av-default {
+    background: #64748b;
+  }
 }
 
 // ── Speciality badge ─────────────────────────────────────────────────────
@@ -163,7 +199,10 @@
 }
 
 // ── Rating ───────────────────────────────────────────────────────────────
-.rating-cell { color: #c07820; font-weight: 600; }
+.rating-cell {
+  color: #c07820;
+  font-weight: 600;
+}
 
 // ── Status chip ──────────────────────────────────────────────────────────
 .status-chip {
@@ -175,8 +214,14 @@
   font-size: 12px;
   font-weight: 600;
 
-  &.online  { background: #e5f4eb; color: #1f7a47; }
-  &.offline { background: #f4f4f4; color: #6b7874; }
+  &.online {
+    background: #e5f4eb;
+    color: #1f7a47;
+  }
+  &.offline {
+    background: #f4f4f4;
+    color: #6b7874;
+  }
 }
 
 // ── Action buttons ───────────────────────────────────────────────────────
@@ -198,7 +243,9 @@
   cursor: pointer;
   color: #336aff;
   padding: 0;
-  &:hover { color: #1f43a7; }
+  &:hover {
+    color: #1f43a7;
+  }
 }
 
 .btn-delete {
@@ -212,7 +259,9 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  &:hover { color: #c03333; }
+  &:hover {
+    color: #c03333;
+  }
 }
 
 .empty-state {
@@ -235,6 +284,7 @@
 }
 
 .drawer {
+  display: none;
   position: fixed;
   top: 0;
   right: -480px;
@@ -246,10 +296,15 @@
   transition: right 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
 
-  &.open { right: 0; }
+  &.open {
+    display: block;
+    right: 0;
+  }
 }
 
-.drawer-inner { padding: 28px 28px 40px; }
+.drawer-inner {
+  padding: 28px 28px 40px;
+}
 
 .drawer-header {
   margin-bottom: 24px;
@@ -271,7 +326,11 @@
 }
 
 // ── Form ─────────────────────────────────────────────────────────────────
-.drawer-form { display: flex; flex-direction: column; gap: 18px; }
+.drawer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
 
 .form-group {
   display: flex;
@@ -295,9 +354,9 @@
     letter-spacing: 0;
   }
 
-  input[type='text'],
-  input[type='email'],
-  input[type='number'] {
+  input[type="text"],
+  input[type="email"],
+  input[type="number"] {
     height: 40px;
     padding: 0 12px;
     border: 1px solid #e3e8e4;
@@ -307,8 +366,12 @@
     outline: none;
     background: #ffffff;
 
-    &::placeholder { color: #c4ccc8; }
-    &:focus { border-color: #27b65f; }
+    &::placeholder {
+      color: #c4ccc8;
+    }
+    &:focus {
+      border-color: #27b65f;
+    }
   }
 }
 
@@ -350,7 +413,11 @@
   height: 24px;
   flex-shrink: 0;
 
-  input { opacity: 0; width: 0; height: 0; }
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
 
   .toggle-track {
     position: absolute;
@@ -361,7 +428,7 @@
     transition: background 0.2s;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       width: 18px;
       height: 18px;
@@ -375,9 +442,11 @@
   }
 
   input:checked + .toggle-track {
-    background: #27b65f;
+    background: #47B436;
 
-    &::before { transform: translateX(20px); }
+    &::before {
+      transform: translateX(20px);
+    }
   }
 }
 
@@ -395,6 +464,12 @@
   display: flex;
   gap: 12px;
   padding-top: 8px;
+  button {
+    border-radius: 999px;
+    &.btn-submit{
+      background: #47B436;
+    }
+  }
 }
 
 .btn-cancel {
@@ -408,7 +483,9 @@
   color: #4b5563;
   cursor: pointer;
 
-  &:hover { background: #f5f7f5; }
+  &:hover {
+    background: #f5f7f5;
+  }
 }
 
 .btn-submit {
@@ -422,11 +499,52 @@
   color: #ffffff;
   cursor: pointer;
 
-  &:hover { background: #22a054; }
-  &:disabled { opacity: 0.65; cursor: not-allowed; }
+  &:hover {
+    background: #22a054;
+  }
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .workers-page {
+    padding: 0;
+  }
+
+  .header-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .page-header {
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .drawer {
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin-top: 70px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+  }
+
+  .workers-table tr:nth-child(even) {
+    background: #1033470c;
+  }
 }

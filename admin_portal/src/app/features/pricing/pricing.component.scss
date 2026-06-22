@@ -17,6 +17,9 @@
   justify-content: space-between;
   margin-bottom: 18px;
   gap: 12px;
+  button {
+    border-radius: 999px;
+  }
 }
 
 .sc-title {
@@ -48,6 +51,12 @@
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+  button {
+    border-radius: 999px;
+  }
+  .btn-primary {
+    background: #47b436 !important;
+  }
 }
 
 .fee-type-toggle {
@@ -161,13 +170,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 35px;
-  width: 35px;
+  height: 40px;
+  width: 40px;
   flex-shrink: 0;
   line-height: 1.2;
   color: white;
-  background: var(--sidebar-bg);
+  background: #47b436;
   border-radius: 999px;
+  img {
+    filter: brightness(0) invert(1);
+  }
 }
 .rt-label {
   font-size: 14px;
@@ -223,7 +235,7 @@
   transition: background 0.2s;
 
   &.on {
-    background: var(--accent);
+    background: #47b436;
   }
 }
 
@@ -328,6 +340,12 @@
   display: flex;
   gap: 6px;
   margin-left: auto;
+  button {
+    border-radius: 999px;
+    &.btn-primary {
+      background: #47b436 !important;
+    }
+  }
 }
 
 /* ── Modals ── */
@@ -372,6 +390,12 @@
   gap: 10px;
   margin-top: 20px;
   justify-content: flex-end;
+  button {
+    border-radius: 999px;
+  }
+  .btn-primary {
+    background: #47b436 !important;
+  }
 }
 
 .alert-error-sm {
@@ -395,4 +419,55 @@
   font-weight: 400;
   color: var(--text-4);
   margin-left: 6px;
+}
+
+@media (max-width: 900px) {
+  .page-wrap {
+    padding: 0;
+  }
+
+  .page-header-row {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    button {
+      width: 100%;
+      border-radius: 999px;
+      background: #47b436;
+    }
+  }
+
+  .rt-header {
+    display: none;
+  }
+
+  .rt-label,
+  .rt-tagline {
+    width: 100%;
+  }
+  .rt-row {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+
+    .rt-service {
+      grid-column: span 3 / span 3;
+    }
+    .rt-rate {
+      grid-column-start: 1;
+      grid-row-start: 2;
+    }
+    .rt-status {
+      grid-column-start: 3;
+      grid-row-start: 2;
+    }
+    .rt-date {
+      grid-column-start: 1;
+      grid-row-start: 3;
+    }
+    .rt-actions {
+      grid-column-start: 3;
+      grid-row-start: 3;
+    }
+  }
 }

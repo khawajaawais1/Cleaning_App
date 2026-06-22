@@ -40,7 +40,7 @@
   <div class="table-wrap">
     <table class="workers-table">
       <thead>
-        <tr>
+        <tr *ngIf="filteredWorkers.length !== 0">
           <th>WORKER</th>
           <th>SPECIALITY</th>
           <th>CITY</th>

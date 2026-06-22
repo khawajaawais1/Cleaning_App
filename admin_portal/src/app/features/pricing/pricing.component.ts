@@ -20,6 +20,12 @@ export class PricingComponent implements OnInit {
   rates: RateRow[] = [];
   platformFee: PlatformFee | null = null;
   loading = true;
+   private LocalIcons: Record<string, string> = {
+    StandardClean: "service-1.svg",
+    DeepClean: "service-2.svg",
+    OfficeClean: "service-3.svg",
+    MoveInOut: "service-4.svg"
+  };
 
   // Platform fee edit state
   editingFee = false;
@@ -28,7 +34,7 @@ export class PricingComponent implements OnInit {
 
   // Add new service modal
   showAddModal = false;
-  addForm = { serviceType: '', label: '', tagline: '', icon: '🧹', ratePerHour: 25, displayOrder: 99 };
+  addForm = { serviceType: '', label: '', tagline: '', icon: 'new-service.svg', ratePerHour: 25, displayOrder: 99 };
   adding = false;
   addError = '';
 
@@ -44,7 +50,7 @@ export class PricingComponent implements OnInit {
   load(): void {
     this.loading = true;
     this.pricingService.getRates().subscribe(rates => {
-      this.rates = rates.map(r => ({ ...r, editing: false, draft: {}, saving: false }));
+      this.rates = rates.map(r => ({ ...r, editing: false, draft: {}, saving: false, icon: this.LocalIcons[r.serviceType]  }));
       this.loading = false;
     });
     this.pricingService.getPlatformFee().subscribe(f => {
@@ -97,7 +103,7 @@ export class PricingComponent implements OnInit {
 
   /* ── Add new service ── */
   openAdd(): void {
-    this.addForm = { serviceType: '', label: '', tagline: '', icon: '🧹', ratePerHour: 25, displayOrder: (this.rates.length + 1) * 10 };
+    this.addForm = { serviceType: '', label: '', tagline: '', icon: 'new-service.svg', ratePerHour: 25, displayOrder: (this.rates.length + 1) * 10 };
     this.addError = '';
     this.showAddModal = true;
   }

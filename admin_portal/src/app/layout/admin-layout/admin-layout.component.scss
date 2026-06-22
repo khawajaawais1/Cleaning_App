@@ -36,6 +36,13 @@
   overflow: hidden;
 }
 
+.hamburger {
+  display: none;
+  &-nav {
+    display: none;
+  }
+}
+
 .brand {
   display: flex;
   align-items: center;
@@ -98,7 +105,7 @@
     background: var(--active-tab-bg);
     color: var(--active-tab-text);
     font-weight: 700;
-    span > img{
+    span > img {
       position: relative;
       height: 16px;
       width: 16px;
@@ -107,7 +114,7 @@
   }
 }
 
-.sidebar-nav-item{
+.sidebar-nav-item {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -198,9 +205,97 @@
   .admin-frame {
     grid-template-columns: 1fr;
   }
-
-  .screen-label,
+  .brand {
+    border: none;
+  }
+  /* .screen-label, */
   .sidebar {
+    top: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 20px;
+    height: 70px;
+    z-index: 200;
+  }
+
+  .hamburger {
+    display: block;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.123);
+    z-index: 1000;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 10px;
+    border: 0;
+
+    &-nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      position: fixed;
+      background: var(--sidebar-bg);
+      z-index: 1000;
+      left: 0;
+      height: 50%;
+      width: 100%;
+      top: 0;
+      margin-top: 70px;
+      padding: 10px 20px;
+    }
+    &-logout {
+      background: rgba(255, 255, 255, 0.123);
+      color: white;
+      border: 0;
+      border-radius: 999px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      gap: 10px;
+      position: absolute;
+      bottom: 0;
+      margin-bottom: 30px;
+    }
+    &-footer-avatar {
+      height: 40px;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.247);
+    }
+    &-info{
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    &-footer-name {
+      text-align: start;
+    }
+    &-footer-email {
+      color: var(--text-3);
+    }
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    display: none;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .sidebar-footer {
     display: none;
   }
 

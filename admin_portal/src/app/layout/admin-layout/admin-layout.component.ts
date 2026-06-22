@@ -26,6 +26,11 @@ interface NavItem {
 export class AdminLayoutComponent implements OnInit {
   currentUser: User | null = null;
   pageTitle = "Dashboard";
+  sidebarOpen = false;
+
+  toggleSidebar(): void {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
 
   navItems: NavItem[] = [
     { icon: "dashboardIcon", label: "Dashboard", path: "/dashboard", badge: 0 },
@@ -109,14 +114,17 @@ export class AdminLayoutComponent implements OnInit {
     });
 
     // Live jobs
-     this.jobsService.getLiveJobs().subscribe(res => {
-       this.updateBadge("/live-jobs", res.length);
-     });
+    this.jobsService.getLiveJobs().subscribe((res) => {
+      this.updateBadge("/live-jobs", res.length);
+    });
 
     // Bookings
-     this.bookingService.getBookings().subscribe(res => {
-       this.updateBadge("/bookings", res.data.filter(b => b.status === "pending").length);
-     });
+    this.bookingService.getBookings().subscribe((res) => {
+      this.updateBadge(
+        "/bookings",
+        res.data.filter((b) => b.status === "pending").length,
+      );
+    });
   }
 
   private updateBadge(path: string, count: number): void {

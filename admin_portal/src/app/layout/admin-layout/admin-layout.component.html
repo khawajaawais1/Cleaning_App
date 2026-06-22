@@ -2,17 +2,15 @@
   <div class="screen-label">ADMIN - SCREEN 1</div>
 
   <aside class="sidebar">
-    <a class="brand" href="http://localhost:4200/dashboard">
-      <div class="brand-mark"><svg
-      viewBox="0 0 26 21"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 8.55469L13.3984 12.8125C13.3984 12.8125 12.7344 16.8359 10.3906 18.7109C8.04688 20.5469 0 20.0391 0 20.0391C0 20.0391 0.117188 19.1406 0.429688 17.8516L4.10156 13.4766C4.25781 13.2812 4.0625 13.0078 3.82812 13.125L1.48438 13.9844C2.07031 12.3438 2.77344 10.8594 3.63281 10.1562C5.97656 8.28125 10 8.55469 10 8.55469ZM24.8438 1.32812C25.0781 1.5625 25 1.95312 24.7266 2.1875L15.6641 9.14062L16.9922 10.8203C17.1875 11.0547 17.0703 11.4453 16.7578 11.4844L14.4531 11.9922L11.0547 7.73438L12.0703 5.58594C12.1875 5.3125 12.5781 5.23438 12.7734 5.50781L14.1016 7.1875L23.2031 0.234375C23.4766 0 23.8672 0.078125 24.0625 0.351562L24.8438 1.32812Z"
-        fill="white"
-      />
-    </svg></div>
+    <a class="brand" href="/">
+      <div class="brand-mark">
+        <svg viewBox="0 0 26 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10 8.55469L13.3984 12.8125C13.3984 12.8125 12.7344 16.8359 10.3906 18.7109C8.04688 20.5469 0 20.0391 0 20.0391C0 20.0391 0.117188 19.1406 0.429688 17.8516L4.10156 13.4766C4.25781 13.2812 4.0625 13.0078 3.82812 13.125L1.48438 13.9844C2.07031 12.3438 2.77344 10.8594 3.63281 10.1562C5.97656 8.28125 10 8.55469 10 8.55469ZM24.8438 1.32812C25.0781 1.5625 25 1.95312 24.7266 2.1875L15.6641 9.14062L16.9922 10.8203C17.1875 11.0547 17.0703 11.4453 16.7578 11.4844L14.4531 11.9922L11.0547 7.73438L12.0703 5.58594C12.1875 5.3125 12.5781 5.23438 12.7734 5.50781L14.1016 7.1875L23.2031 0.234375C23.4766 0 23.8672 0.078125 24.0625 0.351562L24.8438 1.32812Z"
+            fill="white"
+          />
+        </svg>
+      </div>
       <div>
         <div class="brand-name">Happy2Clean</div>
         <div class="brand-subtitle">ADMIN PORTAL</div>
@@ -47,6 +45,70 @@
       </a>
     </nav>
 
+    <nav class="hamburger-nav" *ngIf="sidebarOpen">
+      <a
+        *ngFor="let item of navItems"
+        (click)="sidebarOpen = false"
+        [routerLink]="item.path"
+        routerLinkActive="active"
+        class="nav-item"
+      >
+        <!--         <span class="nav-icon" [attr.data-icon]="item.icon"></span>
+ -->
+        <span class="sidebar-nav-item">
+          <img
+            [src]="'assets/' + item.icon + '.svg'"
+            [alt]="item.icon + ' icon'"
+            class="nav-icon"
+          />
+          <span class="nav-label">{{ item.label }}</span>
+        </span>
+
+        <span
+          *ngIf="item.badge > 0"
+          class="nav-badge"
+          [class.orange]="item.badgeTone === 'orange'"
+        >
+          {{ item.badge }}
+        </span>
+      </a>
+      <button class="hamburger-logout" type="button" (click)="logout()">
+        <span class="hamburger-footer-avatar">{{ getInitials() }}</span>
+        <span class="hamburger-info">
+          <span class="hamburger-footer-name">Log out</span>
+          <span class="hamburger-footer-email">admin&#64;cleanapp.com</span>
+        </span>
+      </button>
+    </nav>
+    <button class="hamburger" (click)="toggleSidebar()">
+      <ng-container *ngIf="sidebarOpen; else closed">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 640 640"
+          width="24"
+          height="24"
+        >
+          <path
+            fill="white"
+            d="M183.1 137.4C170.6 124.9 150.3 124.9 137.8 137.4C125.3 149.9 125.3 170.2 137.8 182.7L275.2 320L137.9 457.4C125.4 469.9 125.4 490.2 137.9 502.7C150.4 515.2 170.7 515.2 183.2 502.7L320.5 365.3L457.9 502.6C470.4 515.1 490.7 515.1 503.2 502.6C515.7 490.1 515.7 469.8 503.2 457.3L365.8 320L503.1 182.6C515.6 170.1 515.6 149.8 503.1 137.3C490.6 124.8 470.3 124.8 457.8 137.3L320.5 274.7L183.1 137.4z"
+          />
+        </svg>
+      </ng-container>
+
+      <ng-template #closed>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 640 640"
+          width="24"
+          height="24"
+        >
+          <path
+            fill="white"
+            d="M96 160C96 142.3 110.3 128 128 128L512 128C529.7 128 544 142.3 544 160C544 177.7 529.7 192 512 192L128 192C110.3 192 96 177.7 96 160zM96 320C96 302.3 110.3 288 128 288L512 288C529.7 288 544 302.3 544 320C544 337.7 529.7 352 512 352L128 352C110.3 352 96 337.7 96 320zM544 480C544 497.7 529.7 512 512 512L128 512C110.3 512 96 497.7 96 480C96 462.3 110.3 448 128 448L512 448C529.7 448 544 462.3 544 480z"
+          />
+        </svg>
+      </ng-template>
+    </button>
     <button class="sidebar-footer" type="button" (click)="logout()">
       <span class="footer-avatar">{{ getInitials() }}</span>
       <span>

@@ -384,3 +384,28 @@
   font-size: 13px;
   color: #9aa49f;
 }
+
+@media (max-width: 900px) {
+  .bookings-page{
+    padding: 0;
+  }
+
+  .filter-pills{
+    width: 100%;
+  }
+
+  .filter-pill{
+    flex: 1;
+    font-size: 10px;
+    height: fit-content;
+    padding: 4px 7px;
+    max-width: 70px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+
+  .table-wrap{
+    overflow-x: auto;
+  }
+}
