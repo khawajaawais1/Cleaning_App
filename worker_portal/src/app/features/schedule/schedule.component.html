@@ -27,7 +27,9 @@
 
   <!-- ── No jobs on selected day ── -->
   <div *ngIf="!loading && dayGroups.length === 0" class="empty-block">
-    <span class="empty-icon">📅</span>
+    <span class="empty-icon"><span class="material-symbols-outlined">
+calendar_month
+</span></span>
     <p class="empty-title">No jobs scheduled</p>
     <p class="empty-sub">Nothing booked for this day</p>
   </div>
@@ -54,7 +56,7 @@
         <p class="sc-addr">{{ job.location.address }}, {{ job.location.postcode }}</p>
         <div class="sc-footer">
           <span class="sc-ref">{{ job.bookingRef }}</span>
-          <span class="sc-earn">£{{ job.earnings | number:'1.2-2' }}</span>
+          <span class="sc-earn"><img src="/assets/euro.svg" alt="euro.svg" />{{ job.earnings | number:'1.2-2' }}</span>
         </div>
       </div>
     </div>

@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../core/services/auth.service';
 import { WorkerProfile } from '../../core/models/worker.model';
 
-const API_BASE = 'http://localhost:5000/api';
+/* const API_BASE = 'http://localhost:5000/api'; */
+const API_BASE = 'https://h2c-backend-hke4dgfyfrbpavee.polandcentral-01.azurewebsites.net/api';
 
 @Component({
   selector: 'app-profile',

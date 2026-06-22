@@ -1,5 +1,4 @@
 <div class="page-wrap">
-
   <div class="page-header">
     <h1 class="page-title">Earnings</h1>
     <p class="page-sub">Your payment history and balance</p>
@@ -9,20 +8,28 @@
   <div *ngIf="summary" class="payout-banner">
     <div class="payout-left">
       <p class="payout-label">Pending payout</p>
-      <p class="payout-amount">£{{ summary.pendingPayout | number:'1.2-2' }}</p>
+      <p class="payout-amount">
+        <img src="/assets/euro-white.svg" alt="euro-white.svg" />{{ summary.pendingPayout | number: "1.2-2" }}
+      </p>
       <p class="payout-note">Paid every Monday</p>
     </div>
-    <div class="payout-icon">💷</div>
+    <div class="payout-icon">
+      <span class="material-symbols-outlined"> payments </span>
+    </div>
   </div>
 
   <!-- ── Stats grid ── -->
   <div *ngIf="summary" class="stats-grid">
     <div class="stat-block">
-      <p class="sb-val">£{{ summary.totalThisWeek | number:'1.0-0' }}</p>
+      <p class="sb-val">
+        <img src="/assets/euro.svg" alt="euro.svg" />{{ summary.totalThisWeek | number: "1.0-0" }}
+      </p>
       <p class="sb-label">This week</p>
     </div>
     <div class="stat-block">
-      <p class="sb-val">£{{ summary.totalThisMonth | number:'1.0-0' }}</p>
+      <p class="sb-val">
+        <img src="/assets/euro.svg" alt="euro.svg" />{{ summary.totalThisMonth | number: "1.0-0" }}
+      </p>
       <p class="sb-label">This month</p>
     </div>
     <div class="stat-block">
@@ -30,7 +37,9 @@
       <p class="sb-label">Jobs done</p>
     </div>
     <div class="stat-block">
-      <p class="sb-val">£{{ summary.averagePerJob | number:'1.0-0' }}</p>
+      <p class="sb-val">
+        <img src="/assets/euro.svg" alt="euro.svg" />{{ summary.averagePerJob | number: "1.0-0" }}
+      </p>
       <p class="sb-label">Avg per job</p>
     </div>
   </div>
@@ -41,11 +50,15 @@
     <div *ngFor="let record of pendingRecords" class="earning-row pending">
       <div class="er-left">
         <p class="er-type">{{ record.serviceType }}</p>
-        <p class="er-ref">{{ record.bookingRef }} · {{ record.customerName }}</p>
-        <p class="er-date">{{ record.date | date:'EEE d MMM' }}</p>
+        <p class="er-ref">
+          {{ record.bookingRef }} · {{ record.customerName }}
+        </p>
+        <p class="er-date">{{ record.date | date: "EEE d MMM" }}</p>
       </div>
       <div class="er-right">
-        <p class="er-amount">£{{ record.amount | number:'1.2-2' }}</p>
+        <p class="er-amount">
+          <img src="/assets/euro.svg" alt="euro.svg" />{{ record.amount | number: "1.2-2" }}
+        </p>
         <span class="pill pill-amber">Pending</span>
       </div>
     </div>
@@ -57,20 +70,25 @@
     <div *ngFor="let record of paidRecords" class="earning-row">
       <div class="er-left">
         <p class="er-type">{{ record.serviceType }}</p>
-        <p class="er-ref">{{ record.bookingRef }} · {{ record.customerName }}</p>
-        <p class="er-date">Paid {{ record.paidAt | date:'d MMM yyyy' }}</p>
+        <p class="er-ref">
+          {{ record.bookingRef }} · {{ record.customerName }}
+        </p>
+        <p class="er-date">Paid {{ record.paidAt | date: "d MMM yyyy" }}</p>
       </div>
       <div class="er-right">
-        <p class="er-amount">£{{ record.amount | number:'1.2-2' }}</p>
+        <p class="er-amount">
+          <img src="/assets/euro.svg" alt="euro.svg" />{{ record.amount | number: "1.2-2" }}
+        </p>
         <span class="pill pill-green">Paid</span>
       </div>
     </div>
   </div>
 
   <div *ngIf="!loading && history.length === 0" class="empty-block">
-    <span class="empty-icon">💷</span>
+    <span class="empty-icon"><span class="material-symbols-outlined">
+payments
+</span></span>
     <p class="empty-title">No earnings yet</p>
     <p class="empty-sub">Complete your first job to start earning</p>
   </div>
-
 </div>

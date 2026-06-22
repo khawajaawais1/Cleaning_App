@@ -1,7 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-const API_BASE = 'http://localhost:5000/api';
+/* const API_BASE = 'http://localhost:5000/api'; */
+const API_BASE = 'https://h2c-backend-hke4dgfyfrbpavee.polandcentral-01.azurewebsites.net/api';
 const INTERVAL_MS = 15_000; // send every 15 seconds while job is active
 
 @Injectable({ providedIn: 'root' })

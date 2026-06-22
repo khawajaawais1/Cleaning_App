@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { WorkerDocument, REQUIRED_DOCUMENTS } from '../models/document.model';
 
-const API_BASE = 'http://localhost:5000/api';
+/* const API_BASE = 'http://localhost:5000/api'; */
+const API_BASE = 'https://h2c-backend-hke4dgfyfrbpavee.polandcentral-01.azurewebsites.net/api';
 
 @Injectable({ providedIn: 'root' })
 export class DocumentService {

@@ -1,9 +1,10 @@
 <div class="app-shell">
-
   <!-- ── Top header ── -->
   <header class="top-bar">
     <div class="top-bar__brand">
-      <div class="brand-mark"></div>
+      <div class="brand-mark">
+        <img src="/assets/Background.png" alt="Background.png" />
+      </div>
       <div>
         <div class="brand-name">Happy2Clean</div>
         <div class="brand-sub">WORKER</div>
@@ -12,7 +13,9 @@
 
     <div class="top-bar__right">
       <span *ngIf="profile?.isOnline" class="online-dot"></span>
-      <div class="header-avatar" [routerLink]="'/profile'">{{ getInitials() }}</div>
+      <div class="header-avatar" [routerLink]="'/profile'">
+        {{ getInitials() }}
+      </div>
     </div>
   </header>
 
@@ -23,14 +26,25 @@
 
   <!-- ── Bottom navigation ── -->
   <nav class="bottom-nav" aria-label="App navigation">
-    <a *ngFor="let tab of tabs"
-       [routerLink]="tab.path"
-       class="nav-tab"
-       [class.active]="isActive(tab.path)"
-       [attr.aria-label]="tab.label">
-      <span class="nav-tab__icon" [attr.data-icon]="isActive(tab.path) ? tab.activeIcon : tab.icon"></span>
+    <a
+      *ngFor="let tab of tabs"
+      [routerLink]="tab.path"
+      class="nav-tab"
+      [class.active]="isActive(tab.path)"
+      [attr.aria-label]="tab.label"
+    >
+      <span *ngIf="isActive(tab.path)" class="nav-tab__icon">
+        <img [src]="'/assets/svg/' + tab.icon + '.svg'" [alt]="tab.icon" />
+      </span>
+
+      <span *ngIf="!isActive(tab.path)" class="nav-tab__icon">
+        <img
+          [src]="'/assets/svg/' + tab.activeIcon + '.svg'"
+          [alt]="tab.icon"
+        />
+      </span>
+
       <span class="nav-tab__label">{{ tab.label }}</span>
     </a>
   </nav>
-
 </div>

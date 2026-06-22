@@ -14,7 +14,7 @@
 .date-strip {
   display: flex;
   gap: 8px;
-  padding: 0 16px;
+  flex: 6;
   width: max-content;
 }
 
@@ -30,6 +30,7 @@
   cursor: pointer;
   transition: all .15s;
   white-space: nowrap;
+  flex: 1;
   min-width: 72px;
 
   &.today { border-color: var(--brand-mid); }
@@ -123,4 +124,6 @@
 }
 
 .sc-ref  { font-size: 11px; color: var(--text-4); font-weight: 500; }
-.sc-earn { font-size: 13px; font-weight: 700; color: var(--accent); }
+.sc-earn { font-size: 13px; font-weight: 700; color: var(--brand); img{
+  height: 10px; margin-right: 2px;
+} }

@@ -30,19 +30,14 @@
 }
 
 .brand-mark {
-  width: 32px;
-  height: 32px;
-  background: var(--brand);
+  width: 40px;
+  height: 40px;
   border-radius: 8px;
   position: relative;
   flex-shrink: 0;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 7px;
-    background: var(--accent-light);
-    border-radius: 3px;
+  img {
+    height: auto;
+    width: 100%;
   }
 }
 
@@ -57,7 +52,7 @@
   font-size: 9px;
   font-weight: 700;
   color: var(--text-3);
-  letter-spacing: .1em;
+  letter-spacing: 0.1em;
   line-height: 1;
 }
 
@@ -87,9 +82,11 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: opacity .15s;
+  transition: opacity 0.15s;
 
-  &:hover { opacity: .85; }
+  &:hover {
+    opacity: 0.85;
+  }
 }
 
 /* ── Main content ────────────────────────── */
@@ -122,28 +119,31 @@
   justify-content: center;
   gap: 3px;
   text-decoration: none;
-  color: var(--text-3);
-  transition: color .15s;
+  opacity: 0.8;
+  transition: color 0.15s;
   position: relative;
   padding-top: 2px;
+  color: var(--brand);
 
   &.active {
-    color: var(--brand);
+    opacity: 1;
 
     &::before {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 32px;
+      width: 100%;
       height: 2px;
       background: var(--brand);
       border-radius: 0 0 2px 2px;
     }
   }
 
-  &:hover:not(.active) { color: var(--text-2); }
+  &:hover:not(.active) {
+    color: var(--text-2);
+  }
 }
 
 .nav-tab__icon {
@@ -159,7 +159,7 @@
   }
 
   /* SVG-based icons via CSS */
-  &[data-icon="home"]::before            { content: '⌂'; }
+  /* &[data-icon="home"]::before            { content: '⌂'; }
   &[data-icon="home-filled"]::before     { content: '⌂'; }
   &[data-icon="calendar"]::before        { content: '📅'; font-size: 16px; }
   &[data-icon="calendar-filled"]::before { content: '📅'; font-size: 16px; }
@@ -169,10 +169,10 @@
   &[data-icon="money-filled"]::before    { content: '💷'; font-size: 16px; }
   &[data-icon="person"]::before          { content: '👤'; font-size: 16px; }
   &[data-icon="person-filled"]::before   { content: '👤'; font-size: 16px; }
+ */
 }
-
 .nav-tab__label {
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: .02em;
+  letter-spacing: 0.02em;
 }

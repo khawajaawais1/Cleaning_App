@@ -71,7 +71,7 @@
   transition: background .2s;
   flex-shrink: 0;
 
-  &.on   { background: var(--success); }
+  &.on   { background: var(--brand); }
   &.busy { opacity: .6; cursor: not-allowed; pointer-events: none; }
 }
 
@@ -103,7 +103,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
+  padding: 10px;
   border-bottom: 1px solid var(--border);
 
   &:last-child { border-bottom: none; }
@@ -132,7 +132,7 @@
   &:hover { background: var(--bg); }
 }
 
-.menu-icon  { font-size: 18px; }
+.menu-icon  { font-size: 18px; transform: translateY(3px);}
 .menu-arrow { margin-left: auto; color: var(--text-4); font-size: 18px; }
 
 .version-text {

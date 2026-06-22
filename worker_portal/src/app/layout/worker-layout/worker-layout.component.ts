@@ -27,7 +27,7 @@ export class WorkerLayoutComponent implements OnInit {
     { path: '/dashboard', label: 'Home',      icon: 'home',     activeIcon: 'home-filled' },
     { path: '/schedule',  label: 'Schedule',  icon: 'calendar', activeIcon: 'calendar-filled' },
     { path: '/jobs',      label: 'Jobs',      icon: 'job',      activeIcon: 'job-filled' },
-    { path: '/earnings',  label: 'Earnings',  icon: 'money',    activeIcon: 'money-filled' },
+    { path: '/earnings',  label: 'Earnings',  icon: 'payments',    activeIcon: 'payments-filled' },
     { path: '/profile',   label: 'Profile',   icon: 'person',   activeIcon: 'person-filled' },
   ];
 
