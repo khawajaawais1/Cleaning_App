@@ -18,7 +18,17 @@
   --text-3: #7a9490;
   --text-4: #a0b8b3;
 
-  --success: #22c55e;
+  --top-bar: #10384a;
+  --top-text-1: #fff;
+  --top-text-2: #7a9490;
+  --top-user-bg: #ffffff33;
+
+  --bottom-bar: #10384a;
+  --bottom-text-1: #fff;
+  --bottom-text-2: #7a9490;
+  --bottom-user-bg: #ffffff33;
+  
+  --success: #47B436;
   --success-bg: #d1fae5;
   --warning: #f59e0b;
   --warning-bg: #fef3c7;
@@ -120,8 +130,8 @@ a {
   font-weight: 700;
 }
 .pill-green {
-  background: var(--success-bg);
-  color: #065f46;
+  background: #c9ffc1;
+  color: #065f19;
 }
 .pill-amber {
   background: var(--warning-bg);
@@ -136,8 +146,8 @@ a {
   color: #1e40af;
 }
 .pill-gray {
-  background: #f3f4f6;
-  color: #6b7280;
+  background: #ffe1e1;
+  color: #da3232;
 }
 .pill-teal {
   background: var(--brand-light);

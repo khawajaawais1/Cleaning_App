@@ -15,7 +15,7 @@
   justify-content: space-between;
   height: var(--header-h);
   padding: 0 16px;
-  background: var(--surface);
+  background: var(--top-bar);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -44,14 +44,14 @@
 .brand-name {
   font-size: 14px;
   font-weight: 700;
-  color: var(--text-1);
+  color: var(--top-text-1);
   line-height: 1.2;
 }
 
 .brand-sub {
   font-size: 9px;
   font-weight: 700;
-  color: var(--text-3);
+  color: var(--top-text-2);
   letter-spacing: 0.1em;
   line-height: 1;
 }
@@ -71,10 +71,10 @@
 }
 
 .header-avatar {
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: var(--brand);
+  background: var(--top-user-bg);
   color: #fff;
   font-size: 12px;
   font-weight: 700;
@@ -103,7 +103,7 @@
   align-items: stretch;
   height: calc(var(--nav-h) + var(--safe-bottom));
   padding-bottom: var(--safe-bottom);
-  background: var(--surface);
+  background: var(--bottom-bar);
   border-top: 1px solid var(--border);
   position: sticky;
   bottom: 0;
@@ -119,14 +119,16 @@
   justify-content: center;
   gap: 3px;
   text-decoration: none;
-  opacity: 0.8;
   transition: color 0.15s;
   position: relative;
   padding-top: 2px;
-  color: var(--brand);
+  color: var(--bottom-text-2);
+  filter: brightness(0) invert(0.7); // if in dark mode, then edit this part
 
   &.active {
     opacity: 1;
+    color: #fff;
+    filter: brightness(0) invert(1);
 
     &::before {
       content: "";
@@ -135,9 +137,11 @@
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
-      height: 2px;
-      background: var(--brand);
+      height: 3px;
       border-radius: 0 0 2px 2px;
+      background: white;
+
+      filter: none;
     }
   }
 

@@ -23,6 +23,28 @@
   color: var(--text-3);
 }
 
+.hi-svg{
+  animation: 2s hi infinite;
+}
+
+@keyframes hi {
+  0%{
+    transform: rotate(15deg);
+  }
+  20%{
+transform: rotate(6deg);
+  }
+  30%{
+transform: rotate(4deg);
+  }
+  40%{
+transform: rotate(6deg);
+  }
+  100%{
+    transform: rotate(15deg);
+  }
+}
+
 .status-toggle {
   display: flex;
   align-items: center;
@@ -44,7 +66,7 @@
   }
 
   &.online {
-    background: var(--success-bg);
+    background: #b8ffb8;
     color: #065f46;
 
     .status-dot {
