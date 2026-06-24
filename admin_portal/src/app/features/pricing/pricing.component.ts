@@ -81,12 +81,20 @@ export class PricingComponent implements OnInit {
   }
 
   toggleActive(row: RateRow): void {
-    row.saving = true;
-    this.pricingService.updateRate(row.id, { isActive: !row.isActive }).subscribe({
-      next: updated => { Object.assign(row, updated, { saving: false }); },
-      error: () => { row.saving = false; }
-    });
-  }
+  row.saving = true;
+
+  this.pricingService.updateRate(row.id, { isActive: !row.isActive }).subscribe({
+    next: updated => {
+      Object.assign(row, updated, {
+        icon: this.LocalIcons[updated.serviceType],
+        saving: false
+      });
+    },
+    error: () => {
+      row.saving = false;
+    }
+  });
+}
 
   /* ── Delete ── */
   confirmDelete(id: number): void { this.deletingId = id; }

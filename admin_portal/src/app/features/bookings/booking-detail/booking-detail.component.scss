@@ -860,3 +860,50 @@
   gap: 10px;
   margin-top: 8px;
 }
+
+@media (max-width: 900px) {
+  .detail-page {
+    padding: 0;
+  }
+
+  .back-btn {
+    width: 5px;
+    height: 5px;
+    padding: 0;
+    margin: 1px;
+    svg {
+      height: 20px;
+      width: 20px;
+    }
+  }
+  .page-title {
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 10px;
+  }
+
+  .header-sub {
+    font-size: 9px;
+  }
+
+  .status-pill {
+    font-size: 8px;
+  }
+
+  .header-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    .hdr-btn {
+      font-size: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    svg {
+      height: 15px;
+      width: 15px;
+    }
+  }
+}
