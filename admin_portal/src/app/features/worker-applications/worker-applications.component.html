@@ -50,7 +50,7 @@
   <div *ngIf="!loading" class="table-wrap">
     <table class="apps-table">
       <thead>
-        <tr>
+        <tr *ngIf="filtered.length !== 0">
           <th>WORKER</th>
           <th>SERVICE TYPE</th>
           <th>PHONE</th>

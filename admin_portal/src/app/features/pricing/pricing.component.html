@@ -1,9 +1,11 @@
 <div class="page-wrap">
-
   <div class="page-header-row">
     <div>
       <h1 class="page-title-lg">Pricing</h1>
-      <p class="page-subtitle">Manage service rates and platform fee — changes reflect live on the customer portal</p>
+      <p class="page-subtitle">
+        Manage service rates and platform fee — changes reflect live on the
+        customer portal
+      </p>
     </div>
     <button class="btn btn-primary" (click)="openAdd()">+ Add service</button>
   </div>
@@ -11,34 +13,76 @@
   <div *ngIf="loading" class="empty-block"><span class="spinner"></span></div>
 
   <ng-container *ngIf="!loading">
-
     <!-- ══════════════════ Platform fee card ══════════════════ -->
-    <div class="section-card" style="margin-bottom:24px;">
+    <div class="section-card" style="margin-bottom: 24px">
       <div class="sc-header">
         <div class="sc-title-block">
-          <h2 class="sc-title">Platform fee</h2>
+          <span class="sc-title card-heading">Platform fee</span>
           <p class="sc-sub">Added to every booking subtotal at checkout</p>
         </div>
-        <button *ngIf="!editingFee && platformFee" class="btn btn-ghost btn-sm" (click)="startEditFee()">Edit</button>
-        <button *ngIf="editingFee" class="btn btn-ghost btn-sm" (click)="editingFee = false">Cancel</button>
+        <button
+          *ngIf="!editingFee && platformFee"
+          class="btn btn-ghost btn-sm"
+          (click)="startEditFee()"
+        >
+          Edit
+        </button>
+        <button
+          *ngIf="editingFee"
+          class="btn btn-ghost btn-sm"
+          (click)="editingFee = false"
+        >
+          Cancel
+        </button>
       </div>
 
       <div *ngIf="!editingFee && platformFee" class="fee-display">
         <span class="fee-amount">{{ feeLabel(platformFee) }}</span>
-        <span class="pill pill-blue">{{ platformFee.feeType === 'flat' ? 'Flat fee' : 'Percentage' }}</span>
+        <span class="pill pill-blue">{{
+          platformFee.feeType === "flat" ? "Flat fee" : "Percentage"
+        }}</span>
       </div>
 
       <div *ngIf="editingFee" class="fee-edit-row">
         <div class="fee-type-toggle">
-          <button type="button" class="type-btn" [class.active]="feeDraft.feeType === 'flat'"    (click)="feeDraft.feeType = 'flat'">Flat (€)</button>
-          <button type="button" class="type-btn" [class.active]="feeDraft.feeType === 'percent'" (click)="feeDraft.feeType = 'percent'">Percent (%)</button>
+          <button
+            type="button"
+            class="type-btn"
+            [class.active]="feeDraft.feeType === 'flat'"
+            (click)="feeDraft.feeType = 'flat'"
+          >
+            Flat (€)
+          </button>
+          <button
+            type="button"
+            class="type-btn"
+            [class.active]="feeDraft.feeType === 'percent'"
+            (click)="feeDraft.feeType = 'percent'"
+          >
+            Percent (%)
+          </button>
         </div>
         <div class="fee-amount-wrap">
-          <span class="fee-prefix">{{ feeDraft.feeType === 'flat' ? '€' : '' }}</span>
-          <input type="number" [(ngModel)]="feeDraft.fee" class="form-control fee-input" min="0" [max]="feeDraft.feeType === 'percent' ? 100 : 9999" step="0.5" />
-          <span class="fee-suffix" *ngIf="feeDraft.feeType === 'percent'">%</span>
+          <span class="fee-prefix">{{
+            feeDraft.feeType === "flat" ? "€" : ""
+          }}</span>
+          <input
+            type="number"
+            [(ngModel)]="feeDraft.fee"
+            class="form-control fee-input"
+            min="0"
+            [max]="feeDraft.feeType === 'percent' ? 100 : 9999"
+            step="0.5"
+          />
+          <span class="fee-suffix" *ngIf="feeDraft.feeType === 'percent'"
+            >%</span
+          >
         </div>
-        <button class="btn btn-primary btn-sm" (click)="saveFee()" [disabled]="savingFee">
+        <button
+          class="btn btn-primary btn-sm"
+          (click)="saveFee()"
+          [disabled]="savingFee"
+        >
           <span *ngIf="savingFee" class="spinner"></span>
           <span *ngIf="!savingFee">Save</span>
         </button>
@@ -47,9 +91,9 @@
 
     <!-- ══════════════════ Service rates ══════════════════ -->
     <div class="section-card">
-      <div class="sc-header" style="margin-bottom:0;">
+      <div class="sc-header" style="margin-bottom: 0">
         <div class="sc-title-block">
-          <h2 class="sc-title">Service rates</h2>
+          <span class="sc-title card-heading">Service rates</span>
           <p class="sc-sub">Hourly rate shown to customers during booking</p>
         </div>
       </div>
@@ -65,68 +109,142 @@
         </div>
 
         <!-- Rows -->
-        <div *ngFor="let row of rates" class="rt-row" [class.rt-row--inactive]="!row.isActive">
-
+        <div
+          *ngFor="let row of rates"
+          class="rt-row"
+          [class.rt-row--inactive]="!row.isActive"
+        >
           <!-- View mode -->
           <ng-container *ngIf="!row.editing">
             <div class="rt-service">
-              <span class="rt-icon">{{ row.icon }}</span>
+              <span class="rt-icon">
+                <!-- Standard clean -->
+                <img [src]="'/assets/' + row.icon" [alt]="row.icon" />
+              </span>
+
               <div>
                 <p class="rt-label">{{ row.label }}</p>
                 <p class="rt-tagline">{{ row.tagline }}</p>
               </div>
             </div>
-            <div class="rt-rate">€{{ row.ratePerHour }}<span class="rt-per">/h</span></div>
-            <div class="rt-status">
-              <label class="toggle-wrap" [class.on]="row.isActive" (click)="toggleActive(row)">
-                <span class="toggle-knob" [class.toggle-knob--on]="row.isActive"></span>
-              </label>
-              <span class="rt-status-label">{{ row.isActive ? 'Active' : 'Hidden' }}</span>
+           <div class="rt-rate">
+              €{{ row.ratePerHour }}<span class="rt-per">/h</span>
             </div>
-            <div class="rt-date">{{ row.updatedAt | date:'d MMM yyyy' }}</div>
+            <div class="rt-status">
+              <label
+                class="toggle-wrap"
+                [class.on]="row.isActive"
+                (click)="toggleActive(row)"
+              >
+                <span
+                  class="toggle-knob"
+                  [class.toggle-knob--on]="row.isActive"
+                ></span>
+              </label>
+              <span class="rt-status-label">{{
+                row.isActive ? "Active" : "Hidden"
+              }}</span>
+            </div>
+            <div class="rt-date">{{ row.updatedAt | date: "d MMM yyyy" }}</div>
             <div class="rt-actions">
               <button class="icon-btn" title="Edit" (click)="startEdit(row)">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                  />
+                  <path
+                    d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                  />
+                </svg>
               </button>
-              <button class="icon-btn icon-btn--danger" title="Delete" (click)="confirmDelete(row.id)">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+              <button
+                class="icon-btn icon-btn--danger"
+                title="Delete"
+                (click)="confirmDelete(row.id)"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="3 6 5 6 21 6" />
+                  <path d="M19 6l-1 14H6L5 6" />
+                  <path d="M10 11v6" />
+                  <path d="M14 11v6" />
+                  <path d="M9 6V4h6v2" />
+                </svg>
               </button>
-            </div>
+            </div>  <!-- -->
           </ng-container>
 
           <!-- Edit mode (inline) -->
           <ng-container *ngIf="row.editing">
             <div class="rt-edit-row">
-              <input [(ngModel)]="row.draft['icon']"       class="form-control edit-icon"    placeholder="emoji" />
-              <input [(ngModel)]="row.draft['label']"      class="form-control edit-label"   placeholder="Label" />
-              <input [(ngModel)]="row.draft['tagline']"    class="form-control edit-tagline" placeholder="Tagline" />
+              <input
+                [(ngModel)]="row.draft['icon']"
+                class="form-control edit-icon"
+                placeholder="emoji"
+              />
+              <input
+                [(ngModel)]="row.draft['label']"
+                class="form-control edit-label"
+                placeholder="Label"
+              />
+              <input
+                [(ngModel)]="row.draft['tagline']"
+                class="form-control edit-tagline"
+                placeholder="Tagline"
+              />
               <div class="edit-rate-wrap">
                 <span class="edit-prefix">€</span>
-                <input [(ngModel)]="row.draft['ratePerHour']" type="number" class="form-control edit-rate" placeholder="Rate" min="0" step="0.5" />
+                <input
+                  [(ngModel)]="row.draft['ratePerHour']"
+                  type="number"
+                  class="form-control edit-rate"
+                  placeholder="Rate"
+                  min="0"
+                  step="0.5"
+                />
                 <span class="edit-suffix">/h</span>
               </div>
               <div class="edit-actions">
-                <button class="btn btn-primary btn-sm" (click)="saveRate(row)" [disabled]="row.saving">
+                <button
+                  class="btn btn-primary btn-sm"
+                  (click)="saveRate(row)"
+                  [disabled]="row.saving"
+                >
                   <span *ngIf="row.saving" class="spinner"></span>
                   <span *ngIf="!row.saving">Save</span>
                 </button>
-                <button class="btn btn-ghost btn-sm" (click)="cancelEdit(row)">Cancel</button>
+                <button class="btn btn-ghost btn-sm" (click)="cancelEdit(row)">
+                  Cancel
+                </button>
               </div>
             </div>
           </ng-container>
-
         </div>
-
       </div>
     </div>
-
   </ng-container>
 
   <!-- ══════════════════ Delete confirm dialog ══════════════════ -->
   <div *ngIf="deletingId" class="modal-backdrop">
     <div class="modal-box">
       <h3 class="modal-title">Delete service?</h3>
-      <p class="modal-sub">This will remove the service from the customer portal permanently. Existing bookings are not affected.</p>
+      <p class="modal-sub">
+        This will remove the service from the customer portal permanently.
+        Existing bookings are not affected.
+      </p>
       <div class="modal-actions">
         <button class="btn btn-ghost" (click)="cancelDelete()">Cancel</button>
         <button class="btn btn-danger" (click)="doDelete()">Yes, delete</button>
@@ -144,34 +262,64 @@
       <div class="add-grid">
         <div class="form-group">
           <label class="form-label">Icon (emoji)</label>
-          <input [(ngModel)]="addForm.icon" class="form-control" placeholder="🧹" />
+          <input
+            [(ngModel)]="addForm.icon"
+            class="form-control"
+            placeholder="new-service.svg"
+          />
         </div>
         <div class="form-group">
           <label class="form-label">Rate / hour (€)</label>
-          <input [(ngModel)]="addForm.ratePerHour" type="number" class="form-control" min="0" step="0.5" />
+          <input
+            [(ngModel)]="addForm.ratePerHour"
+            type="number"
+            class="form-control"
+            min="0"
+            step="0.5"
+          />
         </div>
-        <div class="form-group" style="grid-column:1/-1;">
-          <label class="form-label">Service type key <span class="hint">no spaces, e.g. CarpetClean</span></label>
-          <input [(ngModel)]="addForm.serviceType" class="form-control" placeholder="CarpetClean" />
+        <div class="form-group" style="grid-column: 1/-1">
+          <label class="form-label"
+            >Service type key
+            <span class="hint"><strong>no spaces</strong>, e.g. CarpetClean</span></label
+          >
+          <input
+            [(ngModel)]="addForm.serviceType"
+            class="form-control"
+            placeholder="CarpetClean"
+          />
         </div>
-        <div class="form-group" style="grid-column:1/-1;">
+        <div class="form-group" style="grid-column: 1/-1">
           <label class="form-label">Label (customer-facing name)</label>
-          <input [(ngModel)]="addForm.label" class="form-control" placeholder="Carpet clean" />
+          <input
+            [(ngModel)]="addForm.label"
+            class="form-control"
+            placeholder="Carpet clean"
+          />
         </div>
-        <div class="form-group" style="grid-column:1/-1;">
+        <div class="form-group" style="grid-column: 1/-1">
           <label class="form-label">Tagline</label>
-          <input [(ngModel)]="addForm.tagline" class="form-control" placeholder="Deep steam cleaning of all carpets" />
+          <input
+            [(ngModel)]="addForm.tagline"
+            class="form-control"
+            placeholder="Deep steam cleaning of all carpets"
+          />
         </div>
       </div>
 
       <div class="modal-actions">
-        <button class="btn btn-ghost" (click)="showAddModal = false">Cancel</button>
-        <button class="btn btn-primary" (click)="submitAdd()" [disabled]="adding">
+        <button class="btn btn-ghost" (click)="showAddModal = false">
+          Cancel
+        </button>
+        <button
+          class="btn btn-primary"
+          (click)="submitAdd()"
+          [disabled]="adding"
+        >
           <span *ngIf="adding" class="spinner"></span>
           <span *ngIf="!adding">Add service</span>
         </button>
       </div>
     </div>
   </div>
-
 </div>

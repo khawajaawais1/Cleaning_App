@@ -1,73 +1,199 @@
 <div class="detail-page" *ngIf="!loading && booking">
-
   <!-- Page Header -->
   <div class="page-header">
     <div class="header-left">
-      <button class="back-btn" (click)="goBack()">&#8592; Back</button>
+      <button class="back-btn" (click)="goBack()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="black"
+          class="mi-solid mi-arrow-back"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42a.996.996 0 0 0-1.41 0l-6.59 6.59a.996.996 0 0 0 0 1.41l6.59 6.59a.996.996 0 1 0 1.41-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1"
+          />
+        </svg>
+      </button>
       <div class="header-titles">
         <div class="header-row">
-          <h1 class="page-title">{{ booking.bookingNumber }}&nbsp;<span class="title-sep">&middot;</span>&nbsp;{{ booking.customer?.firstName }} {{ booking.customer?.lastName }}</h1>
-          <span class="status-pill" [ngClass]="'status-' + booking.status">{{ getStatusLabel(booking.status) }}</span>
+          <h1 class="page-title">
+            Booking {{ booking.bookingNumber }}&nbsp;<span class="title-sep"
+              >&middot;</span
+            >&nbsp;{{ booking.customer?.firstName }}
+            {{ booking.customer?.lastName }}
+          </h1>
         </div>
-        <p class="header-sub">{{ booking.serviceType }}&ensp;&middot;&ensp;{{ formatDate(booking.startTime) }}&ensp;&middot;&ensp;{{ formatTime(booking.startTime) }}&ndash;{{ formatTime(booking.endTime) }}</p>
+        <p class="header-sub">
+          {{ booking.serviceType }}&ensp;&middot;&ensp;{{
+            formatDate(booking.startTime)
+          }}&ensp;&middot;&ensp;{{ formatTime(booking.startTime) }}&ndash;{{
+            formatTime(booking.endTime)
+          }}<span class="status-pill" [ngClass]="'status-' + booking.status">{{
+            getStatusLabel(booking.status)
+          }}</span>
+        </p>
       </div>
     </div>
     <div class="header-actions">
       <!-- View in customer portal -->
-      <a class="hdr-btn hdr-btn--ghost" [href]="customerPortalUrl" target="_blank"
-         title="Open customer tracking view">
-        🔗 Customer view
+      <a
+        class="hdr-btn hdr-btn--ghost"
+        [href]="customerPortalUrl"
+        target="_blank"
+        title="Open customer tracking view"
+      >
+        <svg
+          width="20px"
+          height="20px"
+          viewBox="0 0 1024 1024"
+          class="icon"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M749.7 548.7l-164.6 91.4V823l164.6 91.4L914.3 823V640.1l-164.6-91.4zM841.1 780l-91.4 50.8-91.4-50.8v-96.8l91.4-50.8 91.4 50.8V780z"
+            fill="#0F1F3C"
+          />
+          <path
+            d="M713.600831 737.455926a36.6 36.6 0 1 0 72.255718-11.719698 36.6 36.6 0 1 0-72.255718 11.719698Z"
+            fill="#0F1F3C"
+          />
+          <path
+            d="M688.7 479.8c-12.7-6.2-25.7-11.8-38.9-16.6 49.8-40.3 81.6-101.8 81.6-170.6 0-121-98.4-219.4-219.4-219.4s-219.4 98.4-219.4 219.4c0 68.9 31.9 130.5 81.7 170.7-154.2 56.4-264.6 204.5-264.6 378h73.1c0-181.5 147.7-329.1 329.1-329.1 50.7 0 99.3 11.2 144.5 33.3l32.3-65.7zM512 146.3c80.7 0 146.3 65.6 146.3 146.3S592.7 438.9 512 438.9s-146.3-65.6-146.3-146.3S431.4 146.3 512 146.3z"
+            fill="#0F1F3C"
+          />
+        </svg>
+        Customer view
       </a>
 
       <!-- Assign / Reassign worker -->
-      <button class="hdr-btn hdr-btn--ghost" (click)="openAssignModal()"
-        *ngIf="booking.status !== 'cancelled' && booking.status !== 'completed'">
-        {{ booking.worker ? 'Reassign worker' : 'Assign worker' }}
+      <button
+        class="hdr-btn hdr-btn--ghost"
+        (click)="openAssignModal()"
+        *ngIf="booking.status !== 'cancelled' && booking.status !== 'completed'"
+      >
+        {{ booking.worker ? "Reassign worker" : "Assign worker" }}
       </button>
 
       <!-- Worker left for job -->
-      <button class="hdr-btn hdr-btn--amber" (click)="markWorkerLeft()"
-        *ngIf="booking.status === 'scheduled' && booking.worker">
-        🚗 Worker left for job
+      <button
+        class="hdr-btn hdr-btn--amber"
+        (click)="markWorkerLeft()"
+        *ngIf="booking.status === 'scheduled' && booking.worker"
+      >
+        <svg
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M5 13H8M2 9L4 10L5.27064 6.18807C5.53292 5.40125 5.66405 5.00784 5.90729 4.71698C6.12208 4.46013 6.39792 4.26132 6.70951 4.13878C7.06236 4 7.47705 4 8.30643 4H15.6936C16.523 4 16.9376 4 17.2905 4.13878C17.6021 4.26132 17.8779 4.46013 18.0927 4.71698C18.3359 5.00784 18.4671 5.40125 18.7294 6.18807L20 10L22 9M16 13H19M6.8 10H17.2C18.8802 10 19.7202 10 20.362 10.327C20.9265 10.6146 21.3854 11.0735 21.673 11.638C22 12.2798 22 13.1198 22 14.8V17.5C22 17.9647 22 18.197 21.9616 18.3902C21.8038 19.1836 21.1836 19.8038 20.3902 19.9616C20.197 20 19.9647 20 19.5 20H19C17.8954 20 17 19.1046 17 18C17 17.7239 16.7761 17.5 16.5 17.5H7.5C7.22386 17.5 7 17.7239 7 18C7 19.1046 6.10457 20 5 20H4.5C4.03534 20 3.80302 20 3.60982 19.9616C2.81644 19.8038 2.19624 19.1836 2.03843 18.3902C2 18.197 2 17.9647 2 17.5V14.8C2 13.1198 2 12.2798 2.32698 11.638C2.6146 11.0735 3.07354 10.6146 3.63803 10.327C4.27976 10 5.11984 10 6.8 10Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Worker left for job
       </button>
 
       <!-- Mark job complete -->
-      <button class="hdr-btn hdr-btn--green" (click)="markJobComplete()"
-        *ngIf="booking.status === 'in_progress'">
-        ✅ Mark job complete
+      <button
+        class="hdr-btn hdr-btn--green"
+        (click)="markJobComplete()"
+        *ngIf="booking.status === 'in_progress'"
+      >
+        <svg
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7.5 12L10.5 15L16.5 9M7.8 21H16.2C17.8802 21 18.7202 21 19.362 20.673C19.9265 20.3854 20.3854 19.9265 20.673 19.362C21 18.7202 21 17.8802 21 16.2V7.8C21 6.11984 21 5.27976 20.673 4.63803C20.3854 4.07354 19.9265 3.6146 19.362 3.32698C18.7202 3 17.8802 3 16.2 3H7.8C6.11984 3 5.27976 3 4.63803 3.32698C4.07354 3.6146 3.6146 4.07354 3.32698 4.63803C3 5.27976 3 6.11984 3 7.8V16.2C3 17.8802 3 18.7202 3.32698 19.362C3.6146 19.9265 4.07354 20.3854 4.63803 20.673C5.27976 21 6.11984 21 7.8 21Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Mark job complete
       </button>
 
       <!-- Cancel -->
-      <button class="hdr-btn hdr-btn--danger" (click)="cancelBooking()"
-        *ngIf="booking.status !== 'cancelled' && booking.status !== 'completed'">
+      <button
+        class="hdr-btn hdr-btn--danger"
+        (click)="cancelBooking()"
+        *ngIf="booking.status !== 'cancelled' && booking.status !== 'completed'"
+      >
+        <svg
+          width="20px"
+          height="20px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4.93 4.93L19.07 19.07M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+
         Cancel booking
       </button>
 
       <!-- Permanent delete (only after cancellation) -->
-      <button class="hdr-btn hdr-btn--delete" (click)="purgeBooking()"
-        *ngIf="booking.status === 'cancelled'">
-        🗑 Delete permanently
+      <button
+        class="hdr-btn hdr-btn--delete"
+        (click)="purgeBooking()"
+        *ngIf="booking.status === 'cancelled'"
+      >
+        <svg
+          width="19px"
+          height="19px"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M16 6V5.2C16 4.0799 16 3.51984 15.782 3.09202C15.5903 2.71569 15.2843 2.40973 14.908 2.21799C14.4802 2 13.9201 2 12.8 2H11.2C10.0799 2 9.51984 2 9.09202 2.21799C8.71569 2.40973 8.40973 2.71569 8.21799 3.09202C8 3.51984 8 4.0799 8 5.2V6M10 11.5V16.5M14 11.5V16.5M3 6H21M19 6V17.2C19 18.8802 19 19.7202 18.673 20.362C18.3854 20.9265 17.9265 21.3854 17.362 21.673C16.7202 22 15.8802 22 14.2 22H9.8C8.11984 22 7.27976 22 6.63803 21.673C6.07354 21.3854 5.6146 20.9265 5.32698 20.362C5 19.7202 5 18.8802 5 17.2V6"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Delete permanently
       </button>
     </div>
   </div>
 
   <!-- Body grid -->
   <div class="detail-grid">
-
     <!-- LEFT COLUMN -->
     <div class="col-left">
-
       <!-- Customer & Booking info -->
       <div class="card">
-        <div class="card-head">
-          <div class="card-avatar av-sc">{{ getCustomerInitials() }}</div>
+        <!--<div class="card-head">
+           <div class="card-avatar av-sc">{{ getCustomerInitials() }}</div>
           <div>
-            <div class="card-name">{{ booking.customer?.firstName }} {{ booking.customer?.lastName }}</div>
+            <div class="card-name">
+              {{ booking.customer?.firstName }} {{ booking.customer?.lastName }}
+            </div>
             <div class="card-email">{{ booking.customer?.email }}</div>
-          </div>
-        </div>
-
-        <div class="card-divider"></div>
+          </div> 
+          
+        </div>-->
+<span class="card-heading card-head">Customer & booking</span>
+        <!-- <div class="card-divider"></div> -->
 
         <div class="info-grid">
           <div class="info-cell">
@@ -84,7 +210,11 @@
           </div>
           <div class="info-cell">
             <span class="info-label">Time</span>
-            <span class="info-value">{{ formatTime(booking.startTime) }}&ndash;{{ formatTime(booking.endTime) }}</span>
+            <span class="info-value"
+              >{{ formatTime(booking.startTime) }}&ndash;{{
+                formatTime(booking.endTime)
+              }}</span
+            >
           </div>
           <div class="info-cell">
             <span class="info-label">Phone</span>
@@ -92,7 +222,9 @@
           </div>
           <div class="info-cell">
             <span class="info-label">Duration</span>
-            <span class="info-value">{{ formatDuration(booking.duration) }}</span>
+            <span class="info-value">{{
+              formatDuration(booking.duration)
+            }}</span>
           </div>
           <div class="info-cell full">
             <span class="info-label">Address</span>
@@ -108,7 +240,7 @@
 
       <!-- Payment Summary -->
       <div class="card">
-        <h3 class="card-title">Payment summary</h3>
+        <h3 class="card-title card-heading">Payment summary</h3>
         <div class="pay-rows">
           <div class="pay-row">
             <span class="pay-label">{{ booking.serviceType }}</span>
@@ -125,19 +257,26 @@
           </div>
         </div>
         <div class="pay-status">
-          <span class="pay-status-dot" [ngClass]="booking.status === 'completed' ? 'dot-green' : 'dot-amber'"></span>
-          <span class="pay-status-text">{{ booking.status === 'completed' ? 'Payment received' : 'Payment pending completion' }}</span>
+          <span
+            class="pay-status-dot"
+            [ngClass]="
+              booking.status === 'completed' ? 'dot-green' : 'dot-amber'
+            "
+          ></span>
+          <span class="pay-status-text">{{
+            booking.status === "completed"
+              ? "Payment received"
+              : "Payment pending completion"
+          }}</span>
         </div>
       </div>
-
     </div>
 
     <!-- RIGHT COLUMN -->
     <div class="col-right">
-
       <!-- Assigned Worker -->
       <div class="card">
-        <h3 class="card-title">Assigned worker</h3>
+        <h3 class="card-title card-heading">Assigned worker</h3>
 
         <div *ngIf="booking.worker; else noWorker">
           <div class="worker-profile">
@@ -146,10 +285,26 @@
               <span class="online-dot dot-online"></span>
             </div>
             <div class="worker-info">
-              <div class="worker-name">{{ booking.worker.firstName }} {{ booking.worker.lastName }}</div>
+              <div class="worker-name">
+                {{ booking.worker.firstName }} {{ booking.worker.lastName[0] }}.
+              </div>
               <div class="worker-rating">
-                <span class="star">&#9733;</span>
-                <span class="rating-val">{{ booking.worker.rating }}</span>
+                <span class="star"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13"
+                    height="12"
+                    viewBox="0 0 16 15"
+                    fill="none"
+                  >
+                    <path
+                      d="M6.78125 0.65625C7.10938 0 8.03906 0.0273438 8.33984 0.65625L10.1445 4.29297L14.1367 4.86719C14.8477 4.97656 15.1211 5.85156 14.6016 6.37109L11.7305 9.1875L12.4141 13.1523C12.5234 13.8633 11.7578 14.4102 11.1289 14.082L7.57422 12.1953L3.99219 14.082C3.36328 14.4102 2.59766 13.8633 2.70703 13.1523L3.39062 9.1875L0.519531 6.37109C0 5.85156 0.273438 4.97656 0.984375 4.86719L5.00391 4.29297L6.78125 0.65625Z"
+                      fill="#D99036"
+                    /></svg
+                ></span>
+                <span class="rating-val"
+                  >{{ booking.worker.rating }} rating</span
+                >
               </div>
             </div>
           </div>
@@ -161,12 +316,34 @@
             </div>
             <div class="worker-row">
               <span class="wrow-label">Status</span>
-              <span class="wrow-value">{{ getStatusLabel(booking.status) }}</span>
+              <span class="wrow-value">{{
+                getStatusLabel(booking.status)
+              }}</span>
             </div>
           </div>
 
-          <button class="btn-reassign" (click)="openAssignModal()"
-            *ngIf="booking.status !== 'cancelled' && booking.status !== 'completed'">
+          <button
+            class="btn-reassign"
+            (click)="openAssignModal()"
+            *ngIf="
+              booking.status !== 'cancelled' && booking.status !== 'completed'
+            "
+          >
+            <svg
+              width="17px"
+              height="17px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 6L8 4M8 4L6 2M8 4H6C3.79086 4 2 5.79086 2 8M18 18L16 20M16 20L18 22M16 20H18C20.2091 20 22 18.2091 22 16M10.189 6.5C10.8551 3.91216 13.2042 2 16 2C19.3137 2 22 4.68629 22 8C22 10.7957 20.0879 13.1449 17.5001 13.811M14 16C14 19.3137 11.3137 22 8 22C4.68629 22 2 19.3137 2 16C2 12.6863 4.68629 10 8 10C11.3137 10 14 12.6863 14 16Z"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
             Reassign worker
           </button>
         </div>
@@ -175,8 +352,11 @@
           <div class="no-worker">
             <div class="no-worker-icon"></div>
             <p>No worker assigned yet</p>
-            <button class="hdr-btn hdr-btn--primary" (click)="openAssignModal()"
-              *ngIf="booking.status !== 'cancelled'">
+            <button
+              class="hdr-btn hdr-btn--primary"
+              (click)="openAssignModal()"
+              *ngIf="booking.status !== 'cancelled'"
+            >
               Assign worker
             </button>
           </div>
@@ -185,13 +365,15 @@
 
       <!-- Booking Timeline -->
       <div class="card">
-        <h3 class="card-title">Booking timeline</h3>
+        <h3 class="card-title card-heading">Booking timeline</h3>
         <div class="timeline">
-          <div class="timeline-item"
-               *ngFor="let event of timeline; let last = last"
-               [class.tl-done]="event.done"
-               [class.tl-active]="event.active"
-               [class.tl-last]="last">
+          <div
+            class="timeline-item"
+            *ngFor="let event of timeline; let last = last"
+            [class.tl-done]="event.done"
+            [class.tl-active]="event.active"
+            [class.tl-last]="last"
+          >
             <div class="tl-dot-col">
               <div class="tl-dot"></div>
               <div class="tl-line" *ngIf="!last"></div>
@@ -203,7 +385,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
@@ -217,28 +398,41 @@
 <!-- Error -->
 <div class="error-state" *ngIf="error && !loading">
   <p>{{ error }}</p>
-  <button class="hdr-btn hdr-btn--ghost" (click)="goBack()">&#8592; Back to bookings</button>
+  <button class="hdr-btn hdr-btn--ghost" (click)="goBack()">
+    &#8592; Back to bookings
+  </button>
 </div>
 
 <!-- ═══ Assign Worker Modal ═══ -->
 <div class="modal-overlay" *ngIf="showAssignModal" (click)="closeAssignModal()">
   <div class="modal-content" (click)="$event.stopPropagation()">
-    <h2 class="modal-title">{{ booking?.worker ? 'Reassign worker' : 'Assign worker' }}</h2>
+    <h2 class="modal-title">
+      {{ booking?.worker ? "Reassign worker" : "Assign worker" }}
+    </h2>
     <p class="modal-sub">Select an available worker for this booking.</p>
 
     <div class="worker-list" *ngIf="workers.length > 0; else noWorkers">
-      <label class="worker-option"
-             *ngFor="let w of workers"
-             [class.selected]="selectedWorkerId === w.id.toString()">
-        <input type="radio" name="worker"
-               [value]="w.id.toString()"
-               [(ngModel)]="selectedWorkerId" />
+      <label
+        class="worker-option"
+        *ngFor="let w of workers"
+        [class.selected]="selectedWorkerId === w.id.toString()"
+      >
+        <input
+          type="radio"
+          name="worker"
+          [value]="w.id.toString()"
+          [(ngModel)]="selectedWorkerId"
+        />
         <div class="wo-avatar">{{ w.firstName[0] }}{{ w.lastName[0] }}</div>
         <div class="wo-info">
           <span class="wo-name">{{ w.firstName }} {{ w.lastName }}</span>
-          <span class="wo-meta">&#9733; {{ w.rating }} &middot; {{ w.completedJobs }} jobs</span>
+          <span class="wo-meta"
+            >&#9733; {{ w.rating }} &middot; {{ w.completedJobs }} jobs</span
+          >
         </div>
-        <span class="wo-check" *ngIf="selectedWorkerId === w.id.toString()">&#10003;</span>
+        <span class="wo-check" *ngIf="selectedWorkerId === w.id.toString()"
+          >&#10003;</span
+        >
       </label>
     </div>
 
@@ -249,11 +443,15 @@
     <div class="modal-error" *ngIf="assignError">{{ assignError }}</div>
 
     <div class="modal-actions">
-      <button class="hdr-btn hdr-btn--ghost" (click)="closeAssignModal()">Cancel</button>
-      <button class="hdr-btn hdr-btn--primary"
-              [disabled]="!selectedWorkerId || assigning"
-              (click)="confirmAssign()">
-        {{ assigning ? 'Assigning...' : 'Confirm assignment' }}
+      <button class="hdr-btn hdr-btn--ghost" (click)="closeAssignModal()">
+        Cancel
+      </button>
+      <button
+        class="hdr-btn hdr-btn--primary"
+        [disabled]="!selectedWorkerId || assigning"
+        (click)="confirmAssign()"
+      >
+        {{ assigning ? "Assigning..." : "Confirm assignment" }}
       </button>
     </div>
   </div>
