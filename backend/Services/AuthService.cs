@@ -35,8 +35,8 @@ public class AuthService : IAuthService
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.IsActive);
 
-        //if (user == null || !BCrypt.Verify(password, user.PasswordHash))
-        //    return null;
+        if (user == null || string.IsNullOrEmpty(user.PasswordHash) || !BCrypt.Verify(password, user.PasswordHash))
+            return null;
 
         var token = GenerateJwtToken(user.Id, user.Email, user.FullName, user.Role);
         var nameParts = user.FullName.Split(' ', 2);

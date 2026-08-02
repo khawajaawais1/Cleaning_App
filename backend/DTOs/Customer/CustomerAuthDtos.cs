@@ -5,8 +5,11 @@ public record CustomerRegisterDto(
     string Email,
     string Phone,
     string Address,
-    string Password
+    string Password,
+    string VerificationCode
 );
+
+public record SendVerificationDto(string Email, string FullName);
 
 public record CustomerLoginDto(
     string Email,
@@ -28,3 +31,5 @@ public record CustomerProfileDto(
     string Address,
     DateTime CreatedAt
 );
+
+public record GoogleLoginDto(string IdToken);

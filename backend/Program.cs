@@ -21,6 +21,7 @@ builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<ILiveJobService, LiveJobService>();
 builder.Services.AddScoped<IExtensionRequestService, ExtensionRequestService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 // Worker portal infrastructure
 builder.Services.AddScoped<IBlobStorageService, BlobStorageService>();

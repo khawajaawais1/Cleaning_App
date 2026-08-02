@@ -18,7 +18,7 @@ export class AuthService {
   get isLoggedIn(): boolean { return !!this._user$.value; }
   get currentUser(): any  { return this._user$.value; }
 
-  register(payload: { fullName: string; email: string; phone: string; address: string; password: string }): Observable<AuthToken> {
+  register(payload: { fullName: string; email: string; phone: string; address: string; password: string; verificationCode: string }): Observable<AuthToken> {
     return this.http.post<AuthToken>(`${this.apiUrl}/register`, payload)
       .pipe(tap(r => this.persist(r)));
   }
@@ -26,6 +26,15 @@ export class AuthService {
   login(email: string, password: string): Observable<AuthToken> {
     return this.http.post<AuthToken>(`${this.apiUrl}/login`, { email, password })
       .pipe(tap(r => this.persist(r)));
+  }
+
+  loginWithGoogle(idToken: string): Observable<AuthToken> {
+    return this.http.post<AuthToken>(`${this.apiUrl}/google-login`, { idToken })
+      .pipe(tap(r => this.persist(r)));
+  }
+
+  sendVerificationCode(email: string, fullName: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.apiUrl}/send-verification`, { email, fullName });
   }
 
   logout(): void {

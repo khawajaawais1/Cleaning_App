@@ -35,7 +35,8 @@ obj/
 *.nuget.props
 *.nuget.targets
 
-# Local user secrets
+# Local dev settings — never commit real secrets
+appsettings.Development.json
 appsettings.local.json
 appsettings.*.local.json
 
