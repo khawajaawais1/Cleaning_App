@@ -5,12 +5,13 @@ node_modules/
 dist/
 .angular/
 
+# Root-level src (code lives in admin_portal/src/ on this branch)
+/src/
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-.npm-cache/
 
 # Environment files
 .env

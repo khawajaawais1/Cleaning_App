@@ -50,7 +50,7 @@
   <div class="table-wrap" *ngIf="!loading">
     <table class="bookings-table">
       <thead>
-        <tr>
+        <tr *ngIf="bookings.length !== 0">
           <th>BOOKING</th>
           <th>CUSTOMER</th>
           <th>WORKER</th>

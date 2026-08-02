@@ -71,9 +71,12 @@ export class ExtensionRequestsComponent implements OnInit, OnDestroy {
     });
   }
 
-  initials(firstName: string, lastName: string): string {
-    return (firstName[0] + lastName[0]).toUpperCase();
-  }
+  initials(firstName: string, lastName?: string): string {
+  const first = firstName?.[0] ?? '';
+  const last = lastName?.[0] ?? '';
+
+  return (first + last).toUpperCase() || '~';
+}
 
   colorKey(firstName: string, lastName: string): string {
     const key = (firstName[0] + (lastName[0] ?? '')).toUpperCase();

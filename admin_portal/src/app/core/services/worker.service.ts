@@ -39,18 +39,18 @@ export class WorkerService {
   }
 
   approveWorker(id: string): Observable<Worker> {
-    return this.http.post<Worker>(`${this.apiUrl}/${id}/approve`, {});
+    return this.http.put<Worker>(`${this.apiUrl}/${id}/approve`, {});
   }
 
   rejectWorker(id: string, reason: string): Observable<Worker> {
-    return this.http.post<Worker>(`${this.apiUrl}/${id}/reject`, { reason });
+    return this.http.put<Worker>(`${this.apiUrl}/${id}/reject`, { rejectionReason: reason });
   }
 
   suspendWorker(id: string): Observable<Worker> {
-    return this.http.post<Worker>(`${this.apiUrl}/${id}/suspend`, {});
+    return this.http.put<Worker>(`${this.apiUrl}/${id}/suspend`, {});
   }
 
   restoreWorker(id: string): Observable<Worker> {
-    return this.http.post<Worker>(`${this.apiUrl}/${id}/restore`, {});
+    return this.http.put<Worker>(`${this.apiUrl}/${id}/restore`, {});
   }
 }

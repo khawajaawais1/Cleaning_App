@@ -1,5 +1,4 @@
 <div class="live-board">
-
   <!-- Header -->
   <div class="board-header">
     <div>
@@ -7,86 +6,128 @@
       <p class="board-sub">Real-time worker locations and job status</p>
     </div>
     <div class="live-pill">
-      <span class="live-dot"></span>
-      <span class="live-text">Live</span>
+      <div>
+        <span class="live-dot"></span>
+        <span class="live-text">Live</span>
+      </div>
+      <div>
+        <span class="live-stat">{{ activeCount }} </span>active
+      </div>
       <span class="live-sep">·</span>
-      <span class="live-stat">{{ activeCount }} active</span>
-      <span class="live-sep">·</span>
-      <span class="live-stat">{{ onlineCount }} online</span>
+      <div>
+        <span class="live-stat">{{ onlineCount }} </span>online
+      </div>
     </div>
   </div>
 
-  <!-- Loading -->
-  <div class="state-row" *ngIf="loading">
-    <div class="spinner"></div>
-    <span>Loading jobs…</span>
-  </div>
-
-  <!-- Main layout -->
-  <div class="board-body" *ngIf="!loading">
-
+  <!-- board-body is always rendered so #live-map is always in the DOM -->
+  <div class="board-body">
     <!-- MAP column -->
     <div class="map-col">
       <div class="map-wrap">
         <div id="live-map"></div>
+        <!-- Loading overlay sits on top of the (already-rendered) map -->
+        <div class="map-loading-overlay" *ngIf="loading">
+          <div class="spinner"></div>
+          <span>Loading…</span>
+        </div>
       </div>
 
-      <!-- Legend -->
-      <div class="map-legend">
-        <span class="leg-item"><span class="leg-dot dot-green"></span>In progress</span>
-        <span class="leg-item"><span class="leg-dot dot-amber"></span>Scheduled</span>
-        <span class="leg-item"><span class="leg-dot dot-grey"></span>Assigned</span>
-        <span class="leg-item"><span class="leg-dot dot-light"></span>Complete</span>
-      </div>
+      <ng-container *ngIf="!loading">
+        <!-- Legend -->
+        <div class="map-legend">
+          <span class="leg-item"
+            ><span class="leg-dot dot-green"></span>In progress</span
+          >
+          <span class="leg-item"
+            ><span class="leg-dot dot-amber"></span>Scheduled</span
+          >
+          <span class="leg-item"
+            ><span class="leg-dot dot-grey"></span>Assigned</span
+          >
+          <span class="leg-item"
+            ><span class="leg-dot dot-light"></span>Complete</span
+          >
+        </div>
 
-      <!-- Extension pending banner -->
-      <div class="ext-banner" *ngIf="pendingExtension">
-        <div class="ext-left">
-          <span class="ext-icon">🟠</span>
-          <div>
-            <div class="ext-title">Extension pending</div>
-            <div class="ext-sub">
-              {{ pendingExtension.worker.firstName }} {{ pendingExtension.worker.lastName[0] }}. &mdash;
-              +{{ pendingExtension.requestedMinutes }} min request
+        <!-- Extension pending banner -->
+        <div class="ext-banner" *ngIf="pendingExtension">
+          <div class="ext-left">
+            <img src="assets/extension.svg" alt="extension" class="ext-icon" />
+            <div>
+              <div class="ext-title">Extension pending</div>
+              <div class="ext-sub">
+                {{ pendingExtension.worker.firstName }}
+                {{ pendingExtension.worker.lastName[0] }}. &mdash; +{{
+                  pendingExtension.requestedMinutes
+                }}
+                min request
+              </div>
             </div>
           </div>
+          <div class="ext-actions">
+            <button class="ext-btn ext-allow" (click)="allowExtension()">
+              Allow
+            </button>
+            <button class="ext-btn ext-deny" (click)="denyExtension()">
+              Deny
+            </button>
+          </div>
         </div>
-        <div class="ext-actions">
-          <button class="ext-btn ext-allow" (click)="allowExtension()">Allow</button>
-          <button class="ext-btn ext-deny"  (click)="denyExtension()">Deny</button>
-        </div>
-      </div>
+      </ng-container>
     </div>
 
     <!-- JOBS panel -->
     <div class="jobs-panel">
       <div class="panel-head">
-        <span class="panel-title">Jobs today</span>
-        <span class="panel-count">{{ bookings.length }} total</span>
+        <span class="panel-title card-heading">Jobs today</span>
+        <span class="panel-count">{{
+          loading ? "…" : bookings.length + " total"
+        }}</span>
       </div>
 
-      <!-- Empty -->
-      <div class="panel-empty" *ngIf="bookings.length === 0">
-        <p>No bookings today.</p>
-        <p class="empty-sub">Bookings will appear here once customers start booking.</p>
+      <div class="state-row" *ngIf="loading">
+        <div class="spinner"></div>
+        <span>Loading jobs…</span>
       </div>
 
-      <div class="job-list" *ngIf="bookings.length > 0">
-        <div class="job-row" *ngFor="let b of bookings" [routerLink]="['/bookings', b.id]">
-          <div class="job-av av-{{ colorKey(b) }}">{{ pinInitials(b) }}</div>
-          <div class="job-info">
-            <div class="job-name">
-              <ng-container *ngIf="b.worker; else noWorker">
-                {{ b.worker.firstName }} {{ b.worker.lastName[0] }}. &mdash; {{ b.serviceType }}
-              </ng-container>
-              <ng-template #noWorker>{{ b.serviceType }} (Unassigned)</ng-template>
-            </div>
-            <div class="job-meta">{{ b.address | slice:0:30 }}{{ b.address.length > 30 ? '…' : '' }} &middot; {{ formatDuration(b.duration) }}</div>
-          </div>
-          <span class="job-badge badge-{{ b.status }}">{{ statusLabel(b.status) }}</span>
+      <ng-container *ngIf="!loading">
+        <div class="panel-empty" *ngIf="bookings.length === 0">
+          <p>No bookings today.</p>
+          <p class="empty-sub">
+            Bookings will appear here once customers start booking.
+          </p>
         </div>
-      </div>
-    </div>
 
+        <div class="job-list" *ngIf="bookings.length > 0">
+          <div
+            class="job-row"
+            *ngFor="let b of bookings"
+            [routerLink]="['/bookings', b.id]"
+          >
+            <div class="job-av av-{{ colorKey(b) }}">{{ pinInitials(b) }}</div>
+            <div class="job-info">
+              <div class="job-name">
+                <ng-container *ngIf="b.worker; else noWorker">
+                  {{ b.worker.firstName }} {{ b.worker.lastName[0] }}. &mdash;
+                  {{ b.serviceType }}
+                </ng-container>
+                <ng-template #noWorker
+                  >{{ b.serviceType }} (Unassigned)</ng-template
+                >
+              </div>
+              <div class="job-meta">
+                {{ b.address | slice: 0 : 30
+                }}{{ b.address.length > 30 ? "…" : "" }} &middot;
+                {{ formatDuration(b.duration) }}
+              </div>
+            </div>
+            <span class="job-badge badge-{{ b.status }}">{{
+              statusLabel(b.status)
+            }}</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
   </div>
 </div>

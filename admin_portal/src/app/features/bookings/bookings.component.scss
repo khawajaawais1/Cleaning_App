@@ -1,5 +1,11 @@
-:host { display: block; }
-.bookings-page { padding: 28px 32px; }
+:host {
+  display: block;
+}
+.bookings-page {
+  padding: 28px 32px;
+  color: var(--text-1);
+  background: var(--frame-bg);
+}
 
 // ── Page header ──────────────────────────────────────────────────────────
 .page-header {
@@ -12,15 +18,12 @@
 
   h1 {
     margin: 0;
-    font-size: 28px;
-    font-weight: 600;
-    color: #131f1c;
     letter-spacing: -0.02em;
   }
   .subtitle {
     margin: 4px 0 0;
     font-size: 12px;
-    color: #9aa49f;
+    color: var(--text-3);
     font-weight: 500;
   }
 }
@@ -39,18 +42,21 @@
 }
 
 .filter-pill {
-  height: 34px;
+  height: 30px;
   padding: 0 14px;
   border: 1px solid #e3e8e4;
   border-radius: 99px;
   background: #fff;
   font-size: 12px;
   font-weight: 600;
-  color: #6b7874;
+  color: var(--text-3);
   cursor: pointer;
-  transition: all .15s;
+  transition: all 0.15s;
 
-  &:hover { border-color: #27b65f; color: #27b65f; }
+  &:hover {
+    border-color: #27b65f;
+    color: #27b65f;
+  }
 
   &.active {
     background: #131f1c;
@@ -58,10 +64,22 @@
     color: #fff;
   }
 
-  &--scheduled.active  { background: #f59e0b; border-color: #f59e0b; }
-  &--inprogress.active { background: #27b65f; border-color: #27b65f; }
-  &--completed.active  { background: #3b82f6; border-color: #3b82f6; }
-  &--cancelled.active  { background: #e04d4d; border-color: #e04d4d; }
+  &--scheduled.active {
+    background: #f59e0b;
+    border-color: #f59e0b;
+  }
+  &--inprogress.active {
+    background: #27b65f;
+    border-color: #27b65f;
+  }
+  &--completed.active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+  }
+  &--cancelled.active {
+    background: #e04d4d;
+    border-color: #e04d4d;
+  }
 }
 
 // ── Search ───────────────────────────────────────────────────────────────
@@ -87,26 +105,45 @@
     color: #131f1c;
     outline: none;
 
-    &::placeholder { color: #b0b8b4; }
-    &:focus { border-color: #27b65f; }
+    &::placeholder {
+      color: #b0b8b4;
+    }
+    &:focus {
+      border-color: #27b65f;
+    }
   }
 }
 
 // ── State rows ───────────────────────────────────────────────────────────
 .state-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 40px 0; color: #9aa49f; font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 0;
+  color: #9aa49f;
+  font-size: 14px;
 }
 .spinner {
-  width: 22px; height: 22px;
-  border: 2.5px solid #e3e8e4; border-top-color: #27b65f;
-  border-radius: 50%; animation: spin .7s linear infinite;
+  width: 22px;
+  height: 22px;
+  border: 2.5px solid #e3e8e4;
+  border-top-color: #27b65f;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 .alert-error {
-  padding: 12px 16px; background: #fef2f2; border-radius: 8px;
-  color: #e04d4d; font-size: 13px; margin-bottom: 16px;
+  padding: 12px 16px;
+  background: #fef2f2;
+  border-radius: 8px;
+  color: #e04d4d;
+  font-size: 13px;
+  margin-bottom: 16px;
 }
 
 // ── Table card ───────────────────────────────────────────────────────────
@@ -122,7 +159,9 @@
   width: 100%;
   border-collapse: collapse;
 
-  thead tr { border-bottom: 1px solid #f0f3f1; }
+  thead tr {
+    border-bottom: 1px solid #f0f3f1;
+  }
 
   th {
     padding: 12px 16px;
@@ -137,14 +176,19 @@
   td {
     padding: 14px 16px;
     font-size: 13px;
-    color: #1a2421;
     border-bottom: 1px solid #f5f7f5;
     vertical-align: middle;
   }
 
-  tbody tr:last-child td { border-bottom: none; }
-  tbody tr.clickable-row { cursor: pointer; }
-  tbody tr.clickable-row:hover td { background: #fafbfa; }
+  tbody tr:last-child td {
+    border-bottom: none;
+  }
+  tbody tr.clickable-row {
+    cursor: pointer;
+  }
+  tbody tr.clickable-row:hover td {
+    background: #fafbfa;
+  }
 }
 
 // ── Booking ref ──────────────────────────────────────────────────────────
@@ -152,8 +196,8 @@
   font-size: 12px;
   font-weight: 700;
   color: #131f1c;
-  letter-spacing: .04em;
-  font-family: 'Courier New', monospace;
+  letter-spacing: 0.04em;
+  font-family: "Courier New", monospace;
 }
 
 // ── Customer cell ────────────────────────────────────────────────────────
@@ -163,19 +207,43 @@
   gap: 10px;
 
   .cust-av {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: #27b65f; color: #fff;
-    display: grid; place-items: center;
-    font-size: 11px; font-weight: 700; flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #27b65f;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
   }
 
-  strong { display: block; font-size: 13px; font-weight: 600; color: #131f1c; line-height: 1.3; }
-  small  { display: block; font-size: 11px; color: #9aa49f; margin-top: 1px; }
+  strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #131f1c;
+    line-height: 1.3;
+  }
+  small {
+    display: block;
+    font-size: 11px;
+    color: #9aa49f;
+    margin-top: 1px;
+  }
 }
 
 // ── Worker / Unassigned ──────────────────────────────────────────────────
-.worker-name { font-weight: 500; color: #131f1c; }
-.unassigned  { color: #b0b8b4; font-style: italic; font-size: 12px; }
+.worker-name {
+  font-weight: 500;
+  color: #131f1c;
+}
+.unassigned {
+  color: #b0b8b4;
+  font-style: italic;
+  font-size: 12px;
+}
 
 // ── Service badge ────────────────────────────────────────────────────────
 .svc-badge {
@@ -190,10 +258,17 @@
 }
 
 // ── Date ─────────────────────────────────────────────────────────────────
-.date-cell { color: #4b5563; font-size: 12px; white-space: nowrap; }
+.date-cell {
+  color: #4b5563;
+  font-size: 12px;
+  white-space: nowrap;
+}
 
 // ── Price ────────────────────────────────────────────────────────────────
-.price { font-size: 13px; color: #131f1c; }
+.price {
+  font-size: 13px;
+  color: #131f1c;
+}
 
 // ── Status chips ─────────────────────────────────────────────────────────
 .status-chip {
@@ -206,33 +281,51 @@
   font-weight: 600;
   white-space: nowrap;
 
-  &.status-scheduled   { background: #fef3c7; color: #92400e; }
-  &.status-in_progress { background: #e5f4eb; color: #1f7a47; }
-  &.status-completed   { background: #dbeafe; color: #1e40af; }
-  &.status-cancelled   { background: #fee2e2; color: #991b1b; }
-  &.status-pending     { background: #f3f4f6; color: #6b7280; }
+  &.status-scheduled {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  &.status-in_progress {
+    background: #e5f4eb;
+    color: #1f7a47;
+  }
+  &.status-completed {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+  &.status-cancelled {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  &.status-pending {
+    background: #f3f4f6;
+    color: #6b7280;
+  }
 }
 
 // ── Actions ──────────────────────────────────────────────────────────────
 .actions-cell {
-  display: flex;
-  align-items: center;
   gap: 12px;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
 }
 
 .btn-view {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #131f1c;
-  background: none;
-  border: none;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 6px;
   cursor: pointer;
-  padding: 0;
-  &:hover { color: #27b65f; }
+
+  border: none;
+  background: none;
+  &:hover {
+    color: #27b65f;
+  }
 }
 
 .btn-cancel-action {
@@ -243,7 +336,9 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  &:hover { color: #c03333; }
+  &:hover {
+    color: #c03333;
+  }
 }
 
 // ── Empty row ────────────────────────────────────────────────────────────
@@ -273,10 +368,44 @@
   font-weight: 600;
   color: #4b5563;
   cursor: pointer;
-  transition: all .15s;
+  transition: all 0.15s;
 
-  &:hover:not(:disabled) { border-color: #27b65f; color: #27b65f; }
-  &:disabled { opacity: .45; cursor: not-allowed; }
+  &:hover:not(:disabled) {
+    border-color: #27b65f;
+    color: #27b65f;
+  }
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
 }
 
-.pg-info { font-size: 13px; color: #9aa49f; }
+.pg-info {
+  font-size: 13px;
+  color: #9aa49f;
+}
+
+@media (max-width: 900px) {
+  .bookings-page{
+    padding: 0;
+  }
+
+  .filter-pills{
+    width: 100%;
+  }
+
+  .filter-pill{
+    flex: 1;
+    font-size: 10px;
+    height: fit-content;
+    padding: 4px 7px;
+    max-width: 70px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+
+  .table-wrap{
+    overflow-x: auto;
+  }
+}
