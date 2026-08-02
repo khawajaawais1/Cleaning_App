@@ -6,7 +6,7 @@ dist/
 .angular/
 
 # Root-level src (code lives in admin_portal/src/ on this branch)
-src/
+/src/
 
 # Logs
 npm-debug.log*
