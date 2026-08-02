@@ -11,6 +11,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using BCrypt.Net;
+using Google.Apis.Auth;
+using Happy2CleanAPI.Services;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -18,19 +20,73 @@ public class CustomerController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
     private readonly IConfiguration _configuration;
+    private readonly IEmailService _emailService;
     private readonly string _secretKey;
     private readonly string _issuer;
     private readonly string _audience;
     private readonly int _expirationHours;
 
-    public CustomerController(ApplicationDbContext context, IConfiguration configuration)
+    public CustomerController(ApplicationDbContext context, IConfiguration configuration, IEmailService emailService)
     {
         _context = context;
         _configuration = configuration;
+        _emailService = emailService;
         _secretKey = _configuration.GetValue<string>("JwtSettings:SecretKey") ?? "DefaultSecretKey";
         _issuer = _configuration.GetValue<string>("JwtSettings:Issuer") ?? "Happy2CleanAPI";
-        _audience = _configuration.GetValue<string>("JwtSettings:Audience") ?? "Happy2CleanAdmin";
+        _audience = _configuration.GetValue<string>("JwtSettings:Audience") ?? "Happy2CleanCustomer";
         _expirationHours = _configuration.GetValue<int>("JwtSettings:ExpirationHours", 24);
+    }
+
+    [HttpPost("send-verification")]
+    [AllowAnonymous]
+    public async Task<ActionResult> SendVerification([FromBody] SendVerificationDto dto)
+    {
+        if (string.IsNullOrWhiteSpace(dto.Email))
+            return BadRequest(new { message = "Email is required" });
+
+        // Check email not already registered
+        var existing = await _context.Customers.FirstOrDefaultAsync(c => c.Email == dto.Email);
+        if (existing != null)
+            return Conflict(new { message = "An account with this email already exists" });
+
+        // Rate-limit: max 1 code per minute per email
+        var recentCode = await _context.EmailVerifications
+            .Where(v => v.Email == dto.Email && !v.IsUsed && v.CreatedAt > DateTime.UtcNow.AddMinutes(-1))
+            .FirstOrDefaultAsync();
+        if (recentCode != null)
+            return BadRequest(new { message = "Please wait a minute before requesting another code" });
+
+        // Generate 6-digit code
+        var code = new Random().Next(100000, 999999).ToString();
+
+        // Invalidate any previous unused codes for this email
+        var oldCodes = await _context.EmailVerifications
+            .Where(v => v.Email == dto.Email && !v.IsUsed)
+            .ToListAsync();
+        _context.EmailVerifications.RemoveRange(oldCodes);
+
+        // Save new code
+        _context.EmailVerifications.Add(new Happy2CleanAPI.Models.EmailVerification
+        {
+            Email     = dto.Email,
+            Code      = code,
+            ExpiresAt = DateTime.UtcNow.AddMinutes(10),
+            IsUsed    = false,
+            CreatedAt = DateTime.UtcNow
+        });
+        await _context.SaveChangesAsync();
+
+        // Send email
+        try
+        {
+            await _emailService.SendVerificationCodeAsync(dto.Email, dto.FullName, code);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = $"Failed to send verification email: {ex.Message}" });
+        }
+
+        return Ok(new { message = "Verification code sent to your email" });
     }
 
     [HttpPost("register")]
@@ -40,29 +96,87 @@ public class CustomerController : ControllerBase
         if (string.IsNullOrWhiteSpace(dto.Email) || string.IsNullOrWhiteSpace(dto.Password))
             return BadRequest(new { message = "Email and password are required" });
 
+        // Validate verification code
+        var verification = await _context.EmailVerifications
+            .Where(v => v.Email == dto.Email && v.Code == dto.VerificationCode && !v.IsUsed)
+            .FirstOrDefaultAsync();
+
+        if (verification == null)
+            return BadRequest(new { message = "Invalid verification code" });
+
+        if (verification.ExpiresAt < DateTime.UtcNow)
+            return BadRequest(new { message = "Verification code has expired. Please request a new one." });
+
         var existing = await _context.Customers.FirstOrDefaultAsync(c => c.Email == dto.Email);
         if (existing != null)
             return Conflict(new { message = "An account with this email already exists" });
 
         var customer = new Customer
         {
-            FullName = dto.FullName,
-            Email = dto.Email,
-            Phone = dto.Phone,
-            Address = dto.Address,
+            FullName     = dto.FullName,
+            Email        = dto.Email,
+            Phone        = dto.Phone,
+            Address      = dto.Address,
             PasswordHash = BCrypt.HashPassword(dto.Password),
-            CreatedAt = DateTime.UtcNow
+            CreatedAt    = DateTime.UtcNow
         };
 
         _context.Customers.Add(customer);
+
+        // Mark code as used
+        verification.IsUsed = true;
+
         await _context.SaveChangesAsync();
 
         var token = GenerateJwtToken(customer.Id, customer.Email, customer.FullName);
-
         return Ok(new CustomerTokenDto(
-            Token: token,
-            FullName: customer.FullName,
-            Email: customer.Email,
+            Token:      token,
+            FullName:   customer.FullName,
+            Email:      customer.Email,
+            CustomerId: customer.Id
+        ));
+    }
+
+    [HttpPost("google-login")]
+    [AllowAnonymous]
+    public async Task<ActionResult<CustomerTokenDto>> GoogleLogin([FromBody] GoogleLoginDto dto)
+    {
+        GoogleJsonWebSignature.Payload payload;
+        try
+        {
+            var settings = new GoogleJsonWebSignature.ValidationSettings
+            {
+                Audience = new[] { _configuration.GetValue<string>("Google:ClientId") ?? "" }
+            };
+            payload = await GoogleJsonWebSignature.ValidateAsync(dto.IdToken, settings);
+        }
+        catch
+        {
+            return Unauthorized(new { message = "Invalid Google token" });
+        }
+
+        // Find or create the customer
+        var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Email == payload.Email);
+        if (customer == null)
+        {
+            customer = new Customer
+            {
+                FullName   = payload.Name ?? payload.Email,
+                Email      = payload.Email,
+                Phone      = "",
+                Address    = "",
+                PasswordHash = "", // No password for Google-auth users
+                CreatedAt  = DateTime.UtcNow
+            };
+            _context.Customers.Add(customer);
+            await _context.SaveChangesAsync();
+        }
+
+        var token = GenerateJwtToken(customer.Id, customer.Email, customer.FullName);
+        return Ok(new CustomerTokenDto(
+            Token:      token,
+            FullName:   customer.FullName,
+            Email:      customer.Email,
             CustomerId: customer.Id
         ));
     }

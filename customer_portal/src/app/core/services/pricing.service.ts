@@ -34,13 +34,23 @@ export class PricingService {
         const options: ServiceOption[] = data
           .filter(r => r.isActive)
           .sort((a: any, b: any) => a.displayOrder - b.displayOrder)
-          .map((r: any) => ({
-            type:        r.serviceType,
-            label:       r.label,
-            tagline:     r.tagline,
-            icon:        r.icon,
-            ratePerHour: r.ratePerHour,
-          }));
+          .map((r: any) => {
+            // Map service type to local image asset
+            const imageMap: Record<string, string> = {
+              StandardClean: 'assets/images/clean-1.png',
+              DeepClean:     'assets/images/clean-2.png',
+              OfficeClean:   'assets/images/clean-3.png',
+              MoveInOut:     'assets/images/clean-4.png',
+            };
+            return {
+              type:        r.serviceType,
+              label:       r.label,
+              tagline:     r.tagline,
+              icon:        r.icon,
+              image:       imageMap[r.serviceType] ?? 'assets/images/clean-1.png',
+              ratePerHour: r.ratePerHour,
+            };
+          });
         this.ratesSubject.next(options);
       }
     });

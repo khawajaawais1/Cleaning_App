@@ -22,6 +22,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<WorkerDocument> WorkerDocuments { get; set; } = null!;
     public DbSet<SystemSettings> SystemSettings { get; set; } = null!;
     public DbSet<ServiceRate> ServiceRates { get; set; } = null!;
+    public DbSet<EmailVerification> EmailVerifications { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -138,6 +139,15 @@ public class ApplicationDbContext : DbContext
                 new ServiceRate { Id = 3, ServiceType = "OfficeClean",   Label = "Office clean",    Tagline = "Commercial spaces and shared areas",               Icon = "🏢", RatePerHour = 30m, IsActive = true, DisplayOrder = 3, UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
                 new ServiceRate { Id = 4, ServiceType = "MoveInOut",     Label = "Move-out clean",  Tagline = "End of tenancy — deposit-back standard",           Icon = "📦", RatePerHour = 30m, IsActive = true, DisplayOrder = 4, UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, DateTimeKind.Utc) }
             );
+        });
+
+        // EmailVerification configuration
+        modelBuilder.Entity<EmailVerification>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Email).IsRequired().HasMaxLength(255);
+            entity.Property(e => e.Code).IsRequired().HasMaxLength(6);
+            entity.HasIndex(e => e.Email);
         });
 
         // WorkerDocument configuration

@@ -97,7 +97,8 @@
     <div class="services-grid">
       <div class="service-card card" *ngFor="let s of services">
         <div class="svc-photo-wrap">
-          <div class="svc-icon-large">{{ s.icon }}</div>
+          <img [src]="s.image" [alt]="s.label" class="svc-photo" />
+          <div class="svc-icon-badge">{{ s.icon }}</div>
         </div>
         <div class="svc-body">
           <h3>{{ s.label }}</h3>
