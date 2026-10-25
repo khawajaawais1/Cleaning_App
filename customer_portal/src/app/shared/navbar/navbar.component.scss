@@ -1,4 +1,14 @@
 .navbar {
+  // Thin navy → sky → leaf brand stripe along the top edge
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--navy), var(--sky), var(--leaf));
+  }
   position: sticky;
   top: 0;
   z-index: 200;

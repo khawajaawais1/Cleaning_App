@@ -2,7 +2,10 @@
    HERO  —  desktop first, two-column
 ═══════════════════════════════════════════════════════════ */
 .hero {
-  background: var(--bg-warm);
+  background:
+    radial-gradient(55% 65% at 100% 0%, rgba(0, 148, 222, 0.12) 0%, transparent 70%),
+    radial-gradient(45% 60% at 0% 100%, rgba(114, 178, 54, 0.14) 0%, transparent 70%),
+    var(--bg-warm);
   padding: 88px 0 0;
 }
 
@@ -20,8 +23,9 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: #eef2f7;
-    color: var(--primary-text);
+    background: var(--leaf-pale);
+    color: var(--leaf-dark);
+    border: 1px solid rgba(114, 178, 54, 0.3);
     font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.01em;
@@ -39,6 +43,10 @@
     .hero-accent {
       color: var(--primary-text);
       display: block;
+      background: linear-gradient(90deg, var(--navy) 0%, var(--primary) 45%, var(--leaf) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   }
 
@@ -119,9 +127,15 @@
     color: white;
     border: 2.5px solid white;
     margin-left: -10px;
-    background: var(--primary);
+    background: var(--navy);
     &:first-child {
       margin-left: 0;
+    }
+    &:nth-child(3n + 2) {
+      background: var(--leaf);
+    }
+    &:nth-child(3n) {
+      background: var(--sky);
     }
   }
 
@@ -216,7 +230,7 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: var(--primary-text);
+    background: var(--grad-brand);
     color: white;
     display: flex;
     align-items: center;
@@ -244,16 +258,16 @@
     gap: 5px;
     font-size: 12px;
     font-weight: 700;
-    background: var(--primary-pale);
+    background: var(--leaf-pale);
     padding: 5px 10px;
     border-radius: 100px;
-    color: var(--primary-text);
+    color: var(--leaf-dark);
     flex-shrink: 0;
     .live-dot {
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      background: var(--primary);
+      background: var(--leaf);
       animation: pulse 1.6s ease-in-out infinite;
     }
   }
@@ -298,14 +312,18 @@
   color: var(--text-mid);
   white-space: nowrap;
   span {
-    background: #e8eef6;
-    border: 1px soild #eef2f7;
+    background: var(--primary-pale);
+    border: 1px solid rgba(8, 115, 196, 0.15);
     height: 40px;
     width: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 12px;
+  }
+  &:nth-child(even) span {
+    background: var(--leaf-pale);
+    border-color: rgba(114, 178, 54, 0.3);
   }
 }
 
@@ -329,14 +347,30 @@
 }
 
 .step-card {
+  position: relative;
+  overflow: hidden;
   background: var(--white);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-card);
   padding: 32px 28px 36px;
   transition: box-shadow 0.2s;
 
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--navy), var(--sky), var(--leaf));
+    opacity: 0.35;
+    transition: opacity 0.2s;
+  }
   &:hover {
     box-shadow: var(--shadow-md);
+    &::before {
+      opacity: 1;
+    }
   }
 
   .step-card-head {
@@ -346,14 +380,14 @@
     margin-bottom: 22px;
 
     .step-icon-span {
-      background: var(--bg-warm);
+      background: var(--leaf-pale);
       height: 40px;
       width: 40px;
       display: flex;
       justify-content: center;
       align-items: center;
       border-radius: 12px;
-      border: 1px solid #e8eef6;
+      border: 1px solid rgba(114, 178, 54, 0.3);
     }
   }
   .step-num-label {
@@ -361,7 +395,7 @@
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--leaf-dark);
   }
   .step-icon {
     font-size: 22px;
@@ -529,14 +563,14 @@
     .book-link {
       font-size: 14px;
       font-weight: 600;
-      color: var(--text-muted);
+      color: var(--leaf-dark);
       transition: color 0.15s;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 3px;
       &:hover {
-        color: var(--brand);
+        color: var(--primary);
       }
       span {
         font-size: 15px;
@@ -549,7 +583,7 @@
    WHY NEATIO  —  left text + right 2×2 feature grid
 ═══════════════════════════════════════════════════════════ */
 .why-section {
-  background: var(--bg-warm);
+  background: linear-gradient(180deg, #f4f9ee 0%, #f3f7fb 100%);
   padding: var(--section-py) 0;
 }
 
@@ -580,16 +614,23 @@
 
 .feature-card {
   padding: 28px 24px;
-  transition: box-shadow 0.2s;
+  transition:
+    box-shadow 0.2s,
+    border-color 0.2s;
   &:hover {
     box-shadow: var(--shadow-md);
+    border-color: rgba(114, 178, 54, 0.45);
+  }
+  &:nth-child(4n + 2) .feat-icon,
+  &:nth-child(4n + 3) .feat-icon {
+    background: var(--leaf-pale);
   }
 
   .feat-icon {
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    background: var(--bg-warm);
+    background: var(--primary-pale);
     margin-bottom: 18px;
     display: flex;
     align-items: center;
@@ -645,7 +686,8 @@
   }
 
   .divider {
-    border-top: 3px solid #e4e4e4;
+    border-top: 3px solid transparent;
+    border-image: linear-gradient(90deg, var(--navy), var(--sky), var(--leaf)) 1;
     width: max-content;
     width: 100%;
     margin: 18px 0px;
@@ -676,7 +718,10 @@
 
 .pricing-grid {
   display: grid;
-  background: var(--footer);
+  background:
+    radial-gradient(50% 80% at 100% 0%, rgba(0, 148, 222, 0.25) 0%, transparent 70%),
+    radial-gradient(45% 80% at 0% 100%, rgba(114, 178, 54, 0.22) 0%, transparent 70%),
+    var(--grad-dark);
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: center;
@@ -693,7 +738,7 @@
     color: white;
     margin-bottom: 20px;
     .price-accent {
-      color: var(--primary);
+      color: var(--leaf-light);
     }
   }
   .pricing-body {
@@ -750,8 +795,9 @@
   }
 
   &--highlight {
-    background: var(--primary);
-    border-color: var(--primary);
+    background: linear-gradient(135deg, #4a8519 0%, #72b236 100%);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 12px 32px rgba(114, 178, 54, 0.3);
     .pb-label {
       color: rgba(255, 255, 255, 0.8);
     }
@@ -807,7 +853,11 @@
 .faq-item {
   border-bottom: 1px solid var(--border);
   &.open .faq-q {
-    color: var(--brand);
+    color: var(--primary);
+    .faq-toggle {
+      background: var(--leaf);
+      color: #fff;
+    }
   }
 }
 
@@ -827,11 +877,21 @@
   gap: 20px;
   transition: color 0.15s;
   .faq-toggle {
-    font-size: 22px;
-    color: var(--text-muted);
+    font-size: 20px;
+    color: var(--leaf-dark);
+    background: var(--leaf-pale);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: 500;
     flex-shrink: 0;
     line-height: 1;
+    transition:
+      background 0.15s,
+      color 0.15s;
   }
 }
 

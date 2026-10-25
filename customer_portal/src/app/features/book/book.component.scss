@@ -439,21 +439,24 @@
   transition: border-color 0.15s;
   cursor: pointer;
   &:hover {
-    border-color: #0873c4;
+    border-color: var(--leaf);
     .toggle-btn {
       background: #c9c9c9;
     }
   }
   &--active {
-    border-color: #0873c4;
-    background: #2bff0025;
+    border-color: var(--leaf);
+    background: var(--leaf-pale);
     &:hover {
       .toggle-btn {
-        background: #0873c4;
+        background: var(--leaf);
       }
     }
+    .addon-price {
+      color: var(--leaf-dark);
+    }
     .addon-img {
-      background: #0873c4;
+      background: var(--leaf);
       img {
         filter: brightness(0) invert(1);
       }
