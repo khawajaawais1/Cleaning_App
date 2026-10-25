@@ -10,21 +10,32 @@
       <li><a href="#services" (click)="closeMenu()">Services</a></li>
       <li><a href="#pricing" (click)="closeMenu()">Pricing</a></li>
       <li><a href="#faq" (click)="closeMenu()">FAQ</a></li>
+      <li class="nav-auth">
+        <ng-container *ngIf="auth.isLoggedIn; else guestTpl">
+          <a routerLink="/my-bookings" class="nav-link-text">My bookings</a>
+          <span class="nav-user">
+            <span class="material-symbols-outlined"> person </span
+            >{{ auth.currentUser?.fullName?.split(" ")[0] }}</span
+          >
+          <button class="btn btn-outline-dark btn-sm" (click)="logout()">
+            Log out
+          </button>
+        </ng-container>
+        <ng-template #guestTpl>
+          <a routerLink="/login" class="nav-link-text">Log in</a>
+          <a routerLink="/book" class="btn text-white btn-primary btn-sm"
+            >Book a clean</a
+          >
+        </ng-template>
+      </li>
     </ul>
 
-    <div class="nav-auth">
-      <ng-container *ngIf="auth.isLoggedIn; else guestTpl">
-        <a routerLink="/my-bookings" class="nav-link-text">My bookings</a>
-        <span class="nav-user">{{ auth.currentUser?.fullName?.split(' ')[0] }}</span>
-        <button class="btn btn-outline-dark btn-sm" (click)="logout()">Log out</button>
-      </ng-container>
-      <ng-template #guestTpl>
-        <a routerLink="/login" class="nav-link-text">Log in</a>
-        <a routerLink="/book" class="btn btn-primary btn-sm">Book a clean</a>
-      </ng-template>
-    </div>
-
-    <button class="hamburger" (click)="toggleMenu()" [class.open]="menuOpen" aria-label="Menu">
+    <button
+      class="hamburger"
+      (click)="toggleMenu()"
+      [class.open]="menuOpen"
+      aria-label="Menu"
+    >
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -37,11 +48,20 @@
     <div class="mobile-auth">
       <ng-container *ngIf="auth.isLoggedIn; else mobileGuestTpl">
         <a routerLink="/my-bookings" (click)="closeMenu()">My bookings</a>
-        <button class="btn btn-outline-dark" (click)="logout(); closeMenu()">Log out</button>
+        <button class="btn btn-outline-dark" (click)="logout(); closeMenu()">
+          Log out
+        </button>
       </ng-container>
       <ng-template #mobileGuestTpl>
-        <a routerLink="/login" (click)="closeMenu()" class="btn btn-outline-dark">Log in</a>
-        <a routerLink="/book" (click)="closeMenu()" class="btn btn-primary">Book a clean</a>
+        <a
+          routerLink="/login"
+          (click)="closeMenu()"
+          class="btn btn-outline-dark"
+          >Log in</a
+        >
+        <a routerLink="/book" (click)="closeMenu()" class="btn btn-primary"
+          >Book a clean</a
+        >
       </ng-template>
     </div>
   </div>

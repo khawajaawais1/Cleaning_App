@@ -5,7 +5,7 @@ node_modules/
 dist/
 .angular/
 
-# Root-level src (code lives in admin_portal/src/ on this branch)
+# Root-level src only (app code lives in <app>/src/)
 /src/
 
 # Logs

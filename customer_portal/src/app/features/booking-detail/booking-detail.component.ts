@@ -111,9 +111,9 @@ export class BookingDetailComponent implements OnInit {
 
   get primaryLabel(): string {
     const s = this.booking?.status ?? '';
-    if (s === 'Scheduled' || s === 'InProgress') return '📍 Track live status';
-    if (s === 'Completed' && !this.booking?.customerRating) return '⭐ Rate & review';
-    if (s === 'Completed') return '📄 View receipt';
+    if (s === 'Scheduled' || s === 'InProgress') return 'Track live status';
+    if (s === 'Completed' && !this.booking?.customerRating) return 'Rate & review';
+    if (s === 'Completed') return 'View receipt';
     return '';
   }
 

@@ -1,5 +1,4 @@
 <div class="wizard-shell">
-
   <!-- Sidebar -->
   <aside class="wiz-sidebar">
     <a class="wsb-logo" routerLink="/home" aria-label="Neatio — back to home">
@@ -7,13 +6,20 @@
       <img class="wsb-logo-name" src="assets/brand/neatio-name-white.png" alt="Neatio" />
     </a>
     <p class="wsb-eyebrow">YOUR HOME · IN GOOD HANDS</p>
-    <h2 class="wsb-headline">Booked in 3 minutes.<br><span class="wsb-accent">Cleaned in three.</span></h2>
-    <p class="wsb-desc">Vetted cleaners, transparent pricing in euros, and live tracking from their door to yours. Pay only when the job is done.</p>
+    <h2 class="wsb-headline">
+      Booked in 3 minutes.<br /><span class="wsb-accent">Cleaned in three.</span>
+    </h2>
+    <p class="wsb-desc">
+      Vetted cleaners, transparent pricing in euros, and live tracking from
+      their door to yours. Pay only when the job is done.
+    </p>
     <div class="wsb-stats">
       <div class="wstat"><strong>4.9</strong><small>AVG RATING</small></div>
       <div class="wstat"><strong>2.3k</strong><small>CLEANS / WEEK</small></div>
       <div class="wstat"><strong>€25</strong><small>FROM / HOUR</small></div>
-      <div class="wstat"><strong>100%</strong><small>RE-CLEAN GUARANTEE</small></div>
+      <div class="wstat">
+        <strong>100%</strong><small>RE-CLEAN GUARANTEE</small>
+      </div>
     </div>
     <div class="wsb-trust">
       <div class="wsb-avatars">
@@ -21,109 +27,180 @@
         <div class="wsb-av">JR</div>
         <div class="wsb-av">PN</div>
       </div>
-      <span class="wsb-trust-text">Trusted by 1,800+ Helsinki-area customers</span>
+      <span class="wsb-trust-text"
+        >Trusted by 1,800+ Helsinki-area customers</span
+      >
     </div>
   </aside>
+  <div class="right-side">
+    <a routerLink="/" class="wm-back"
+      ><span class="material-symbols-outlined"> arrow_back </span> Back to
+      home</a
+    >
+    <!-- Main -->
+    <main class="wiz-main">
+      <!-- ── STEP 1: Registration form ── -->
+      <ng-container *ngIf="step === 'form'">
+        <div class="wm-step-label">1 · SIGN UP</div>
+        <h1 class="wm-title">Welcome to Neatio</h1>
+        <p class="wm-sub">Book a trusted cleaner in minutes.</p>
 
-  <!-- Main -->
-  <main class="wiz-main">
-    <a routerLink="/" class="wm-back">← Back to home</a>
-
-    <!-- ── STEP 1: Registration form ── -->
-    <ng-container *ngIf="step === 'form'">
-      <div class="wm-step-label">1 · SIGN UP</div>
-      <h1 class="wm-title">Welcome to Neatio</h1>
-      <p class="wm-sub">Book a trusted cleaner in minutes.</p>
-
-      <div class="alert alert-error" *ngIf="error" style="margin-bottom:16px;max-width:600px">{{ error }}</div>
-
-      <form (ngSubmit)="sendCode()" #f="ngForm" class="wm-form">
-        <div class="form-group" style="margin:0">
-          <label class="form-label">FULL NAME</label>
-          <input class="form-control" type="text" [(ngModel)]="fullName" name="fullName" placeholder="Sarah Chen" required>
-        </div>
-        <div class="form-group" style="margin:0">
-          <label class="form-label">EMAIL ADDRESS</label>
-          <input class="form-control" type="email" [(ngModel)]="email" name="email" placeholder="you@example.com" required>
-        </div>
-        <div class="form-group" style="margin:0">
-          <label class="form-label">PASSWORD</label>
-          <input class="form-control" type="password" [(ngModel)]="password" name="password" placeholder="At least 6 characters" required>
+        <div
+          class="alert alert-error"
+          *ngIf="error"
+          style="margin-bottom: 16px; max-width: 600px"
+        >
+          {{ error }}
         </div>
 
-        <button type="submit" class="btn-wiz" [disabled]="sendingCode">
-          <span class="spinner" *ngIf="sendingCode"></span>
-          {{ sendingCode ? 'Sending code…' : 'Send verification code →' }}
-        </button>
+        <form (ngSubmit)="sendCode()" #f="ngForm" class="wm-form">
+          <div class="form-group" style="margin: 0">
+            <label class="form-label">FULL NAME</label>
+            <input
+              class="form-control"
+              type="text"
+              [(ngModel)]="fullName"
+              name="fullName"
+              placeholder="Sarah Chen"
+              required
+            />
+          </div>
+          <div class="form-group" style="margin: 0">
+            <label class="form-label">EMAIL ADDRESS</label>
+            <input
+              class="form-control"
+              type="email"
+              [(ngModel)]="email"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+          <div class="form-group" style="margin: 0">
+            <label class="form-label">PASSWORD</label>
+            <input
+              class="form-control"
+              type="password"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="At least 6 characters"
+              required
+            />
+          </div>
 
-        <div class="wm-divider">or continue with</div>
-        <div class="wm-social">
-          <div id="google-btn-register" class="google-gsi-btn"></div>
-          <span class="google-loading" *ngIf="googleLoading">
-            <span class="spinner"></span> Signing in…
-          </span>
-        </div>
-
-        <p class="wm-switch">Already have an account? <a routerLink="/login">Log in</a></p>
-        <a routerLink="/" class="wm-back-bottom">← Back to home</a>
-      </form>
-    </ng-container>
-
-    <!-- ── STEP 2: OTP verification ── -->
-    <ng-container *ngIf="step === 'verify'">
-      <div class="wm-step-label">2 · VERIFY EMAIL</div>
-      <h1 class="wm-title">Check your inbox.</h1>
-      <p class="wm-sub">{{ successMsg }}</p>
-
-      <div class="alert alert-error" *ngIf="error" style="margin-bottom:16px;max-width:480px">{{ error }}</div>
-
-      <form (ngSubmit)="submit()" class="wm-form">
-        <!-- 6 individual digit inputs -->
-        <div class="otp-row">
-          <input
-            *ngFor="let d of codeDigits; let i = index"
-            [id]="'otp-' + i"
-            class="otp-input"
-            type="text"
-            inputmode="numeric"
-            maxlength="1"
-            [value]="codeDigits[i]"
-            (input)="onDigitInput($event, i)"
-            (keydown)="onDigitKeydown($event, i)"
-            (paste)="onDigitPaste($event)"
-            autocomplete="one-time-code"
-          />
-        </div>
-
-        <button type="submit" class="btn-wiz" [disabled]="loading">
-          <span class="spinner" *ngIf="loading"></span>
-          {{ loading ? 'Creating account…' : 'Verify & create account' }}
-        </button>
-
-        <div class="otp-footer">
-          <button type="button" class="otp-resend" (click)="resend()" [disabled]="resendCountdown > 0 || sendingCode">
-            <span *ngIf="sendingCode"><span class="spinner spinner--sm"></span> Sending…</span>
-            <span *ngIf="!sendingCode && resendCountdown > 0">Resend in {{ resendCountdown }}s</span>
-            <span *ngIf="!sendingCode && resendCountdown === 0">Resend code</span>
+          <button type="submit" class="btn-wiz" [disabled]="sendingCode">
+            <span class="spinner" *ngIf="sendingCode"></span>
+            {{ sendingCode ? "Sending code…" : "Send verification code →" }}
           </button>
-          <span class="otp-sep">·</span>
-          <button type="button" class="otp-back-link" (click)="back()">Change email</button>
+
+          <div class="wm-divider">or continue with</div>
+
+          <div class="wm-social">
+            <!-- Google Identity Services renders the real button here -->
+            <div id="google-btn-register" class="google-gsi-btn"></div>
+            <span class="google-loading" *ngIf="googleLoading">
+              <span class="spinner"></span> Signing in…
+            </span>
+          </div>
+
+          <p class="wm-switch">
+            Already have an account? <a routerLink="/login">Log in</a>
+          </p>
+          <a routerLink="/" class="wm-back-bottom"
+            ><span class="material-symbols-outlined"> arrow_back </span> Back to
+            home</a
+          >
+        </form>
+      </ng-container>
+
+      <!-- ── STEP 2: OTP verification ── -->
+      <ng-container *ngIf="step === 'verify'">
+        <div class="wm-step-label">2 · VERIFY EMAIL</div>
+        <h1 class="wm-title">Check your inbox.</h1>
+        <p class="wm-sub">{{ successMsg }}</p>
+
+        <div
+          class="alert alert-error"
+          *ngIf="error"
+          style="margin-bottom: 16px; max-width: 480px"
+        >
+          {{ error }}
         </div>
-      </form>
-    </ng-container>
-  </main>
 
-  <!-- Bottom step bar -->
-  <nav class="wiz-stepper">
-    <button type="button" class="wstep" (click)="step === 'verify' && back()" [class.wstep--active]="step === 'form'" [class.wstep--done]="step === 'verify'">1 · Sign Up</button>
-    <div class="wstep-sep">›</div>
-    <div class="wstep" [class.wstep--active]="step === 'verify'">2 · Verify Email</div>
-    <div class="wstep-sep">›</div>
-    <a class="wstep" routerLink="/book">3 · Select Service</a>
-    <div class="wstep-sep">›</div>
-    <a class="wstep" routerLink="/book" [queryParams]="{ step: 2 }">4 · Address &amp; Schedule</a>
-    <div class="wstep-sep">›</div>
-    <a class="wstep" routerLink="/book" [queryParams]="{ step: 5 }">5 · Confirm Booking</a>
-  </nav>
+        <form (ngSubmit)="submit()" class="wm-form">
+          <!-- 6 individual digit inputs -->
+          <div class="otp-row">
+            <input
+              *ngFor="let d of codeDigits; let i = index"
+              [id]="'otp-' + i"
+              class="otp-input"
+              type="text"
+              inputmode="numeric"
+              maxlength="1"
+              [value]="codeDigits[i]"
+              (input)="onDigitInput($event, i)"
+              (keydown)="onDigitKeydown($event, i)"
+              (paste)="onDigitPaste($event)"
+              autocomplete="one-time-code"
+            />
+          </div>
 
+          <button type="submit" class="btn-wiz" [disabled]="loading">
+            <span class="spinner" *ngIf="loading"></span>
+            {{ loading ? "Creating account…" : "Verify & create account" }}
+          </button>
+
+          <div class="otp-footer">
+            <button
+              type="button"
+              class="otp-resend"
+              (click)="resend()"
+              [disabled]="resendCountdown > 0 || sendingCode"
+            >
+              <span *ngIf="sendingCode"
+                ><span class="spinner spinner--sm"></span> Sending…</span
+              >
+              <span *ngIf="!sendingCode && resendCountdown > 0"
+                >Resend in {{ resendCountdown }}s</span
+              >
+              <span *ngIf="!sendingCode && resendCountdown === 0"
+                >Resend code</span
+              >
+            </button>
+            <span class="otp-sep">·</span>
+            <button type="button" class="otp-back-link" (click)="back()">
+              Change email
+            </button>
+          </div>
+        </form>
+      </ng-container>
+    </main>
+
+    <!-- Bottom step bar -->
+    <nav class="wiz-stepper">
+      <button
+        type="button"
+        class="wstep"
+        (click)="step === 'verify' && back()"
+        [class.wstep--active]="step === 'form'"
+        [class.wstep--done]="step === 'verify'"
+      >
+        1 · Sign Up
+      </button>
+      <div class="wstep-sep">›</div>
+      <a class="wstep" routerLink="/book">2 · Select Service</a>
+      <div class="wstep-sep">›</div>
+      <a class="wstep" routerLink="/book" [queryParams]="{ step: 2 }">3 · Address &amp; Schedule</a>
+      <div class="wstep-sep">›</div>
+      <a class="wstep" routerLink="/book" [queryParams]="{ step: 3 }">4 · Add-ons &amp; Price</a>
+      <div class="wstep-sep">›</div>
+      <a class="wstep" routerLink="/book" [queryParams]="{ step: 4 }">5 · Photos &amp; Notes</a>
+      <div class="wstep-sep">›</div>
+      <a class="wstep" routerLink="/book" [queryParams]="{ step: 5 }">6 · Confirm Booking</a>
+      <div class="wstep-sep">›</div>
+      <div class="wstep wstep--locked" title="Available once your booking is confirmed">7 · Matching</div>
+      <div class="wstep-sep">›</div>
+      <div class="wstep wstep--locked" title="Available once your booking is confirmed">8 · Live Tracking</div>
+    </nav>
+  </div>
 </div>

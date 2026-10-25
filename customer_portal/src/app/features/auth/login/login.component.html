@@ -1,5 +1,4 @@
 <div class="wizard-shell">
-
   <!-- Sidebar -->
   <aside class="wiz-sidebar">
     <a class="wsb-logo" routerLink="/home" aria-label="Neatio — back to home">
@@ -7,13 +6,20 @@
       <img class="wsb-logo-name" src="assets/brand/neatio-name-white.png" alt="Neatio" />
     </a>
     <p class="wsb-eyebrow">YOUR HOME · IN GOOD HANDS</p>
-    <h2 class="wsb-headline">Booked in 3 minutes.<br><span class="wsb-accent">Cleaned in three.</span></h2>
-    <p class="wsb-desc">Vetted cleaners, transparent pricing in euros, and live tracking from their door to yours. Pay only when the job is done.</p>
+    <h2 class="wsb-headline">
+      Booked in 3 minutes.<br /><span class="wsb-accent">Cleaned in three.</span>
+    </h2>
+    <p class="wsb-desc">
+      Vetted cleaners, transparent pricing in euros, and live tracking from
+      their door to yours. Pay only when the job is done.
+    </p>
     <div class="wsb-stats">
       <div class="wstat"><strong>4.9</strong><small>AVG RATING</small></div>
       <div class="wstat"><strong>2.3k</strong><small>CLEANS / WEEK</small></div>
       <div class="wstat"><strong>€25</strong><small>FROM / HOUR</small></div>
-      <div class="wstat"><strong>100%</strong><small>RE-CLEAN GUARANTEE</small></div>
+      <div class="wstat">
+        <strong>100%</strong><small>RE-CLEAN GUARANTEE</small>
+      </div>
     </div>
     <div class="wsb-trust">
       <div class="wsb-avatars">
@@ -21,69 +27,99 @@
         <div class="wsb-av">JR</div>
         <div class="wsb-av">PN</div>
       </div>
-      <span class="wsb-trust-text">Trusted by 1,800+ Helsinki-area customers</span>
+      <span class="wsb-trust-text"
+        >Trusted by 1,800+ Helsinki-area customers</span
+      >
     </div>
   </aside>
 
   <!-- Main -->
-  <main class="wiz-main">
-    <a routerLink="/" class="wm-back">← Back to home</a>
+  <div class="right-side">
+    <a routerLink="/" class="wm-back"
+      ><span class="material-symbols-outlined"> arrow_back </span> Back to
+      home</a
+    >
+    <main class="wiz-main">
+      <div class="wm-step-label">1 · SIGN IN</div>
+      <h1 class="wm-title">Welcome back.</h1>
+      <p class="wm-sub">Log in to manage your bookings.</p>
 
-    <div class="wm-step-label">1 · SIGN IN</div>
-    <h1 class="wm-title">Welcome back.</h1>
-    <p class="wm-sub">Log in to manage your bookings.</p>
-
-    <div class="alert alert-error" *ngIf="error" style="margin-bottom:16px;max-width:600px">{{ error }}</div>
-
-    <form (ngSubmit)="submit()" #f="ngForm" class="wm-form">
-      <div class="form-group" style="margin:0">
-        <label class="form-label">EMAIL ADDRESS</label>
-        <input class="form-control" type="email" [(ngModel)]="email" name="email" placeholder="you@example.com" required>
-      </div>
-      <div class="form-group" style="margin:0">
-        <label class="form-label">PASSWORD</label>
-        <input class="form-control" type="password" [(ngModel)]="password" name="password" placeholder="••••••••" required>
-      </div>
-
-      <button type="submit" class="btn-wiz" [disabled]="loading">
-        <span class="spinner" *ngIf="loading"></span>
-        {{ loading ? 'Logging in…' : 'Log in' }}
-      </button>
-
-      <div class="wm-divider">or continue with</div>
-      <div class="wm-social">
-        <!-- Google Identity Services renders the real button here -->
-        <div id="google-btn-login" class="google-gsi-btn"></div>
-        <span class="google-loading" *ngIf="googleLoading">
-          <span class="spinner"></span> Signing in…
-        </span>
+      <div
+        class="alert alert-error"
+        *ngIf="error"
+        style="margin-bottom: 16px; max-width: 600px"
+      >
+        {{ error }}
       </div>
 
-      <p class="wm-switch">Don't have an account? <a routerLink="/register">Sign up</a></p>
-      <div class="demo-box">
-        <strong>Demo credentials:</strong> sarah&#64;demo.com / demo1234
-      </div>
-      <a routerLink="/" class="wm-back-bottom">← Back to home</a>
-    </form>
-  </main>
+      <form (ngSubmit)="submit()" #f="ngForm" class="wm-form">
+        <div class="form-group" style="margin: 0">
+          <label class="form-label">EMAIL ADDRESS</label>
+          <input
+            class="form-control"
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+        <div class="form-group" style="margin: 0">
+          <label class="form-label">PASSWORD</label>
+          <input
+            class="form-control"
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            placeholder="••••••••"
+            required
+          />
+        </div>
 
-  <!-- Bottom step bar -->
-  <nav class="wiz-stepper">
-    <div class="wstep wstep--active">1 · Sign Up</div>
-    <div class="wstep-sep">›</div>
-    <a class="wstep" routerLink="/book">2 · Select Service</a>
-    <div class="wstep-sep">›</div>
-    <a class="wstep" routerLink="/book" [queryParams]="{ step: 2 }">3 · Address &amp; Schedule</a>
-    <div class="wstep-sep">›</div>
-    <a class="wstep" routerLink="/book" [queryParams]="{ step: 3 }">4 · Add-ons &amp; Price</a>
-    <div class="wstep-sep">›</div>
-    <a class="wstep" routerLink="/book" [queryParams]="{ step: 4 }">5 · Photos &amp; Notes</a>
-    <div class="wstep-sep">›</div>
-    <a class="wstep" routerLink="/book" [queryParams]="{ step: 5 }">6 · Confirm Booking</a>
-    <div class="wstep-sep">›</div>
-    <div class="wstep wstep--locked" title="Available once your booking is confirmed">7 · Matching</div>
-    <div class="wstep-sep">›</div>
-    <div class="wstep wstep--locked" title="Available once your booking is confirmed">8 · Live Tracking</div>
-  </nav>
+        <button type="submit" class="btn-wiz" [disabled]="loading">
+          <span class="spinner" *ngIf="loading"></span>
+          {{ loading ? "Logging in…" : "Log in" }}
+        </button>
 
+        <div class="wm-divider">or continue with</div>
+        <div class="wm-social">
+          <!-- Google Identity Services renders the real button here -->
+          <div id="google-btn-login" class="google-gsi-btn"></div>
+          <span class="google-loading" *ngIf="googleLoading">
+            <span class="spinner"></span> Signing in…
+          </span>
+        </div>
+
+        <p class="wm-switch">
+          Don't have an account? <a routerLink="/register">Sign up</a>
+        </p>
+        <div class="demo-box">
+          <strong>Demo credentials:</strong> sarah&#64;demo.com / demo1234
+        </div>
+        <a routerLink="/" class="wm-back-bottom"
+          ><span class="material-symbols-outlined"> arrow_back </span> Back to
+          home</a
+        >
+      </form>
+    </main>
+
+    <!-- Bottom step bar -->
+    <nav class="wiz-stepper">
+      <div class="wstep wstep--active">1 · Sign In</div>
+      <div class="wstep-sep">›</div>
+      <a class="wstep" routerLink="/book">2 · Select Service</a>
+      <div class="wstep-sep">›</div>
+      <a class="wstep" routerLink="/book" [queryParams]="{ step: 2 }">3 · Address &amp; Schedule</a>
+      <div class="wstep-sep">›</div>
+      <a class="wstep" routerLink="/book" [queryParams]="{ step: 3 }">4 · Add-ons &amp; Price</a>
+      <div class="wstep-sep">›</div>
+      <a class="wstep" routerLink="/book" [queryParams]="{ step: 4 }">5 · Photos &amp; Notes</a>
+      <div class="wstep-sep">›</div>
+      <a class="wstep" routerLink="/book" [queryParams]="{ step: 5 }">6 · Confirm Booking</a>
+      <div class="wstep-sep">›</div>
+      <div class="wstep wstep--locked" title="Available once your booking is confirmed">7 · Matching</div>
+      <div class="wstep-sep">›</div>
+      <div class="wstep wstep--locked" title="Available once your booking is confirmed">8 · Live Tracking</div>
+    </nav>
+  </div>
 </div>

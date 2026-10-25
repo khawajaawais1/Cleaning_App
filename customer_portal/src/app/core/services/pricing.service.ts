@@ -5,7 +5,9 @@ import { catchError, tap } from 'rxjs/operators';
 import { ServiceOption, SERVICE_OPTIONS } from '../models/booking.model';
 import { environment } from '../../../environments/environment';
 
+/* const API_BASE = 'http://localhost:5000/api'; */
 const API_BASE = environment.apiUrl;
+
 
 export interface PlatformFee {
   fee: number;
@@ -36,19 +38,15 @@ export class PricingService {
           .filter(r => r.isActive)
           .sort((a: any, b: any) => a.displayOrder - b.displayOrder)
           .map((r: any) => {
-            // Map service type to local image asset
-            const imageMap: Record<string, string> = {
-              StandardClean: 'assets/images/clean-1.png',
-              DeepClean:     'assets/images/clean-2.png',
-              OfficeClean:   'assets/images/clean-3.png',
-              MoveInOut:     'assets/images/clean-4.png',
-            };
+            // The API stores an emoji icon and no image, but the UI uses local
+            // SVG icons + photos per service type — take those from the defaults.
+            const local = SERVICE_OPTIONS.find(o => o.type === r.serviceType);
             return {
               type:        r.serviceType,
               label:       r.label,
+              image:       local?.image ?? 'clean-1.png',
               tagline:     r.tagline,
-              icon:        r.icon,
-              image:       imageMap[r.serviceType] ?? 'assets/images/clean-1.png',
+              icon:        local?.icon ?? 'default.svg',
               ratePerHour: r.ratePerHour,
             };
           });

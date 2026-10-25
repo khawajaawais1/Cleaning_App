@@ -1,101 +1,222 @@
-.comp-main { padding: 32px 48px 48px; }
+.comp-main {
+}
 
 .comp-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 36px; margin-top: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  margin-top: 8px;
+}
+
+.field-group-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5f6f86;
+  margin-bottom: 12px;
 }
 
 /* ── Time card ─────────────────────────────────────────── */
 .time-card {
-  background: #f3f7fb; border-radius: 14px; padding: 28px 24px;
-  text-align: center; margin-bottom: 4px;
+  background: #f3f7fb;
+  border-radius: 14px;
+  padding: 28px 24px;
+  text-align: center;
+  margin-bottom: 4px;
 }
 .time-big {
-  font-family: 'Outfit', sans-serif; font-size: 52px; font-weight: 400;
-  color: #0b2545; line-height: 1;
+  font-family: "Outfit", sans-serif;
+  font-size: 52px;
+  font-weight: 400;
+  color: #0b2545;
+  line-height: 1;
 }
 .time-sub {
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px;
-  color: #5f6f86; margin-top: 8px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 13px;
+  color: #5f6f86;
+  margin-top: 8px;
 }
 
 /* ── Checkboxes ────────────────────────────────────────── */
-.confirm-checks { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.confirm-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
 .check-row {
-  display: flex; align-items: center; gap: 12px; cursor: pointer;
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: #0b2545;
-  padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 10px;
-  transition: all .15s;
-  &--on { border-color: #0873c4; background: #eaf4fc; }
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  color: #0b2545;
+  padding: 12px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  transition: all 0.15s;
+  &--on {
+    border-color: #0873c4;
+    background: #eaf4fc;
+  }
 }
 .check-box {
-  width: 20px; height: 20px; border-radius: 5px; border: 1.5px solid #e2e8f0;
-  background: #fff; display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; transition: all .15s;
-  .check-row--on & { background: #0873c4; border-color: #0873c4; }
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1.5px solid #e2e8f0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+  .check-row--on & {
+    background: #0873c4;
+    border-color: #0873c4;
+  }
 }
 
 /* ── Report / Confirm ──────────────────────────────────── */
 .report-btn {
-  width: 100%; padding: 13px; border: 1.5px solid rgba(217,83,79,.4); border-radius: 10px;
-  background: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 14px; font-weight: 600; color: #d9534f; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  margin-bottom: 14px; transition: all .15s;
-  &:hover { background: #fff5f5; }
+  width: 100%;
+  padding: 13px;
+  border: 1.5px solid rgba(217, 83, 79, 0.4);
+  border-radius: 10px;
+  background: #fff;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #d9534f;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  transition: all 0.15s;
+  &:hover {
+    background: #fff5f5;
+  }
 }
-.comp-confirm-btn { margin-top: 0 !important; }
+.comp-confirm-btn {
+  margin-top: 0 !important;
+}
 .comp-note {
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px;
-  color: #9aa8bb; text-align: center; margin-top: 8px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 12px;
+  color: #9aa8bb;
+  text-align: center;
+  margin-top: 8px;
 }
 
 /* ── Invoice card ──────────────────────────────────────── */
 .invoice-card {
-  border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 18px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 18px;
   margin-bottom: 14px;
 }
 .inv-row {
-  display: flex; justify-content: space-between; align-items: center;
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: #42506a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 14px;
+  color: #42506a;
   padding: 8px 0;
 }
-.inv-divider { height: 1px; background: #e2e8f0; width: 100%; }
-.inv-divider-row { padding: 4px 0; }
-.inv-total {
-  font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 400; color: #0b2545;
+.inv-divider {
+  height: 1px;
+  background: #e2e8f0;
+  width: 100%;
 }
-.inv-total-amount { color: #0873c4; }
+.inv-divider-row {
+  padding: 4px 0;
+}
+.inv-total {
+  font-family: "Outfit", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #0b2545;
+}
+.inv-total-amount {
+  color: #0873c4;
+}
 
 /* ── Card / payment notices ────────────────────────────── */
 .card-notice {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 14px 16px; border: 1.5px solid #e2e8f0; border-radius: 12px;
-  background: #eaf4fc; margin-bottom: 12px;
-  div { display: flex; flex-direction: column; gap: 2px; }
-  strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 600; color: #0b2545; }
-  span   { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; color: #5f6f86; }
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  background: #eaf4fc;
+  margin-bottom: 12px;
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  strong {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0b2545;
+  }
+  span {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 12px;
+    color: #5f6f86;
+  }
 }
 .payment-note {
-  display: flex; align-items: center; gap: 8px;
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; color: #5f6f86;
-  padding: 12px 14px; border: 1.5px solid #e2e8f0; border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 13px;
+  color: #5f6f86;
+  padding: 12px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
 }
 
 /* ── Loading (reuse from matching) ────────────────────── */
 .match-loading {
-  height: 100vh; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 16px;
-  font-family: 'Plus Jakarta Sans', sans-serif; color: #5f6f86; font-size: 14px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: #5f6f86;
+  font-size: 14px;
 }
 .match-spinner {
-  width: 36px; height: 36px; border: 3px solid #e2e8f0;
-  border-top-color: #0873c4; border-radius: 50%;
-  animation: spin .7s linear infinite;
+  width: 36px;
+  height: 36px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #0873c4;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 @media (max-width: 760px) {
-  .comp-grid { grid-template-columns: 1fr; }
-  .comp-main { padding: 24px; }
+  .comp-grid {
+    grid-template-columns: 1fr;
+  }
+  .comp-main {
+    padding: 24px;
+  }
 }
