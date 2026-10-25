@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef, inject, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   loadStripe, Stripe,
@@ -107,6 +107,7 @@ export class BookComponent implements OnInit {
   private pricingSvc = inject(PricingService);
   private modalSvc   = inject(NgbModal);
   private router     = inject(Router);
+  private route      = inject(ActivatedRoute);
   private zone       = inject(NgZone);
   private cdr        = inject(ChangeDetectorRef);
 
@@ -128,6 +129,10 @@ export class BookComponent implements OnInit {
   ngOnInit(): void {
     this.buildCalendar();
     this.pricingSvc.rates$.subscribe(r => this.services = r);
+
+    // Deep link from other pages' step bars, e.g. /book?step=3
+    const requested = Number(this.route.snapshot.queryParamMap.get('step'));
+    if (requested > 1) { this.goToStep(requested); this.error = ''; }
   }
 
   // ── Calendar ──────────────────────────────────────────────
@@ -184,6 +189,18 @@ export class BookComponent implements OnInit {
   }
   prevStep(): void { if (this.step>1) { this.step--; this.error=''; } }
 
+  // Step-bar navigation: going back is free, going forward runs each step's
+  // validation and stops at the first incomplete step.
+  goToStep(target: number): void {
+    if (target < 1 || target > 5 || target === this.step) return;
+    if (target < this.step) { this.step = target; this.error = ''; return; }
+    while (this.step < target) {
+      const before = this.step;
+      this.nextStep();
+      if (this.step === before) return;
+    }
+  }
+
   // ── Load saved card ────────────────────────────────────────
   fetchSavedCard(): void {
     if (!this.auth.isLoggedIn) return;
@@ -230,7 +247,7 @@ export class BookComponent implements OnInit {
     const elements = this.stripe.elements();
     const style = {
       style: {
-        base: { fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:'15px', color:'#1a231e', '::placeholder':{ color:'#aab8b2' } },
+        base: { fontFamily:"'Plus Jakarta Sans',sans-serif", fontSize:'15px', color:'#0b2545', '::placeholder':{ color:'#9aa8bb' } },
         invalid: { color:'#e53e3e' },
       },
     };
@@ -368,7 +385,7 @@ export class BookComponent implements OnInit {
   }
 
   launchConfetti(): void {
-    const colors = ['#25ae59', '#1d8a47', '#a7f3c4', '#ffffff', '#1a231e'];
+    const colors = ['#02529a', '#0094de', '#72b236', '#c4e3a3', '#ffffff'];
     const fire = (r: number, o: confetti.Options) =>
       confetti({ origin: { y: 0.55 }, colors, ...o, particleCount: Math.floor(200 * r) });
     fire(0.25, { spread: 26, startVelocity: 55 });

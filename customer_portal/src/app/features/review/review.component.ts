@@ -15,6 +15,7 @@ const TAGS = ['Punctual','Thorough','Friendly','Efficient','Professional','Commu
 })
 export class ReviewComponent implements OnInit {
   booking: any = null;
+  bookingId = 0;
   receipt: any = null;
   loading = true;
   submitted = false;
@@ -34,7 +35,7 @@ export class ReviewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id')!;
+    const id = this.bookingId = +this.route.snapshot.paramMap.get('id')!;
     this.bookingSvc.getBookingById(id).subscribe({
       next: (b) => {
         this.booking = b;

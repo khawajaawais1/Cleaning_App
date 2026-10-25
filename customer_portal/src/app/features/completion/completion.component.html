@@ -2,16 +2,12 @@
 
   <!-- Sidebar -->
   <aside class="wiz-sidebar">
-    <div class="wsb-logo">
-      <div class="wsb-logo-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M3 10.5L12 3L21 10.5V20C21 20.5523 20.5523 21 20 21H15.5V15.5H8.5V21H4C3.44772 21 3 20.5523 3 20V10.5Z" fill="white"/>
-        </svg>
-      </div>
-      <span class="wsb-logo-text">Happy2Clean</span>
-    </div>
+    <a class="wsb-logo" routerLink="/home" aria-label="Neatio — back to home">
+      <span class="wsb-logo-tile"><img src="assets/brand/neatio-mark.png" alt="" /></span>
+      <img class="wsb-logo-name" src="assets/brand/neatio-name-white.png" alt="Neatio" />
+    </a>
     <p class="wsb-eyebrow">STEP 9 OF 10</p>
-    <h2 class="wsb-headline">Job <span class="wsb-green">done!</span></h2>
+    <h2 class="wsb-headline">Job <span class="wsb-accent">done!</span></h2>
     <p class="wsb-desc">Review the time taken and confirm the job is complete. Payment is processed instantly once you confirm.</p>
     <div class="wsb-stats">
       <div class="wstat"><strong>4.9</strong><small>AVG RATING</small></div>
@@ -106,8 +102,8 @@
         <!-- Card info -->
         <div class="card-notice" *ngIf="booking?.paymentStatus === 'paid'">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="5" width="20" height="14" rx="2" stroke="#25ae59" stroke-width="1.5"/>
-            <path d="M2 10h20" stroke="#25ae59" stroke-width="1.5"/>
+            <rect x="2" y="5" width="20" height="14" rx="2" stroke="#0873c4" stroke-width="1.5"/>
+            <path d="M2 10h20" stroke="#0873c4" stroke-width="1.5"/>
           </svg>
           <div>
             <strong>Payment charged on confirmation</strong>
@@ -117,8 +113,8 @@
 
         <div class="payment-note">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" stroke="#25ae59" stroke-width="1.5"/>
-            <path d="M9 12l2 2 4-4" stroke="#25ae59" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="10" stroke="#0873c4" stroke-width="1.5"/>
+            <path d="M9 12l2 2 4-4" stroke="#0873c4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           Payment processes instantly when you confirm the job is complete.
         </div>
@@ -129,15 +125,15 @@
   <!-- Stepper -->
   <nav class="wiz-stepper">
     <div class="wstep wstep--done">1 · Sign Up</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--done">2 · Select Service</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--done">3 · Address &amp; Schedule</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--done">4 · Add-ons &amp; Price</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--done">5 · Photos &amp; Notes</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--done">6 · Confirm Booking</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--done">7 · Matching</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--done">8 · Live Tracking</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--active">9 · Complete &amp; Pay</div><div class="wstep-sep">›</div>
-    <div class="wstep">10 · Rate &amp; Review</div>
+    <a class="wstep wstep--done" [routerLink]="['/booking', bookingId]">2 · Select Service</a><div class="wstep-sep">›</div>
+    <a class="wstep wstep--done" [routerLink]="['/booking', bookingId]">3 · Address &amp; Schedule</a><div class="wstep-sep">›</div>
+    <a class="wstep wstep--done" [routerLink]="['/booking', bookingId]">4 · Add-ons &amp; Price</a><div class="wstep-sep">›</div>
+    <a class="wstep wstep--done" [routerLink]="['/booking', bookingId]">5 · Photos &amp; Notes</a><div class="wstep-sep">›</div>
+    <a class="wstep wstep--done" [routerLink]="['/booking', bookingId]">6 · Confirm Booking</a><div class="wstep-sep">›</div>
+    <a class="wstep wstep--done" [routerLink]="['/matching', bookingId]">7 · Matching</a><div class="wstep-sep">›</div>
+    <a class="wstep wstep--done" [routerLink]="['/matching', bookingId]">8 · Live Tracking</a><div class="wstep-sep">›</div>
+    <a class="wstep wstep--active" [routerLink]="['/completion', bookingId]">9 · Complete &amp; Pay</a><div class="wstep-sep">›</div>
+    <a class="wstep" [routerLink]="['/review', bookingId]">10 · Rate &amp; Review</a>
   </nav>
 </div>
 

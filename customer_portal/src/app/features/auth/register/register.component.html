@@ -2,16 +2,12 @@
 
   <!-- Sidebar -->
   <aside class="wiz-sidebar">
-    <div class="wsb-logo">
-      <div class="wsb-logo-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 10.5L12 3L21 10.5V20C21 20.5523 20.5523 21 20 21H15.5V15.5H8.5V21H4C3.44772 21 3 20.5523 3 20V10.5Z" fill="white"/>
-        </svg>
-      </div>
-      <span class="wsb-logo-text">Happy2Clean</span>
-    </div>
+    <a class="wsb-logo" routerLink="/home" aria-label="Neatio — back to home">
+      <span class="wsb-logo-tile"><img src="assets/brand/neatio-mark.png" alt="" /></span>
+      <img class="wsb-logo-name" src="assets/brand/neatio-name-white.png" alt="Neatio" />
+    </a>
     <p class="wsb-eyebrow">YOUR HOME · IN GOOD HANDS</p>
-    <h2 class="wsb-headline">Booked in 3 minutes.<br><span class="wsb-green">Cleaned in three.</span></h2>
+    <h2 class="wsb-headline">Booked in 3 minutes.<br><span class="wsb-accent">Cleaned in three.</span></h2>
     <p class="wsb-desc">Vetted cleaners, transparent pricing in euros, and live tracking from their door to yours. Pay only when the job is done.</p>
     <div class="wsb-stats">
       <div class="wstat"><strong>4.9</strong><small>AVG RATING</small></div>
@@ -36,7 +32,7 @@
     <!-- ── STEP 1: Registration form ── -->
     <ng-container *ngIf="step === 'form'">
       <div class="wm-step-label">1 · SIGN UP</div>
-      <h1 class="wm-title">Welcome to Happy2Clean</h1>
+      <h1 class="wm-title">Welcome to Neatio</h1>
       <p class="wm-sub">Book a trusted cleaner in minutes.</p>
 
       <div class="alert alert-error" *ngIf="error" style="margin-bottom:16px;max-width:600px">{{ error }}</div>
@@ -63,6 +59,9 @@
         <div class="wm-divider">or continue with</div>
         <div class="wm-social">
           <div id="google-btn-register" class="google-gsi-btn"></div>
+          <span class="google-loading" *ngIf="googleLoading">
+            <span class="spinner"></span> Signing in…
+          </span>
         </div>
 
         <p class="wm-switch">Already have an account? <a routerLink="/login">Log in</a></p>
@@ -116,15 +115,15 @@
 
   <!-- Bottom step bar -->
   <nav class="wiz-stepper">
-    <div class="wstep" [class.wstep--active]="step === 'form'">1 · Sign Up</div>
+    <button type="button" class="wstep" (click)="step === 'verify' && back()" [class.wstep--active]="step === 'form'" [class.wstep--done]="step === 'verify'">1 · Sign Up</button>
     <div class="wstep-sep">›</div>
     <div class="wstep" [class.wstep--active]="step === 'verify'">2 · Verify Email</div>
     <div class="wstep-sep">›</div>
-    <div class="wstep">3 · Select Service</div>
+    <a class="wstep" routerLink="/book">3 · Select Service</a>
     <div class="wstep-sep">›</div>
-    <div class="wstep">4 · Address &amp; Schedule</div>
+    <a class="wstep" routerLink="/book" [queryParams]="{ step: 2 }">4 · Address &amp; Schedule</a>
     <div class="wstep-sep">›</div>
-    <div class="wstep">5 · Confirm Booking</div>
+    <a class="wstep" routerLink="/book" [queryParams]="{ step: 5 }">5 · Confirm Booking</a>
   </nav>
 
 </div>

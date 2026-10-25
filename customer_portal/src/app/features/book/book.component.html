@@ -3,17 +3,13 @@
 
   <!-- Sidebar -->
   <aside class="wiz-sidebar">
-    <div class="wsb-logo">
-      <div class="wsb-logo-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 10.5L12 3L21 10.5V20C21 20.5523 20.5523 21 20 21H15.5V15.5H8.5V21H4C3.44772 21 3 20.5523 3 20V10.5Z" fill="white"/>
-        </svg>
-      </div>
-      <span class="wsb-logo-text">Happy2Clean</span>
-    </div>
-    <p class="wsb-eyebrow">{{ sideCtx[step]?.eyebrow }}</p>
-    <h2 class="wsb-headline">{{ sideCtx[step]?.line1 }}<span class="wsb-green">{{ sideCtx[step]?.accent }}</span></h2>
-    <p class="wsb-desc">{{ sideCtx[step]?.desc }}</p>
+    <a class="wsb-logo" routerLink="/home" aria-label="Neatio — back to home">
+      <span class="wsb-logo-tile"><img src="assets/brand/neatio-mark.png" alt="" /></span>
+      <img class="wsb-logo-name" src="assets/brand/neatio-name-white.png" alt="Neatio" />
+    </a>
+    <p class="wsb-eyebrow">{{ sideCtx[step].eyebrow }}</p>
+    <h2 class="wsb-headline">{{ sideCtx[step].line1 }}<span class="wsb-accent">{{ sideCtx[step].accent }}</span></h2>
+    <p class="wsb-desc">{{ sideCtx[step].desc }}</p>
     <div class="wsb-stats">
       <div class="wstat"><strong>4.9</strong><small>AVG RATING</small></div>
       <div class="wstat"><strong>2.3k</strong><small>CLEANS / WEEK</small></div>
@@ -142,7 +138,7 @@
           <!-- Booking summary banner -->
           <div class="booking-summary" *ngIf="selectedDay && selectedTime">
             <span class="booking-summary-left">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#25ae59"/><path d="M4 7l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#0873c4"/><path d="M4 7l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               Selected: {{ selectedDateLabel }} · {{ selectedTime }}
             </span>
             <span class="booking-summary-right">{{ selectedHours }} hrs · €{{ (selectedService?.ratePerHour || 25) * selectedHours }}</span>
@@ -299,7 +295,7 @@
             </button>
           </div>
           <p class="confirm-policy" *ngIf="auth.isLoggedIn">
-            By confirming you agree to our <a href="#" style="color:#25ae59;text-decoration:underline">cancellation policy</a>
+            By confirming you agree to our <a href="#" style="color:#0873c4;text-decoration:underline">cancellation policy</a>
           </p>
           <p class="confirm-login-note" *ngIf="!auth.isLoggedIn">
             You need to <a routerLink="/login" [queryParams]="{returnUrl:'/book'}">log in</a> to confirm your booking.
@@ -311,8 +307,8 @@
           <!-- No payment method saved notice -->
           <div class="no-card-notice">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <rect x="2" y="5" width="20" height="14" rx="2" stroke="#738279" stroke-width="1.5"/>
-              <path d="M2 10h20" stroke="#738279" stroke-width="1.5"/>
+              <rect x="2" y="5" width="20" height="14" rx="2" stroke="#5f6f86" stroke-width="1.5"/>
+              <path d="M2 10h20" stroke="#5f6f86" stroke-width="1.5"/>
             </svg>
             <span>You'll enter your card details when confirming.</span>
           </div>
@@ -332,7 +328,7 @@
             <div class="price-divider"></div>
             <div class="price-row price-total">
               <strong>Total</strong>
-              <strong class="price-total-green">€{{ total }}</strong>
+              <strong class="price-total-accent">€{{ total }}</strong>
             </div>
           </div>
         </div>
@@ -346,14 +342,18 @@
 
   <!-- Bottom step bar -->
   <nav class="wiz-stepper">
-    <div class="wstep" [class.wstep--done]="step > 0">1 · Sign Up</div><div class="wstep-sep">›</div>
-    <div class="wstep" [class.wstep--active]="step===1" [class.wstep--done]="step>1">2 · Select Service</div><div class="wstep-sep">›</div>
-    <div class="wstep" [class.wstep--active]="step===2" [class.wstep--done]="step>2">3 · Address &amp; Schedule</div><div class="wstep-sep">›</div>
-    <div class="wstep" [class.wstep--active]="step===3" [class.wstep--done]="step>3">4 · Add-ons &amp; Price</div><div class="wstep-sep">›</div>
-    <div class="wstep" [class.wstep--active]="step===4" [class.wstep--done]="step>4">5 · Photos &amp; Notes</div><div class="wstep-sep">›</div>
-    <div class="wstep" [class.wstep--active]="step===5">6 · Confirm Booking</div><div class="wstep-sep">›</div>
-    <div class="wstep">7 · Matching</div><div class="wstep-sep">›</div>
-    <div class="wstep">8 · Live Tracking</div>
+    <div class="wstep wstep--done" *ngIf="auth.isLoggedIn; else signUpLink">1 · Sign Up</div>
+    <ng-template #signUpLink>
+      <a class="wstep" routerLink="/login" [queryParams]="{ returnUrl: '/book' }">1 · Sign Up</a>
+    </ng-template>
+    <div class="wstep-sep">›</div>
+    <button type="button" class="wstep" (click)="goToStep(1)" [class.wstep--active]="step===1" [class.wstep--done]="step>1">2 · Select Service</button><div class="wstep-sep">›</div>
+    <button type="button" class="wstep" (click)="goToStep(2)" [class.wstep--active]="step===2" [class.wstep--done]="step>2">3 · Address &amp; Schedule</button><div class="wstep-sep">›</div>
+    <button type="button" class="wstep" (click)="goToStep(3)" [class.wstep--active]="step===3" [class.wstep--done]="step>3">4 · Add-ons &amp; Price</button><div class="wstep-sep">›</div>
+    <button type="button" class="wstep" (click)="goToStep(4)" [class.wstep--active]="step===4" [class.wstep--done]="step>4">5 · Photos &amp; Notes</button><div class="wstep-sep">›</div>
+    <button type="button" class="wstep" (click)="goToStep(5)" [class.wstep--active]="step===5">6 · Confirm Booking</button><div class="wstep-sep">›</div>
+    <div class="wstep wstep--locked" title="Available once your booking is confirmed">7 · Matching</div><div class="wstep-sep">›</div>
+    <div class="wstep wstep--locked" title="Available once your booking is confirmed">8 · Live Tracking</div>
   </nav>
 </div>
 
@@ -368,7 +368,7 @@
       </div>
       <button class="pm-close" (click)="modal.dismiss()" aria-label="Close">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <path d="M1 1l12 12M13 1L1 13" stroke="#738279" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M1 1l12 12M13 1L1 13" stroke="#5f6f86" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
       </button>
     </div>
@@ -393,7 +393,7 @@
           </div>
         </div>
         <div class="pm-saved-card-check">
-          <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#25ae59"/><path d="M6 10l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#0873c4"/><path d="M6 10l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
       </div>
 
@@ -407,7 +407,7 @@
 
       <p class="card-security-note">
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-          <path d="M6.5 1L2 3v3.5c0 2.8 2 5.1 4.5 5.5C9 11.6 11 9.3 11 6.5V3L6.5 1z" stroke="#738279" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M6.5 1L2 3v3.5c0 2.8 2 5.1 4.5 5.5C9 11.6 11 9.3 11 6.5V3L6.5 1z" stroke="#5f6f86" stroke-width="1.2" stroke-linejoin="round"/>
         </svg>
         Payment secured by Stripe. Your card details are never stored on our servers.
       </p>
@@ -469,7 +469,7 @@
 
       <p class="card-security-note">
         <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-          <path d="M6.5 1L2 3v3.5c0 2.8 2 5.1 4.5 5.5C9 11.6 11 9.3 11 6.5V3L6.5 1z" stroke="#738279" stroke-width="1.2" stroke-linejoin="round"/>
+          <path d="M6.5 1L2 3v3.5c0 2.8 2 5.1 4.5 5.5C9 11.6 11 9.3 11 6.5V3L6.5 1z" stroke="#5f6f86" stroke-width="1.2" stroke-linejoin="round"/>
         </svg>
         Your card details are encrypted and secure. We never store your CVV.
       </p>
@@ -507,7 +507,7 @@
 
     <h3 class="conf-title">You're all booked! 🏠</h3>
     <p class="conf-sub">
-      Payment of <strong class="conf-green">€{{ total.toFixed(2) }}</strong> confirmed.
+      Payment of <strong class="conf-accent">€{{ total.toFixed(2) }}</strong> confirmed.
       Your cleaner is being matched now.
     </p>
 

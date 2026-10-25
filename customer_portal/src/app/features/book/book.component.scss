@@ -3,22 +3,22 @@
 
 .svc-row {
   display: flex; align-items: center; gap: 16px;
-  border: 1.5px solid #e5e7e4; border-radius: 12px;
+  border: 1.5px solid #e2e8f0; border-radius: 12px;
   padding: 18px 20px; cursor: pointer; transition: all .15s;
-  &:hover { border-color: #738279; background: #f5f6f4; }
+  &:hover { border-color: #5f6f86; background: #f3f7fb; }
   &--selected {
-    border-color: #25ae59; background: #edfbf2;
+    border-color: #0873c4; background: #eaf4fc;
     .svc-row-check { display: flex; }
   }
 }
-.svc-row-icon  { font-size: 22px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #f5f6f4; border-radius: 8px; }
+.svc-row-icon  { font-size: 22px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: #f3f7fb; border-radius: 8px; }
 .svc-row-body  { flex: 1; display: flex; flex-direction: column; gap: 3px; }
-.svc-row-name  { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 400; color: #1a231e; }
-.svc-row-desc  { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; color: #738279; }
-.svc-row-price { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 400; color: #1a231e; white-space: nowrap; }
+.svc-row-name  { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 400; color: #0b2545; }
+.svc-row-desc  { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; color: #5f6f86; }
+.svc-row-price { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 400; color: #0b2545; white-space: nowrap; }
 .svc-row-check {
   display: none; width: 24px; height: 24px; border-radius: 50%;
-  background: #25ae59; color: #fff; align-items: center; justify-content: center;
+  background: #0873c4; color: #fff; align-items: center; justify-content: center;
   font-size: 12px; font-weight: 700; flex-shrink: 0;
 }
 
@@ -30,57 +30,57 @@
 .hour-btn {
   position: relative; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  padding: 14px 8px 12px; border: 1.5px solid #e5e7e4; border-radius: 10px;
+  padding: 14px 8px 12px; border: 1.5px solid #e2e8f0; border-radius: 10px;
   background: #fff; cursor: pointer; transition: all .15s; gap: 2px;
-  &:hover { border-color: #738279; }
+  &:hover { border-color: #5f6f86; }
   &--selected {
-    background: #25ae59; border-color: #25ae59;
+    background: #0873c4; border-color: #0873c4;
     .hour-num, .hour-label, .hour-price { color: #fff; }
-    .hour-badge { background: #fff; color: #25ae59; }
+    .hour-badge { background: #fff; color: #0873c4; }
   }
 }
 .hour-badge {
   position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
-  background: #1a231e; color: #fff;
+  background: #0b2545; color: #fff;
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: 10px; font-weight: 600;
   padding: 2px 9px; border-radius: 100px; white-space: nowrap;
 }
 .hour-num {
   font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 400;
-  color: #1a231e; line-height: 1;
+  color: #0b2545; line-height: 1;
 }
 .hour-label {
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: 9px; font-weight: 700;
-  letter-spacing: .1em; text-transform: uppercase; color: #738279; margin-bottom: 3px;
+  letter-spacing: .1em; text-transform: uppercase; color: #5f6f86; margin-bottom: 3px;
 }
 .hour-price {
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 600;
-  color: #25ae59;
+  color: #0873c4;
 }
 
 /* ── Booking summary banner ──────────────────────────────── */
 .booking-summary {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 11px 14px; border: 1.5px solid #25ae59; border-radius: 10px;
-  background: #edfbf2; margin-top: 12px;
+  padding: 11px 14px; border: 1.5px solid #0873c4; border-radius: 10px;
+  background: #eaf4fc; margin-top: 12px;
 }
 .booking-summary-left {
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 500;
-  color: #1a231e; display: flex; align-items: center; gap: 7px;
+  color: #0b2545; display: flex; align-items: center; gap: 7px;
 }
 .booking-summary-right {
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700;
-  color: #1a231e;
+  color: #0b2545;
 }
 
 /* ── Estimated total card ────────────────────────────────── */
 .est-total-card {
   display: flex; align-items: center; gap: 14px;
-  background: #1a231e; border-radius: 12px; padding: 16px 20px;
+  background: #0b2545; border-radius: 12px; padding: 16px 20px;
   margin-top: 10px;
 }
 .est-total-icon {
-  width: 42px; height: 42px; border-radius: 10px; background: #25ae59;
+  width: 42px; height: 42px; border-radius: 10px; background: #0873c4;
   color: #fff; display: flex; align-items: center; justify-content: center;
   font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 400; flex-shrink: 0;
 }
@@ -99,7 +99,7 @@
 }
 .est-total-badge {
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 600;
-  color: #25ae59; white-space: nowrap;
+  color: #0873c4; white-space: nowrap;
 }
 .cal-continue { width: 100%; }
 
@@ -110,7 +110,7 @@
 }
 .field-group-label {
   font-size: 10px; font-weight: 700; letter-spacing: .12em;
-  text-transform: uppercase; color: #738279; margin-bottom: 12px;
+  text-transform: uppercase; color: #5f6f86; margin-bottom: 12px;
 }
 .addr-col { display: flex; flex-direction: column; gap: 22px; }
 .addr-section { display: flex; flex-direction: column; gap: 0; }
@@ -121,21 +121,21 @@
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
 }
 .time-pill {
-  padding: 10px 0; border: 1.5px solid #e5e7e4; border-radius: 8px;
-  background: #fff; font-size: 13px; font-weight: 500; color: #4a5550;
+  padding: 10px 0; border: 1.5px solid #e2e8f0; border-radius: 8px;
+  background: #fff; font-size: 13px; font-weight: 500; color: #42506a;
   cursor: pointer; text-align: center; transition: all .15s;
-  &:hover { border-color: #738279; }
-  &--active { background: #25ae59; border-color: #25ae59; color: #fff; font-weight: 600; }
+  &:hover { border-color: #5f6f86; }
+  &--active { background: #0873c4; border-color: #0873c4; color: #fff; font-weight: 600; }
 }
 
 /* Calendar */
 .cal-col { display: flex; flex-direction: column; }
 .cal-card {
-  border: 1.5px solid #e5e7e4; border-radius: 12px; overflow: hidden;
+  border: 1.5px solid #e2e8f0; border-radius: 12px; overflow: hidden;
 }
 .cal-header {
   display: flex; align-items: center; justify-content: space-between;
-  background: #25ae59; padding: 12px 16px;
+  background: #0873c4; padding: 12px 16px;
 }
 .cal-month { font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 400; color: #fff; }
 .cal-nav {
@@ -149,17 +149,17 @@
 }
 .cal-dh {
   text-align: center; font-size: 11px; font-weight: 700;
-  color: #aab8b2; padding: 4px 0;
+  color: #9aa8bb; padding: 4px 0;
 }
 .cal-day {
   text-align: center; padding: 7px 0; border-radius: 50%;
-  font-size: 13px; color: #4a5550; cursor: pointer;
+  font-size: 13px; color: #42506a; cursor: pointer;
   transition: background .12s, color .12s;
   &:hover:not(.cal-day--past):not(.cal-day--empty) { background: #f3f4f6; }
   &--empty  { cursor: default; }
   &--past   { color: #d1d5db; cursor: not-allowed; }
-  &--today  { font-weight: 700; color: #25ae59; }
-  &--sel    { background: #1a231e; color: #fff; font-weight: 700; }
+  &--today  { font-weight: 700; color: #0873c4; }
+  &--sel    { background: #0b2545; color: #fff; font-weight: 700; }
 }
 .selected-summary {
   margin-top: 12px; padding: 10px 14px; border-radius: 8px;
@@ -175,14 +175,14 @@
 .addon-list { display: flex; flex-direction: column; gap: 10px; }
 .addon-row {
   display: flex; align-items: center; gap: 14px;
-  padding: 14px 16px; border: 1.5px solid #e5e7e4;
+  padding: 14px 16px; border: 1.5px solid #e2e8f0;
   border-radius: 10px; transition: border-color .15s;
 }
 .toggle-btn {
   width: 44px; height: 24px; border-radius: 100px; border: none;
-  background: #e5e7e4; cursor: pointer; position: relative; flex-shrink: 0;
+  background: #e2e8f0; cursor: pointer; position: relative; flex-shrink: 0;
   transition: background .2s;
-  &--on { background: #25ae59; }
+  &--on { background: #0873c4; }
 }
 .toggle-thumb {
   position: absolute; top: 2px; left: 2px; width: 20px; height: 20px;
@@ -191,31 +191,31 @@
 }
 .toggle-btn--on .toggle-thumb { left: calc(100% - 22px); }
 .addon-info { flex: 1; display: flex; flex-direction: column; gap: 2px; }
-.addon-name  { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 600; color: #1a231e; }
-.addon-desc  { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; color: #aab8b2; }
-.addon-price { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 400; color: #4a5550; white-space: nowrap; }
+.addon-name  { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 600; color: #0b2545; }
+.addon-desc  { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; color: #9aa8bb; }
+.addon-price { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 400; color: #42506a; white-space: nowrap; }
 
 .price-card {
-  background: #f9fafb; border: 1.5px solid #e5e7e4; border-radius: 12px; padding: 20px;
+  background: #f9fafb; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 20px;
   height: fit-content;
 }
 .price-card-label {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 10px; font-weight: 700; letter-spacing: .12em;
-  text-transform: uppercase; color: #738279; margin-bottom: 14px;
+  text-transform: uppercase; color: #5f6f86; margin-bottom: 14px;
 }
 .price-rows { display: flex; flex-direction: column; gap: 8px; }
 .price-row {
   font-family: 'Plus Jakarta Sans', sans-serif;
   display: flex; justify-content: space-between; align-items: center;
-  font-size: 13px; color: #4a5550;
+  font-size: 13px; color: #42506a;
 }
-.price-divider { height: 1px; background: #e5e7e4; margin: 6px 0; }
+.price-divider { height: 1px; background: #e2e8f0; margin: 6px 0; }
 .price-total {
   font-family: 'Outfit', sans-serif;
   font-size: 15px; font-weight: 400;
 }
-.price-note { font-size: 12px; color: #738279; margin-top: 14px; line-height: 1.6; }
+.price-note { font-size: 12px; color: #5f6f86; margin-top: 14px; line-height: 1.6; }
 
 /* ── Notes & Photos ───────────────────────────────────────── */
 .notes-grid {
@@ -226,11 +226,11 @@
 .photos-col { display: flex; flex-direction: column; }
 .tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
 .tag-pill {
-  padding: 7px 14px; border: 1.5px solid #e5e7e4; border-radius: 100px;
-  background: #fff; font-size: 13px; color: #4a5550; cursor: pointer;
+  padding: 7px 14px; border: 1.5px solid #e2e8f0; border-radius: 100px;
+  background: #fff; font-size: 13px; color: #42506a; cursor: pointer;
   transition: all .15s;
-  &:hover { border-color: #738279; }
-  &--on { border-color: #25ae59; background: #edfbf2; color: #1a231e; font-weight: 600; }
+  &:hover { border-color: #5f6f86; }
+  &--on { border-color: #0873c4; background: #eaf4fc; color: #0b2545; font-weight: 600; }
 }
 .photos-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0;
@@ -239,22 +239,22 @@
   aspect-ratio: 1; border-radius: 10px; display: flex;
   align-items: center; justify-content: center; cursor: pointer;
   &--filled { background: #f0fdf4; border: 1.5px solid #bbf7d0; }
-  &--add    { background: #f9fafb; border: 1.5px dashed #d1d5db; &:hover { border-color: #aab8b2; } }
+  &--add    { background: #f9fafb; border: 1.5px dashed #d1d5db; &:hover { border-color: #9aa8bb; } }
 }
-.photo-note { font-size: 12px; color: #738279; margin-top: 4px; }
+.photo-note { font-size: 12px; color: #5f6f86; margin-top: 4px; }
 
 /* ── No-card notice ──────────────────────────────────────── */
 .no-card-notice {
   display: flex; align-items: center; gap: 10px;
-  padding: 13px 16px; border: 1.5px dashed #e5e7e4;
-  border-radius: 10px; background: #f5f6f4;
+  padding: 13px 16px; border: 1.5px dashed #e2e8f0;
+  border-radius: 10px; background: #f3f7fb;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13px; color: #738279;
+  font-size: 13px; color: #5f6f86;
 }
-.price-total-green { color: #25ae59 !important; }
+.price-total-accent { color: #0873c4 !important; }
 .confirm-login-note {
-  font-size: 13px; color: #738279; margin-top: 12px;
-  a { color: #1a231e; font-weight: 600; text-decoration: underline; }
+  font-size: 13px; color: #5f6f86; margin-top: 12px;
+  a { color: #0b2545; font-weight: 600; text-decoration: underline; }
 }
 
 /* ── Confirm ──────────────────────────────────────────────── */
@@ -263,75 +263,75 @@
   max-width: 960px; margin-bottom: 16px;
 }
 .confirm-summary {
-  border: 1.5px solid #e5e7e4; border-radius: 14px; padding: 24px;
+  border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 24px;
   display: flex; flex-direction: column; gap: 0;
 }
 .sum-row {
   font-family: 'Plus Jakarta Sans', sans-serif;
   display: flex; justify-content: space-between; align-items: flex-start;
-  font-size: 14px; color: #4a5550; gap: 16px; padding: 12px 0;
-  border-bottom: 1px solid #f5f6f4;
+  font-size: 14px; color: #42506a; gap: 16px; padding: 12px 0;
+  border-bottom: 1px solid #f3f7fb;
   &:last-of-type { border-bottom: none; }
-  strong { color: #1a231e; font-weight: 600; text-align: right; }
+  strong { color: #0b2545; font-weight: 600; text-align: right; }
 }
-.sum-key { color: #738279; flex-shrink: 0; }
-.sum-divider { height: 1px; background: #e5e7e4; margin: 4px 0; }
-.sum-total { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 400; color: #1a231e; }
+.sum-key { color: #5f6f86; flex-shrink: 0; }
+.sum-divider { height: 1px; background: #e2e8f0; margin: 4px 0; }
+.sum-total { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 400; color: #0b2545; }
 
 /* Confirm action buttons */
 .confirm-actions {
   display: flex; gap: 12px; margin-top: 20px;
 }
 .confirm-edit-btn {
-  flex: 1; padding: 14px; border: 1.5px solid #e5e7e4; border-radius: 10px;
+  flex: 1; padding: 14px; border: 1.5px solid #e2e8f0; border-radius: 10px;
   background: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 14px; font-weight: 600; color: #1a231e; cursor: pointer;
+  font-size: 14px; font-weight: 600; color: #0b2545; cursor: pointer;
   transition: border-color .15s;
-  &:hover { border-color: #738279; }
+  &:hover { border-color: #5f6f86; }
 }
 .confirm-book-btn {
-  flex: 2; padding: 14px; background: #25ae59; color: #fff; border: none;
+  flex: 2; padding: 14px; background: #0873c4; color: #fff; border: none;
   border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px; font-weight: 600; cursor: pointer;
   display: flex; align-items: center; justify-content: center; gap: 8px;
   transition: background .15s;
-  &:hover { background: #1d8a47; }
+  &:hover { background: #02529a; }
   &:disabled { opacity: .55; cursor: not-allowed; }
 }
 .confirm-policy {
-  font-size: 12px; color: #aab8b2; text-align: center; margin-top: 12px;
+  font-size: 12px; color: #9aa8bb; text-align: center; margin-top: 12px;
 }
 
 /* Payment section */
 .confirm-side { display: flex; flex-direction: column; gap: 14px; }
 .pay-card-row {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 16px; border: 1.5px solid #e5e7e4; border-radius: 12px;
+  padding: 14px 16px; border: 1.5px solid #e2e8f0; border-radius: 12px;
   background: #fff;
 }
 .pay-card-left { display: flex; align-items: center; gap: 12px; }
 .pay-chip { display: flex; }
 .pay-card-info {
   display: flex; flex-direction: column; gap: 2px;
-  strong { font-size: 14px; color: #1a231e; font-weight: 600; }
-  span   { font-size: 12px; color: #738279; }
+  strong { font-size: 14px; color: #0b2545; font-weight: 600; }
+  span   { font-size: 12px; color: #5f6f86; }
 }
 .pay-card-default {
-  font-size: 11px; font-weight: 700; color: #25ae59;
-  background: #edfbf2; border-radius: 100px; padding: 3px 10px;
+  font-size: 11px; font-weight: 700; color: #0873c4;
+  background: #eaf4fc; border-radius: 100px; padding: 3px 10px;
 }
 .pay-add-card-btn {
-  width: 100%; padding: 12px; border: 1.5px dashed #e5e7e4; border-radius: 10px;
+  width: 100%; padding: 12px; border: 1.5px dashed #e2e8f0; border-radius: 10px;
   background: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13px; font-weight: 600; color: #738279; cursor: pointer;
+  font-size: 13px; font-weight: 600; color: #5f6f86; cursor: pointer;
   transition: all .15s;
-  &:hover { border-color: #25ae59; color: #25ae59; }
+  &:hover { border-color: #0873c4; color: #0873c4; }
 }
 .price-breakdown {
-  border: 1.5px solid #e5e7e4; border-radius: 12px; padding: 18px;
+  border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 18px;
 }
 .trust-items { display: flex; flex-direction: column; gap: 10px; }
-.trust-item-row { font-size: 14px; color: #4a5550; padding: 10px 14px; background: #f9fafb; border-radius: 8px; }
+.trust-item-row { font-size: 14px; color: #42506a; padding: 10px 14px; background: #f9fafb; border-radius: 8px; }
 
 /* ── Shared nav ───────────────────────────────────────────── */
 .step-nav {
@@ -339,10 +339,10 @@
 }
 .step-cta { max-width: 240px; }
 .btn-outline-nav {
-  padding: 13px 22px; border: 1.5px solid #e5e7e4; border-radius: 10px;
-  background: #fff; font-size: 14px; font-weight: 600; color: #4a5550;
+  padding: 13px 22px; border: 1.5px solid #e2e8f0; border-radius: 10px;
+  background: #fff; font-size: 14px; font-weight: 600; color: #42506a;
   cursor: pointer; white-space: nowrap;
-  &:hover { border-color: #aab8b2; }
+  &:hover { border-color: #9aa8bb; }
 }
 
 /* ── Success ──────────────────────────────────────────────── */
@@ -369,14 +369,14 @@
 }
 .pm-title {
   font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 400;
-  color: #1a231e; margin: 0 0 4px;
+  color: #0b2545; margin: 0 0 4px;
 }
-.pm-sub { font-size: 13px; color: #738279; margin: 0; }
+.pm-sub { font-size: 13px; color: #5f6f86; margin: 0; }
 .pm-close {
-  width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #e5e7e4;
+  width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #e2e8f0;
   background: #fff; display: flex; align-items: center; justify-content: center;
   cursor: pointer; flex-shrink: 0;
-  &:hover { background: #f5f6f4; }
+  &:hover { background: #f3f7fb; }
 }
 .pm-error {
   background: #fee2e2; color: #991b1b; border: 1px solid #fecaca;
@@ -387,48 +387,48 @@
 /* Saved card row (modal state A) */
 .pm-saved-card {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 16px; border: 1.5px solid #25ae59; border-radius: 12px;
-  background: #edfbf2; margin-bottom: 16px;
+  padding: 14px 16px; border: 1.5px solid #0873c4; border-radius: 12px;
+  background: #eaf4fc; margin-bottom: 16px;
 }
 .pm-saved-card-left { display: flex; align-items: center; gap: 14px; }
 .pm-chip { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.pm-chip-label { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 700; color: #738279; }
+.pm-chip-label { font-family: 'Outfit', sans-serif; font-size: 10px; font-weight: 700; color: #5f6f86; }
 .pm-saved-card-info {
   display: flex; flex-direction: column; gap: 3px;
-  strong { font-size: 15px; color: #1a231e; font-weight: 600; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
-  span   { font-size: 12px; color: #738279; }
+  strong { font-size: 15px; color: #0b2545; font-weight: 600; font-family: 'Outfit', sans-serif; letter-spacing: 1px; }
+  span   { font-size: 12px; color: #5f6f86; }
 }
 .pm-saved-card-check { display: flex; align-items: center; }
 
 /* Price summary (modal state A) */
 .pm-price-summary {
-  background: #f5f6f4; border-radius: 12px; padding: 16px; margin-bottom: 16px;
+  background: #f3f7fb; border-radius: 12px; padding: 16px; margin-bottom: 16px;
 }
 .pm-price-row {
   display: flex; justify-content: space-between; align-items: center;
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px;
-  color: #4a5550; padding: 5px 0;
+  color: #42506a; padding: 5px 0;
 }
-.pm-price-divider { height: 1px; background: #e5e7e4; margin: 6px 0; }
+.pm-price-divider { height: 1px; background: #e2e8f0; margin: 6px 0; }
 .pm-price-total {
   font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 400;
-  strong { color: #25ae59; }
+  strong { color: #0873c4; }
 }
 .pm-divider {
   display: flex; align-items: center; gap: 12px;
-  font-size: 12px; color: #aab8b2; margin: 12px 0;
-  &::before, &::after { content: ''; flex: 1; height: 1px; background: #e5e7e4; }
+  font-size: 12px; color: #9aa8bb; margin: 12px 0;
+  &::before, &::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
 }
 .pm-use-new-btn {
-  width: 100%; padding: 11px; border: 1.5px solid #e5e7e4; border-radius: 8px;
+  width: 100%; padding: 11px; border: 1.5px solid #e2e8f0; border-radius: 8px;
   background: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13px; font-weight: 600; color: #738279; cursor: pointer;
+  font-size: 13px; font-weight: 600; color: #5f6f86; cursor: pointer;
   transition: all .15s;
-  &:hover { border-color: #25ae59; color: #25ae59; }
+  &:hover { border-color: #0873c4; color: #0873c4; }
 }
 
 .card-preview {
-  background: linear-gradient(135deg, #1a231e 0%, #2d4a3e 60%, #1a3530 100%);
+  background: linear-gradient(135deg, #0b2545 0%, #02529a 60%, #0a6fb8 100%);
   border-radius: 14px; padding: 20px; color: #fff; margin-bottom: 18px;
   position: relative; overflow: hidden;
   &::after {
@@ -459,32 +459,32 @@
 
 /* Card input fields */
 .card-field-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-.card-field-label { font-size: 13px; font-weight: 600; color: #1a231e; }
+.card-field-label { font-size: 13px; font-weight: 600; color: #0b2545; }
 .card-field-input {
-  padding: 13px 14px; border: 1.5px solid #e5e7e4; border-radius: 8px; background: #fff;
+  padding: 13px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: #fff;
   transition: border-color .15s;
-  &:focus-within { border-color: #25ae59; box-shadow: 0 0 0 3px rgba(37,174,89,.1); }
+  &:focus-within { border-color: #0873c4; box-shadow: 0 0 0 3px rgba(8,115,196,.1); }
 }
 .card-text-input {
-  padding: 13px 14px; border: 1.5px solid #e5e7e4; border-radius: 8px; background: #fff;
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; color: #1a231e;
+  padding: 13px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: #fff;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; color: #0b2545;
   outline: none; width: 100%;
-  &::placeholder { color: #aab8b2; }
-  &:focus { border-color: #25ae59; box-shadow: 0 0 0 3px rgba(37,174,89,.1); }
+  &::placeholder { color: #9aa8bb; }
+  &:focus { border-color: #0873c4; box-shadow: 0 0 0 3px rgba(8,115,196,.1); }
 }
 .card-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .card-security-note {
   display: flex; align-items: flex-start; gap: 6px;
-  font-size: 12px; color: #738279; margin-bottom: 16px; line-height: 1.5;
+  font-size: 12px; color: #5f6f86; margin-bottom: 16px; line-height: 1.5;
   svg { flex-shrink: 0; margin-top: 1px; }
 }
 .pm-pay-btn {
-  width: 100%; padding: 16px; background: #25ae59; color: #fff; border: none;
+  width: 100%; padding: 16px; background: #0873c4; color: #fff; border: none;
   border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 15px; font-weight: 600; cursor: pointer;
   display: flex; align-items: center; justify-content: center; gap: 10px;
   transition: background .15s;
-  &:hover { background: #1d8a47; }
+  &:hover { background: #02529a; }
   &:disabled { opacity: .55; cursor: not-allowed; }
 }
 
@@ -506,12 +506,12 @@
 
 .conf-icon-ring {
   width: 68px; height: 68px; border-radius: 50%;
-  background: rgba(37,174,89,.12); margin: 0 auto 16px;
+  background: rgba(8,115,196,.12); margin: 0 auto 16px;
   display: flex; align-items: center; justify-content: center;
   animation: ring-pop .5s .2s cubic-bezier(.34,1.56,.64,1) both;
 }
 .conf-icon-circle {
-  width: 52px; height: 52px; border-radius: 50%; background: #25ae59;
+  width: 52px; height: 52px; border-radius: 50%; background: #0873c4;
   display: flex; align-items: center; justify-content: center;
 }
 .conf-check-path {
@@ -521,46 +521,46 @@
 @keyframes ring-pop   { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes draw-check { to   { stroke-dashoffset: 0; } }
 
-.conf-title { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 400; color: #1a231e; margin: 0 0 8px; }
-.conf-sub   { font-size: 14px; color: #738279; margin: 0 0 18px; line-height: 1.6; }
+.conf-title { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 400; color: #0b2545; margin: 0 0 8px; }
+.conf-sub   { font-size: 14px; color: #5f6f86; margin: 0 0 18px; line-height: 1.6; }
 .conf-details {
-  background: #f5f6f4; border-radius: 12px; padding: 14px 18px; text-align: left; margin-bottom: 18px;
+  background: #f3f7fb; border-radius: 12px; padding: 14px 18px; text-align: left; margin-bottom: 18px;
 }
 .conf-row {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 7px 0; font-size: 13px; color: #4a5550;
-  strong { color: #1a231e; font-weight: 600; }
+  padding: 7px 0; font-size: 13px; color: #42506a;
+  strong { color: #0b2545; font-weight: 600; }
 }
-.conf-key   { color: #738279; }
-.conf-green { color: #25ae59 !important; font-weight: 700; }
-.conf-divider { height: 1px; background: #e5e7e4; margin: 3px 0; }
+.conf-key   { color: #5f6f86; }
+.conf-accent { color: #0873c4 !important; font-weight: 700; }
+.conf-divider { height: 1px; background: #e2e8f0; margin: 3px 0; }
 
 .conf-btn-primary {
-  width: 100%; padding: 15px; background: #25ae59; color: #fff; border: none;
+  width: 100%; padding: 15px; background: #0873c4; color: #fff; border: none;
   border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 10px;
   display: flex; align-items: center; justify-content: center; gap: 8px;
   transition: background .15s;
-  &:hover { background: #1d8a47; }
+  &:hover { background: #02529a; }
 }
 .conf-btn-ghost {
-  width: 100%; padding: 13px; background: transparent; color: #738279;
-  border: 1.5px solid #e5e7e4; border-radius: 10px;
+  width: 100%; padding: 13px; background: transparent; color: #5f6f86;
+  border: 1.5px solid #e2e8f0; border-radius: 10px;
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 500;
   cursor: pointer; transition: all .15s; margin-bottom: 14px;
-  &:hover { border-color: #738279; color: #1a231e; }
+  &:hover { border-color: #5f6f86; color: #0b2545; }
 }
 
 /* Report issue row */
 .conf-issue-row {
   display: flex; align-items: center; justify-content: center; gap: 6px;
-  font-size: 12px; color: #aab8b2;
+  font-size: 12px; color: #9aa8bb;
 }
 .conf-issue-link {
   background: none; border: none; padding: 0;
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 600;
-  color: #738279; cursor: pointer; text-decoration: underline;
-  &:hover { color: #1a231e; }
+  color: #5f6f86; cursor: pointer; text-decoration: underline;
+  &:hover { color: #0b2545; }
 }
 
 /* ── Success modal ─────────────────────────────────────────── */
@@ -569,12 +569,12 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 .sm-icon-ring {
-  width: 80px; height: 80px; border-radius: 50%; background: rgba(37,174,89,.12);
+  width: 80px; height: 80px; border-radius: 50%; background: rgba(8,115,196,.12);
   margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
   animation: ring-pop .5s cubic-bezier(.34,1.56,.64,1) both;
 }
 .sm-icon-circle {
-  width: 60px; height: 60px; border-radius: 50%; background: #25ae59;
+  width: 60px; height: 60px; border-radius: 50%; background: #0873c4;
   display: flex; align-items: center; justify-content: center;
 }
 .sm-check {
@@ -584,26 +584,26 @@
 @keyframes ring-pop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes draw-check { to { stroke-dashoffset: 0; } }
 
-.sm-title { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 400; color: #1a231e; margin: 0 0 8px; }
-.sm-sub   { font-size: 14px; color: #738279; margin: 0 0 24px; line-height: 1.6; }
-.sm-card  { background: #f5f6f4; border-radius: 14px; padding: 18px 20px; text-align: left; margin-bottom: 16px; }
+.sm-title { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 400; color: #0b2545; margin: 0 0 8px; }
+.sm-sub   { font-size: 14px; color: #5f6f86; margin: 0 0 24px; line-height: 1.6; }
+.sm-card  { background: #f3f7fb; border-radius: 14px; padding: 18px 20px; text-align: left; margin-bottom: 16px; }
 .sm-row   { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 14px; }
-.sm-key   { color: #738279; }
-.sm-val   { color: #1a231e; font-weight: 600; }
-.sm-green { color: #25ae59; }
-.sm-divider { height: 1px; background: #e5e7e4; margin: 4px 0; }
-.sm-note  { font-size: 12px; color: #aab8b2; margin-bottom: 20px; }
+.sm-key   { color: #5f6f86; }
+.sm-val   { color: #0b2545; font-weight: 600; }
+.sm-accent { color: #0873c4; }
+.sm-divider { height: 1px; background: #e2e8f0; margin: 4px 0; }
+.sm-note  { font-size: 12px; color: #9aa8bb; margin-bottom: 20px; }
 .sm-btn   {
-  width: 100%; padding: 15px; background: #25ae59; color: #fff; border: none;
+  width: 100%; padding: 15px; background: #0873c4; color: #fff; border: none;
   border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 15px; font-weight: 600; cursor: pointer; margin-bottom: 10px;
   transition: background .15s;
-  &:hover { background: #1d8a47; }
+  &:hover { background: #02529a; }
 }
 .sm-btn-ghost {
-  width: 100%; padding: 13px; background: transparent; color: #738279;
-  border: 1.5px solid #e5e7e4; border-radius: 10px;
+  width: 100%; padding: 13px; background: transparent; color: #5f6f86;
+  border: 1.5px solid #e2e8f0; border-radius: 10px;
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 500;
   cursor: pointer; transition: all .15s;
-  &:hover { border-color: #738279; color: #1a231e; }
+  &:hover { border-color: #5f6f86; color: #0b2545; }
 }

@@ -23,7 +23,7 @@ export class SuccessModalComponent implements OnInit {
   }
 
   private launchConfetti(): void {
-    const colors = ['#25ae59', '#1d8a47', '#a7f3c4', '#ffffff', '#1a231e'];
+    const colors = ['#02529a', '#0094de', '#72b236', '#c4e3a3', '#ffffff'];
 
     const fire = (particleRatio: number, opts: confetti.Options) => {
       confetti({

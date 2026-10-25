@@ -20,9 +20,9 @@
 
 .nav-logo {
   display: flex; align-items: center; gap: 10px;
-  font-size: 17px; font-weight: 600; color: var(--brand);
   white-space: nowrap; margin-right: 40px;
-  .logo-text strong { font-weight: 800; }
+  .logo-mark { height: 38px; width: auto; }
+  .logo-name { height: 20px; width: auto; margin-top: 4px; }
   &:hover { opacity: .85; }
 }
 
@@ -46,8 +46,8 @@
     &:hover { color: var(--brand); background: var(--bg-warm); }
   }
   .nav-user {
-    font-size: 13px; font-weight: 600; color: var(--green-text);
-    padding: 5px 14px; background: var(--green-pale); border-radius: var(--radius-pill);
+    font-size: 13px; font-weight: 600; color: var(--primary-text);
+    padding: 5px 14px; background: var(--primary-pale); border-radius: var(--radius-pill);
   }
 }
 

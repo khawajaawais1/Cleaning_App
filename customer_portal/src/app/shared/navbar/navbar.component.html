@@ -1,13 +1,8 @@
 <nav class="navbar" [class.scrolled]="scrolled">
   <div class="nav-inner container">
     <a routerLink="/home" class="nav-logo" (click)="closeMenu()">
-      <span class="logo-icon">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-          <rect width="28" height="28" rx="7" fill="#10384a"/>
-          <path d="M14 6L7 11v10h4v-6h6v6h4V11L14 6z" fill="white"/>
-        </svg>
-      </span>
-      <span class="logo-text">Happy<strong>2Clean</strong></span>
+      <img class="logo-mark" src="assets/brand/neatio-mark.png" alt="" />
+      <img class="logo-name" src="assets/brand/neatio-name.png" alt="Neatio" />
     </a>
 
     <ul class="nav-links">
@@ -25,7 +20,7 @@
       </ng-container>
       <ng-template #guestTpl>
         <a routerLink="/login" class="nav-link-text">Log in</a>
-        <a routerLink="/book" class="btn btn-green btn-sm">Book a clean</a>
+        <a routerLink="/book" class="btn btn-primary btn-sm">Book a clean</a>
       </ng-template>
     </div>
 
@@ -46,7 +41,7 @@
       </ng-container>
       <ng-template #mobileGuestTpl>
         <a routerLink="/login" (click)="closeMenu()" class="btn btn-outline-dark">Log in</a>
-        <a routerLink="/book" (click)="closeMenu()" class="btn btn-green">Book a clean</a>
+        <a routerLink="/book" (click)="closeMenu()" class="btn btn-primary">Book a clean</a>
       </ng-template>
     </div>
   </div>

@@ -16,7 +16,7 @@ public class EmailService : IEmailService
     public async Task SendVerificationCodeAsync(string toEmail, string toName, string code)
     {
         var settings  = _config.GetSection("EmailSettings");
-        var fromEmail = settings["FromEmail"] ?? "noreply@happy2clean.com";
+        var fromEmail = settings["FromEmail"] ?? "developers@happy2tech.fi";
         var fromName  = settings["FromName"]  ?? "Happy2Clean";
 
         var message = new MimeMessage();
@@ -30,10 +30,12 @@ public class EmailService : IEmailService
         };
 
         using var client = new SmtpClient();
+        // 465 = implicit TLS, 587 = STARTTLS (Zoho supports both)
+        var port = int.Parse(settings["SmtpPort"] ?? "587");
         await client.ConnectAsync(
-            settings["SmtpHost"] ?? "smtp.gmail.com",
-            int.Parse(settings["SmtpPort"] ?? "587"),
-            SecureSocketOptions.StartTls
+            settings["SmtpHost"] ?? "smtp.zoho.eu",
+            port,
+            port == 465 ? SecureSocketOptions.SslOnConnect : SecureSocketOptions.StartTls
         );
         await client.AuthenticateAsync(
             settings["SmtpUser"] ?? "",

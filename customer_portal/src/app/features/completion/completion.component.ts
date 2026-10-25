@@ -12,6 +12,7 @@ import { BookingService } from '../../core/services/booking.service';
 })
 export class CompletionComponent implements OnInit {
   booking: any = null;
+  bookingId = 0;
   loading = true;
   confirmed1 = false;
   confirmed2 = false;
@@ -23,7 +24,7 @@ export class CompletionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id')!;
+    const id = this.bookingId = +this.route.snapshot.paramMap.get('id')!;
     this.bookingSvc.getBookingById(id).subscribe({
       next: (b) => { this.booking = b; this.loading = false; },
       error: ()  => { this.loading = false; },

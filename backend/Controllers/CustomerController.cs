@@ -21,16 +21,18 @@ public class CustomerController : ControllerBase
     private readonly ApplicationDbContext _context;
     private readonly IConfiguration _configuration;
     private readonly IEmailService _emailService;
+    private readonly ILogger<CustomerController> _logger;
     private readonly string _secretKey;
     private readonly string _issuer;
     private readonly string _audience;
     private readonly int _expirationHours;
 
-    public CustomerController(ApplicationDbContext context, IConfiguration configuration, IEmailService emailService)
+    public CustomerController(ApplicationDbContext context, IConfiguration configuration, IEmailService emailService, ILogger<CustomerController> logger)
     {
         _context = context;
         _configuration = configuration;
         _emailService = emailService;
+        _logger = logger;
         _secretKey = _configuration.GetValue<string>("JwtSettings:SecretKey") ?? "DefaultSecretKey";
         _issuer = _configuration.GetValue<string>("JwtSettings:Issuer") ?? "Happy2CleanAPI";
         _audience = _configuration.GetValue<string>("JwtSettings:Audience") ?? "Happy2CleanCustomer";
@@ -66,14 +68,15 @@ public class CustomerController : ControllerBase
         _context.EmailVerifications.RemoveRange(oldCodes);
 
         // Save new code
-        _context.EmailVerifications.Add(new Happy2CleanAPI.Models.EmailVerification
+        var verification = new Happy2CleanAPI.Models.EmailVerification
         {
             Email     = dto.Email,
             Code      = code,
             ExpiresAt = DateTime.UtcNow.AddMinutes(10),
             IsUsed    = false,
             CreatedAt = DateTime.UtcNow
-        });
+        };
+        _context.EmailVerifications.Add(verification);
         await _context.SaveChangesAsync();
 
         // Send email
@@ -83,7 +86,12 @@ public class CustomerController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { message = $"Failed to send verification email: {ex.Message}" });
+            // Log the SMTP detail server-side only, and drop the unsent code so the
+            // one-per-minute rate limit doesn't block an immediate retry.
+            _logger.LogError(ex, "Failed to send verification email to {Email}", dto.Email);
+            _context.EmailVerifications.Remove(verification);
+            await _context.SaveChangesAsync();
+            return StatusCode(500, new { message = "We couldn't send the verification email right now. Please try again in a moment." });
         }
 
         return Ok(new { message = "Verification code sent to your email" });

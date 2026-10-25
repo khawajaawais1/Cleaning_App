@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         });
         google.accounts.id.renderButton(
           document.getElementById('google-btn-login'),
-          { theme: 'outline', size: 'large', width: 240, text: 'signin_with' }
+          { theme: 'outline', size: 'large', width: 240, text: 'signin_with', locale: 'en' }
         );
       } else {
         setTimeout(init, 300);

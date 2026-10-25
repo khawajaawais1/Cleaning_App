@@ -64,10 +64,10 @@
 .bc-worker {
   display: flex; align-items: center; gap: 10px;
   margin-top: 12px; padding: 12px 14px;
-  background: var(--green-bg); border-radius: var(--radius-sm);
+  background: var(--primary-bg); border-radius: var(--radius-sm);
   .worker-av {
     width: 32px; height: 32px; border-radius: 50%;
-    background: var(--green-mid); color: white;
+    background: var(--primary-mid); color: white;
     display: flex; align-items: center; justify-content: center;
     font-size: 12px; font-weight: 700; flex-shrink: 0;
   }
@@ -83,7 +83,7 @@
 
 .bc-actions {
   display: flex; gap: 10px; padding-top: 14px;
-  border-top: 1px solid var(--border, #e5e7e4); margin-top: 4px;
+  border-top: 1px solid var(--border, #e2e8f0); margin-top: 4px;
 }
 
 .bc-btn {
@@ -93,14 +93,14 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
 
   &--details {
-    background: #fff; color: #1a231e;
-    border: 1.5px solid #e5e7e4;
-    &:hover { background: #f5f6f4; border-color: #738279; }
+    background: #fff; color: #0b2545;
+    border: 1.5px solid #e2e8f0;
+    &:hover { background: #f3f7fb; border-color: #5f6f86; }
   }
 
   &--track {
-    background: #edfbf2; color: #1d8a47;
-    border: 1.5px solid #a7f3c4;
+    background: #eaf4fc; color: #02529a;
+    border: 1.5px solid #c4e3a3;
     &:hover { background: #d1fae5; }
   }
   &--review {
@@ -109,9 +109,9 @@
     &:hover { background: #ffedd5; }
   }
   &--receipt {
-    background: #f5f6f4; color: #4a5550;
-    border: 1.5px solid #e5e7e4;
-    &:hover { background: #e5e7e4; }
+    background: #f3f7fb; color: #42506a;
+    border: 1.5px solid #e2e8f0;
+    &:hover { background: #e2e8f0; }
   }
 }
 

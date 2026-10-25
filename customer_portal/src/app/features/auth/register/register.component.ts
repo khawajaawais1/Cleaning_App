@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { environment } from '../../../../environments/environment';
+
+declare const google: any;
 
 @Component({
   selector: 'app-register',
@@ -11,7 +14,7 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   step: 'form' | 'verify' = 'form';
 
   fullName = '';
@@ -29,8 +32,36 @@ export class RegisterComponent {
   error       = '';
   successMsg  = '';
 
-  constructor(private auth: AuthService, private router: Router) {
+  googleLoading = false;
+
+  constructor(private auth: AuthService, private router: Router, private ngZone: NgZone) {
     if (this.auth.isLoggedIn) this.router.navigate(['/my-bookings']);
+  }
+
+  ngOnInit(): void { this.renderGoogleButton(); }
+
+  // Same Google Identity Services flow as the login page; a Google account
+  // is created on first sign-in, so this doubles as sign-up.
+  private renderGoogleButton(): void {
+    const init = () => {
+      const host = document.getElementById('google-btn-register');
+      if (typeof google === 'undefined' || !host) { setTimeout(init, 300); return; }
+      google.accounts.id.initialize({
+        client_id: environment.googleClientId,
+        callback: (response: any) => this.ngZone.run(() => this.onGoogleCredential(response)),
+      });
+      google.accounts.id.renderButton(host, { theme: 'outline', size: 'large', width: 240, text: 'signup_with', locale: 'en' });
+    };
+    setTimeout(init, 300);
+  }
+
+  onGoogleCredential(response: { credential: string }): void {
+    this.googleLoading = true;
+    this.error = '';
+    this.auth.loginWithGoogle(response.credential).subscribe({
+      next: () => this.router.navigate(['/book']),
+      error: () => { this.error = 'Google sign-up failed. Please try again.'; this.googleLoading = false; },
+    });
   }
 
   sendCode() {
@@ -114,6 +145,7 @@ export class RegisterComponent {
     this.codeDigits = ['', '', '', '', '', ''];
     clearInterval(this.resendTimer);
     this.resendCountdown = 0;
+    this.renderGoogleButton(); // the form (and its button host) is re-created
   }
 
   private startResendCountdown() {

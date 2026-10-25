@@ -2,18 +2,14 @@
 
   <!-- Sidebar -->
   <aside class="wiz-sidebar">
-    <div class="wsb-logo">
-      <div class="wsb-logo-icon">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M3 10.5L12 3L21 10.5V20C21 20.5523 20.5523 21 20 21H15.5V15.5H8.5V21H4C3.44772 21 3 20.5523 3 20V10.5Z" fill="white"/>
-        </svg>
-      </div>
-      <span class="wsb-logo-text">Happy2Clean</span>
-    </div>
+    <a class="wsb-logo" routerLink="/home" aria-label="Neatio — back to home">
+      <span class="wsb-logo-tile"><img src="assets/brand/neatio-mark.png" alt="" /></span>
+      <img class="wsb-logo-name" src="assets/brand/neatio-name-white.png" alt="Neatio" />
+    </a>
     <p class="wsb-eyebrow">STEP 7 OF 8</p>
     <h2 class="wsb-headline">
       {{ workerAssigned ? 'Match' : 'Finding your' }}
-      <span class="wsb-green">{{ workerAssigned ? ' found!' : ' match.' }}</span>
+      <span class="wsb-accent">{{ workerAssigned ? ' found!' : ' match.' }}</span>
     </h2>
     <p class="wsb-desc">
       {{ workerAssigned
@@ -108,19 +104,19 @@
         <p class="field-group-label">YOUR BOOKING</p>
         <div class="booking-card">
           <div class="bc-row">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z" fill="#738279"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z" fill="#5f6f86"/></svg>
             <span>{{ booking?.address }}</span>
           </div>
           <div class="bc-row">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#738279" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="#738279" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#5f6f86" stroke-width="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="#5f6f86" stroke-width="1.5" stroke-linecap="round"/></svg>
             <span>{{ scheduledLabel }}</span>
           </div>
           <div class="bc-row">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#738279" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="#738279" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#5f6f86" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="#5f6f86" stroke-width="1.5" stroke-linecap="round"/></svg>
             <span>~{{ (booking?.durationMinutes ?? 0) / 60 | number:'1.0-0' }} hours</span>
           </div>
           <div class="bc-row">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="#738279" stroke-width="1.5"/><path d="M2 10h20" stroke="#738279" stroke-width="1.5"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="2" y="5" width="20" height="14" rx="2" stroke="#5f6f86" stroke-width="1.5"/><path d="M2 10h20" stroke="#5f6f86" stroke-width="1.5"/></svg>
             <span>{{ nearbyWorkers[0]?.matched ? 'Visa ···· ' + (booking?.worker?.id ?? '----') : 'Pay on completion' }}</span>
           </div>
         </div>
@@ -131,7 +127,7 @@
           <div class="nearby-row"
                *ngFor="let w of nearbyWorkers"
                [class.nearby-row--matched]="w.matched">
-            <div class="nearby-av" [class.nearby-av--green]="w.matched">{{ w.initials }}</div>
+            <div class="nearby-av" [class.nearby-av--primary]="w.matched">{{ w.initials }}</div>
             <div class="nearby-info">
               <strong>{{ w.fullName }}</strong>
               <span>⭐ {{ w.rating }} · {{ w.distance }} · {{ w.availability }}</span>
@@ -148,13 +144,13 @@
   <!-- Stepper -->
   <nav class="wiz-stepper">
     <div class="wstep wstep--done">1 · Sign Up</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--done">2 · Select Service</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--done">3 · Address &amp; Schedule</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--done">4 · Add-ons &amp; Price</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--done">5 · Photos &amp; Notes</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--done">6 · Confirm Booking</div><div class="wstep-sep">›</div>
-    <div class="wstep wstep--active">7 · Matching</div><div class="wstep-sep">›</div>
-    <div class="wstep">8 · Live Tracking</div>
+    <a class="wstep wstep--done" [routerLink]="['/booking', bookingId]">2 · Select Service</a><div class="wstep-sep">›</div>
+    <a class="wstep wstep--done" [routerLink]="['/booking', bookingId]">3 · Address &amp; Schedule</a><div class="wstep-sep">›</div>
+    <a class="wstep wstep--done" [routerLink]="['/booking', bookingId]">4 · Add-ons &amp; Price</a><div class="wstep-sep">›</div>
+    <a class="wstep wstep--done" [routerLink]="['/booking', bookingId]">5 · Photos &amp; Notes</a><div class="wstep-sep">›</div>
+    <a class="wstep wstep--done" [routerLink]="['/booking', bookingId]">6 · Confirm Booking</a><div class="wstep-sep">›</div>
+    <a class="wstep wstep--active" [routerLink]="['/matching', bookingId]">7 · Matching</a><div class="wstep-sep">›</div>
+    <a class="wstep" [routerLink]="['/matching', bookingId]">8 · Live Tracking</a>
   </nav>
 
 </div>

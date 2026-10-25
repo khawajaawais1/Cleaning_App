@@ -50,8 +50,8 @@ export class PaymentModalComponent implements OnInit, OnDestroy {
         base: {
           fontFamily: "'Plus Jakarta Sans', sans-serif",
           fontSize: '15px',
-          color: '#1a231e',
-          '::placeholder': { color: '#aab8b2' },
+          color: '#0b2545',
+          '::placeholder': { color: '#9aa8bb' },
         },
         invalid: { color: '#e53e3e' },
       },

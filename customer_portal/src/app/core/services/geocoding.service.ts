@@ -18,7 +18,7 @@ export class GeocodingService {
       headers: {
         'Accept-Language': 'en',
         // Nominatim policy: must identify the application
-        'User-Agent': 'Happy2Clean-CustomerApp/1.0 (booking geocoding)',
+        'User-Agent': 'Neatio-CustomerApp/1.0 (booking geocoding)',
       },
     }).pipe(
       map(results =>
